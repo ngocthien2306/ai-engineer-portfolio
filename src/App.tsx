@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { QueryProvider } from '@/store/providers/QueryProvider';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { Hero } from '@/components/sections/Hero';
+import { About } from '@/components/sections/About';
+import { Loading } from '@/components/ui/Loading';
+import { useUIStore } from '@/store';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const { isLoading } = useUIStore();
+  
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <HelmetProvider>
+      <QueryProvider>
+        <ErrorBoundary>
+          <div className="min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors">
+            {isLoading && <Loading fullScreen />}
+            <Header />
+            <main>
+              <Hero />
+              <About />
+              {/* Add other sections here */}
+            </main>
+            <Footer />
+          </div>
+        </ErrorBoundary>
+      </QueryProvider>
+    </HelmetProvider>
+  );
 }
 
-export default App
+export default App;
