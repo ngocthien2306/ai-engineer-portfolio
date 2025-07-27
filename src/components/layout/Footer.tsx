@@ -46,7 +46,7 @@ export const Footer: React.FC = () => {
           
           <div className="text-center text-sm text-gray-600 dark:text-gray-400">
             <p>
-              Made with <Heart className="inline-block w-4 h-4 text-red-500" /> by Your Name
+              Made with <Heart className="inline-block w-4 h-4 text-red-500" /> by Nguyen Ngoc Thien
             </p>
             <p className="mt-2">
               © {currentYear} All rights reserved.
