@@ -1,0 +1,18 @@
+npm install
+
+# Install Tailwind CSS and its dependencies
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+# Install additional dependencies
+npm install axios react-query @tanstack/react-query
+npm install zustand react-hook-form
+npm install framer-motion react-intersection-observer
+npm install lucide-react react-error-boundary
+npm install @types/node -D
+
+# Install API-related packages
+npm install @tanstack/react-query-devtools
+npm install date-fns
+npm install react-helmet-async
+npm install react-router-dom @types/react-router-dom
