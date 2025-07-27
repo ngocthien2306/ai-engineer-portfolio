@@ -87,7 +87,7 @@ export const Hero: React.FC = () => {
                 variant="outline"
                 size="lg"
                 leftIcon={<Download className="w-5 h-5" />}
-                onClick={() => window.open('/CV_Nguyen_Ngoc_Thien.pdf', '_blank')}
+                onClick={() => window.open(`${import.meta.env.BASE_URL || './'}CV Nguyen Ngoc Thien - Junior AI Engineer.pdf`, '_blank')}
               >
                 Download CV
               </Button>
