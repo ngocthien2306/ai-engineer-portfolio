@@ -1,4 +1,3 @@
-import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { QueryProvider } from '@/store/providers/QueryProvider';
