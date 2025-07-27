@@ -158,7 +158,7 @@ export const Hero: React.FC = () => {
               <div className="relative z-10 p-2">
                 <div className="aspect-[3/4] w-full max-w-sm mx-auto overflow-hidden rounded-2xl shadow-2xl">
                   <img
-                    src="public/profile/profile_image.jpg"
+                    src={`${import.meta.env.BASE_URL || './'}profile_image.jpg`}
                     alt="Nguyen Ngoc Thien - AI/ML Engineer"
                     className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                     onError={(e) => {
