@@ -107,7 +107,7 @@ export const Hero: React.FC = () => {
                 <Github className="w-6 h-6" />
               </Button>
               <Button
-                onClick={() => window.open('https://www.linkedin.com/in/nguyen-ngocthien-331ab425b', '_blank')}
+                onClick={() => window.open('https://www.linkedin.com/in/nguyen-ngoc-thien-331ab425b/', '_blank')}
                 rel="noopener noreferrer"
                 variant="ghost"
                 size="sm"
