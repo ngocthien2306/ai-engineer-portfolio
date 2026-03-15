@@ -8,6 +8,12 @@ import { Hero } from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
 import { Loading } from '@/components/ui/Loading';
 import { useUIStore } from '@/store';
+import { Experience } from './components/sections/Experience';
+import { Education } from './components/sections/Education';
+import { Skills } from './components/sections/Skills';
+import { Blog } from './components/sections/Blog';
+// import { Projects } from './components/sections/Projects';
+// import { Contact } from './components/sections/Contact';
 
 function App() {
   const { isLoading } = useUIStore();
@@ -22,6 +28,13 @@ function App() {
             <main>
               <Hero />
               <About />
+              <Education />
+              <Experience />
+              <Skills />
+              <Blog />
+              {/* <Projects /> */}
+              {/* <Contact /> */}
+              
               {/* Add other sections here */}
             </main>
             <Footer />

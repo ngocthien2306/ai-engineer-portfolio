@@ -48,7 +48,7 @@ const achievements = [
     icon: GraduationCap,
     title: 'MS Computer Science',
     subtitle: 'National Central University (Taiwan)',
-    description: 'GPA: 3.9/4.0 • Deep Learning & Media System Laboratory',
+    description: 'GPA: 93/100 • Deep Learning & Media System Laboratory',
     timeline: '2024 - Present'
   },
   {
@@ -113,21 +113,23 @@ export const About: React.FC = () => {
                 
                 <div className="space-y-4 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                   <p>
-                    Having accumulated <span className="font-semibold text-blue-600 dark:text-blue-400">3 years of software development experience</span>, 
-                    with a dedicated year in Artificial Intelligence, my aspiration is to enhance expertise in AI and emerge as 
-                    a prominent professional in the field.
+                    With <span className="font-semibold text-blue-600 dark:text-blue-400">over 4 years of software development experience</span> and
+                    more than <span className="font-semibold text-blue-600 dark:text-blue-400">2 years specializing in Artificial Intelligence</span>,
+                    I have built a solid foundation in both engineering fundamentals and cutting-edge AI technologies.
                   </p>
-                  
+
                   <p>
-                    Currently pursuing my <span className="font-semibold text-purple-600 dark:text-purple-400">Master's in Computer Science</span> at 
-                    National Central University in Taiwan, where I'm actively involved in the Deep Learning & Media System Laboratory, 
-                    focusing on cutting-edge research in computer vision and AI.
+                    As a <span className="font-semibold text-purple-600 dark:text-purple-400">solo developer</span>, I architected and deployed end-to-end
+                    computer vision systems at major industrial facilities including <span className="font-semibold text-purple-600 dark:text-purple-400">Unilever</span> and <span className="font-semibold text-purple-600 dark:text-purple-400">Olam</span>.
+                    These systems monitor workplace safety in real time and automate product quality inspection before goods reach the market —
+                    achieving <span className="font-semibold text-green-600 dark:text-green-400">zero recorded workplace accidents</span> since deployment and
+                    <span className="font-semibold text-green-600 dark:text-green-400"> ~99% accuracy</span> in quality defect detection, drastically reducing manual workload.
                   </p>
-                  
+
                   <p>
-                    My overarching goal involves participation in <span className="font-semibold text-green-600 dark:text-green-400">cutting-edge projects</span>, 
-                    applying acquired knowledge and skills to tackle intricate challenges while contributing to the AI community 
-                    through knowledge sharing and collaborative development of advanced solutions.
+                    Currently pursuing my <span className="font-semibold text-green-600 dark:text-green-400">Master's in Computer Science</span> at
+                    National Central University in Taiwan, where I'm actively involved in the Deep Learning & Media System Laboratory,
+                    pushing the boundaries of computer vision research and building AI systems that create real-world impact.
                   </p>
                 </div>
               </div>

@@ -1,40 +1,57 @@
 export interface Skill {
   name: string;
-  level: number;
-  category: 'frontend' | 'backend' | 'tools' | 'languages';
-  icon?: string;
+  category: 'ai_ml' | 'programming' | 'web_development' | 'tools_frameworks';
+  verified?: boolean;
 }
 
 export const skills: Skill[] = [
-  // Frontend
-  { name: 'React', level: 90, category: 'frontend' },
-  { name: 'TypeScript', level: 85, category: 'frontend' },
-  { name: 'Tailwind CSS', level: 88, category: 'frontend' },
-  { name: 'Next.js', level: 80, category: 'frontend' },
-  { name: 'Angular', level: 75, category: 'frontend' },
-  { name: 'Vue.js', level: 70, category: 'frontend' },
+  // AI & Machine Learning
+  { name: 'Machine Learning', category: 'ai_ml', verified: true },
+  { name: 'Deep Learning', category: 'ai_ml' },
+  { name: 'Computer Vision', category: 'ai_ml' },
+  { name: 'TensorFlow', category: 'ai_ml' },
+  { name: 'PyTorch', category: 'ai_ml' },
+  { name: 'Keras', category: 'ai_ml' },
+  { name: 'OpenCV', category: 'ai_ml' },
+  { name: 'Scikit-Learn', category: 'ai_ml' },
+  { name: 'Convolutional Neural Networks (CNN)', category: 'ai_ml' },
+  { name: 'Natural Language Processing (NLP)', category: 'ai_ml' },
+  { name: 'Spiking Neural Network', category: 'ai_ml' },
+  { name: 'Pattern Recognition', category: 'ai_ml' },
+  { name: 'Image Processing', category: 'ai_ml' },
+  { name: 'Predictive Modeling', category: 'ai_ml' },
+  { name: 'Data Science', category: 'ai_ml' },
+  { name: 'Data Analytics', category: 'ai_ml' },
+  { name: 'Data Visualization', category: 'ai_ml' },
+  { name: 'Data Engineering', category: 'ai_ml' },
   
-  // Backend
-  { name: 'Node.js', level: 85, category: 'backend' },
-  { name: 'Python', level: 80, category: 'backend' },
-  { name: 'ASP.NET Core', level: 85, category: 'backend' },
-  { name: 'FastAPI', level: 75, category: 'backend' },
-  { name: 'PostgreSQL', level: 80, category: 'backend' },
-  { name: 'MongoDB', level: 75, category: 'backend' },
+  // Programming Languages
+  { name: 'Python', category: 'programming' },
+  { name: 'C#', category: 'programming', verified: true },
+  { name: 'JavaScript', category: 'programming', verified: true },
+  { name: 'C++', category: 'programming', verified: true },
+  { name: 'SQL', category: 'programming' },
   
-  // Tools
-  { name: 'Git', level: 90, category: 'tools' },
-  { name: 'Docker', level: 80, category: 'tools' },
-  { name: 'AWS', level: 75, category: 'tools' },
-  { name: 'CI/CD', level: 80, category: 'tools' },
-  { name: 'Kubernetes', level: 70, category: 'tools' },
-  { name: 'Linux', level: 85, category: 'tools' },
+  // Web Development
+  { name: 'ASP.NET MVC', category: 'web_development' },
+  { name: 'ASP.NET', category: 'web_development' },
+  { name: '.NET Framework', category: 'web_development', verified: true },
+  { name: 'Angular', category: 'web_development' },
+  { name: 'Angular Material', category: 'web_development' },
+  { name: 'jQuery', category: 'web_development', verified: true },
+  { name: 'Model-View-Controller (MVC)', category: 'web_development' },
   
-  // Languages
-  { name: 'JavaScript', level: 90, category: 'languages' },
-  { name: 'TypeScript', level: 85, category: 'languages' },
-  { name: 'Python', level: 80, category: 'languages' },
-  { name: 'C#', level: 85, category: 'languages' },
-  { name: 'Java', level: 70, category: 'languages' },
-  { name: 'SQL', level: 85, category: 'languages' },
+  // Tools & Frameworks
+  { name: 'DevExpress', category: 'tools_frameworks' },
+  { name: 'Unity', category: 'tools_frameworks' },
+  { name: 'Pandas', category: 'tools_frameworks' },
+  { name: 'NumPy', category: 'tools_frameworks' },
+  { name: '3D Modeling', category: 'tools_frameworks' },
+  { name: '3D Animation', category: 'tools_frameworks' },
+  { name: 'Data Management', category: 'tools_frameworks' },
+  { name: 'Object-Oriented Programming (OOP)', category: 'tools_frameworks', verified: true },
+  { name: 'Algorithms', category: 'tools_frameworks' },
+  { name: 'Statistics', category: 'tools_frameworks' },
+  { name: 'Mathematics', category: 'tools_frameworks' },
+  { name: 'Problem Solving', category: 'tools_frameworks' },
 ];

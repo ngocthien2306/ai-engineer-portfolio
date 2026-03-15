@@ -55,9 +55,9 @@ export const Hero: React.FC = () => {
               variants={itemVariants}
               className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl"
             >
-              Having accumulated <span className="font-semibold text-blue-600 dark:text-blue-400">3 years of software development experience</span>, 
-              with a dedicated year in <span className="font-semibold text-purple-600 dark:text-purple-400">Artificial Intelligence</span>. 
-              Specializing in Deep Learning, Computer Vision, and Full Stack Development.
+              With <span className="font-semibold text-blue-600 dark:text-blue-400">4+ years of software development experience</span> and
+              <span className="font-semibold text-purple-600 dark:text-purple-400"> 2+ years in Artificial Intelligence</span>,
+              specializing in Computer Vision, Deep Learning, and industrial AI deployments at scale.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
@@ -132,15 +132,15 @@ export const Hero: React.FC = () => {
               className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200 dark:border-gray-700"
             >
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">3+</div>
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">4+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">1+</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Year in AI/ML</div>
+                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">2+</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Years in AI/ML</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600 dark:text-green-400">3.9</div>
+                <div className="text-2xl font-bold text-green-600 dark:text-green-400">93/100</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Current GPA</div>
               </div>
             </motion.div>
