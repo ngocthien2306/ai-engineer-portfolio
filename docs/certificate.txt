@@ -1,0 +1,175 @@
+Name*
+Professional Certificate
+Issuing organization*
+
+EnglishScore
+Issue date
+
+Month
+
+November
+Year
+
+2023
+Expiration date
+
+Month
+
+Month
+Year
+
+Year
+Credential ID
+3fb06da3
+8/80
+
+Credential URL
+https://api2.englishscore.com/verify/3fb06da3
+
+
+
+Name*
+Certified Data Scientist
+Issuing organization*
+
+FUNiX
+Issue date
+
+Month
+
+June
+Year
+
+2023
+Expiration date
+
+Month
+
+Month
+Year
+
+Year
+Credential ID
+FUN230139
+9/80
+
+Credential URL
+https://drive.google.com/file/d/12cZa6XGPeKKp_hm9JWgPrLy0uZZGTttD/view?usp=sharing
+
+
+Name*
+Deep Learning Specialization
+Issuing organization*
+
+Coursera
+Issue date
+
+Month
+
+March
+Year
+
+2023
+Expiration date
+
+Month
+
+Month
+Year
+
+Year
+Credential ID
+M78AK4DD8WT9
+12/80
+
+Credential URL
+https://www.coursera.org/account/accomplishments/specialization/certificate/M78AK4DD8WT9
+
+
+Name*
+Sequence Models in Deep Learning
+Issuing organization*
+
+Coursera
+Issue date
+
+Month
+
+March
+Year
+
+2023
+Expiration date
+
+Month
+
+Month
+Year
+
+Year
+Credential ID
+JKV7ETVTBX8Z
+12/80
+
+Credential URL
+https://www.coursera.org/account/accomplishments/verify/JKV7ETVTBX8Z
+
+
+Name*
+Neural Networks and Deep Learning
+Issuing organization*
+
+Coursera
+Issue date
+
+Month
+
+February
+Year
+
+2023
+Expiration date
+
+Month
+
+Month
+Year
+
+Year
+Credential ID
+RSRKAW2Z4EX3
+12/80
+
+Credential URL
+https://www.coursera.org/account/accomplishments/verify/RSRKAW2Z4EX3
+
+
+Name*
+Convolutional Neural Networks in Deep Learning
+Issuing organization*
+
+Coursera
+Issue date
+
+Month
+
+February
+Year
+
+2023
+Expiration date
+
+Month
+
+Month
+Year
+
+Year
+Credential ID
+UN3KV7W659ME
+12/80
+
+Credential URL
+https://coursera.org/verify/UN3KV7W659ME
+
+
