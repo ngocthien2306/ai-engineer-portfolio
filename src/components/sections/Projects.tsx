@@ -1,28 +1,131 @@
 // src/components/sections/Projects.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { ExternalLink, Calendar, Building2, CheckCircle2, Filter } from 'lucide-react';
+import { ExternalLink, Calendar, Building2, CheckCircle2, Filter, PlayCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
-import { projects, Project } from '@/data/mock/projects';
+import { Modal } from '../ui/Modal';
+import { projects, Project, VideoItem } from '@/data/mock/projects';
+
+declare global {
+  interface Window {
+    FB?: { XFBML: { parse: (element?: HTMLElement | null) => void } };
+  }
+}
 
 const statusColors: Record<Project['status'], string> = {
   Production: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   Research: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
   Commercialized: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+  Personal: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
 };
 
 const statusBorder: Record<Project['status'], string> = {
   Production: 'border-l-green-500',
   Research: 'border-l-blue-500',
   Commercialized: 'border-l-purple-500',
+  Personal: 'border-l-orange-400',
 };
 
-const filterOptions: Array<'all' | Project['status']> = ['all', 'Production', 'Research', 'Commercialized'];
+const filterOptions: Array<'all' | Project['status']> = ['all', 'Production', 'Commercialized', 'Research', 'Personal'];
+
+const FacebookVideoPlayer: React.FC<{ href: string; rounded: string }> = ({ href, rounded }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Ensure fb-root exists
+    if (!document.getElementById('fb-root')) {
+      const fbRoot = document.createElement('div');
+      fbRoot.id = 'fb-root';
+      document.body.prepend(fbRoot);
+    }
+
+    const initFB = () => {
+      if (window.FB) {
+        window.FB.XFBML.parse(containerRef.current ?? undefined);
+      }
+    };
+
+    if (window.FB) {
+      initFB();
+    } else if (!document.getElementById('facebook-jssdk')) {
+      const script = document.createElement('script');
+      script.id = 'facebook-jssdk';
+      script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2';
+      script.async = true;
+      script.defer = true;
+      script.onload = initFB;
+      document.body.appendChild(script);
+    } else {
+      // Script tag exists but FB not ready yet — wait for it
+      const interval = setInterval(() => {
+        if (window.FB) {
+          clearInterval(interval);
+          initFB();
+        }
+      }, 200);
+      return () => clearInterval(interval);
+    }
+  }, [href]);
+
+  return (
+    <div ref={containerRef} className={`w-full overflow-hidden ${rounded}`}>
+      <div
+        className="fb-video"
+        data-href={href}
+        data-width="auto"
+        data-allowfullscreen="true"
+        data-show-text="false"
+      />
+    </div>
+  );
+};
+
+const VideoEmbed: React.FC<{ video: VideoItem; rounded: string }> = ({ video, rounded }) => {
+  if (video.type === 'youtube') {
+    return (
+      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+        <iframe
+          src={video.embedUrl}
+          title={video.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allowFullScreen
+          className={`absolute inset-0 w-full h-full ${rounded}`}
+        />
+      </div>
+    );
+  }
+  if (video.type === 'facebook') {
+    return <FacebookVideoPlayer href={video.embedUrl} rounded={rounded} />;
+  }
+  // gdrive
+  return (
+    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+      <iframe
+        src={video.embedUrl}
+        title={video.title}
+        allow="autoplay"
+        allowFullScreen
+        className={`absolute inset-0 w-full h-full ${rounded}`}
+        style={{ border: 'none' }}
+      />
+    </div>
+  );
+};
 
 export const Projects: React.FC = () => {
   const { ref, controls } = useScrollAnimation();
   const [activeFilter, setActiveFilter] = useState<'all' | Project['status']>('all');
+  const [activeVideos, setActiveVideos] = useState<{ title: string; items: VideoItem[] } | null>(null);
+  const [activeVideoIdx, setActiveVideoIdx] = useState(0);
+
+  const openVideos = (title: string, items: VideoItem[]) => {
+    setActiveVideoIdx(0);
+    setActiveVideos({ title, items });
+  };
+
+  const getYoutubeId = (embedUrl: string) =>
+    embedUrl.replace('https://www.youtube.com/embed/', '').split('?')[0];
 
   const filtered = activeFilter === 'all' ? projects : projects.filter(p => p.status === activeFilter);
 
@@ -114,22 +217,30 @@ export const Projects: React.FC = () => {
                         {project.subtitle}
                       </p>
                     </div>
-                    {project.links && project.links.length > 0 && (
-                      <div className="flex gap-2 flex-shrink-0">
-                        {project.links.map((link) => (
-                          <a
-                            key={link.url}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
-                            title={link.label}
-                          >
-                            <ExternalLink className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                          </a>
-                        ))}
-                      </div>
-                    )}
+                    <div className="flex gap-2 flex-shrink-0">
+                      {project.videos && project.videos.length > 0 && (
+                        <button
+                          onClick={() => openVideos(project.title, project.videos!)}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 text-xs font-semibold transition-colors"
+                          title="Watch Demo"
+                        >
+                          <PlayCircle className="w-4 h-4" />
+                          Demo{project.videos.length > 1 ? ` (${project.videos.length})` : ''}
+                        </button>
+                      )}
+                      {project.links && project.links.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                          title={link.label}
+                        >
+                          <ExternalLink className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                        </a>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Organization */}
@@ -166,6 +277,67 @@ export const Projects: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Video Modal */}
+      <Modal
+        isOpen={!!activeVideos}
+        onClose={() => setActiveVideos(null)}
+        title={activeVideos?.title}
+        size="xl"
+      >
+        {activeVideos && (
+          <div className="-mx-6 -mb-6">
+            {activeVideos.items.length === 1 ? (
+              <VideoEmbed video={activeVideos.items[0]} rounded="rounded-b-xl" />
+            ) : (
+              <div className="flex flex-col">
+                {/* Main player — key forces iframe remount on switch */}
+                <VideoEmbed
+                  key={activeVideoIdx}
+                  video={activeVideos.items[activeVideoIdx]}
+                  rounded=""
+                />
+
+                {/* Thumbnail strip */}
+                <div className="flex gap-2 p-3 overflow-x-auto bg-gray-50 dark:bg-gray-800/60 rounded-b-xl">
+                  {activeVideos.items.map((v, i) => {
+                    const isActive = i === activeVideoIdx;
+                    const ytId = v.type === 'youtube' ? getYoutubeId(v.embedUrl) : null;
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => setActiveVideoIdx(i)}
+                        className={`flex-shrink-0 w-32 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                          isActive
+                            ? 'border-blue-500 shadow-lg shadow-blue-200 dark:shadow-blue-900/40'
+                            : 'border-transparent opacity-50 hover:opacity-90 hover:border-gray-300 dark:hover:border-gray-600'
+                        }`}
+                      >
+                        {ytId ? (
+                          <img
+                            src={`https://img.youtube.com/vi/${ytId}/mqdefault.jpg`}
+                            alt={v.title}
+                            className="w-full aspect-video object-cover"
+                          />
+                        ) : (
+                          <div className="w-full aspect-video bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                            <PlayCircle className="w-7 h-7 text-gray-400" />
+                          </div>
+                        )}
+                        <p className={`text-xs px-1.5 py-1 text-center truncate bg-white dark:bg-gray-900 ${
+                          isActive ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-600 dark:text-gray-400'
+                        }`}>
+                          {v.title}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </Modal>
     </section>
   );
 };
