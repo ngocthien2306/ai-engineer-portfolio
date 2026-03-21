@@ -15,10 +15,11 @@ import {
   Search
 } from 'lucide-react';
 import { Card } from '../ui/Card';
+import { BlogReader } from '../ui/BlogReader';
 import { localBlogPosts, type LocalBlogPost } from '@/data/static/blog';
 import { useBlogPosts } from '@/hooks/api/useBlog';
 
-const BlogCard: React.FC<{ post: LocalBlogPost; index: number }> = ({ post, index }) => {
+const BlogCard: React.FC<{ post: LocalBlogPost; index: number; onOpen: (post: LocalBlogPost) => void }> = ({ post, index, onOpen }) => {
   return (
     <motion.div
       variants={{
@@ -27,7 +28,8 @@ const BlogCard: React.FC<{ post: LocalBlogPost; index: number }> = ({ post, inde
       }}
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -5 }}
-      className="group h-full"
+      className="group h-full cursor-pointer"
+      onClick={() => onOpen(post)}
     >
       <Card className="p-0 h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-200 dark:hover:border-blue-800 overflow-hidden">
         {/* Cover Image */}
@@ -125,6 +127,7 @@ const BlogCard: React.FC<{ post: LocalBlogPost; index: number }> = ({ post, inde
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={(e) => { e.stopPropagation(); onOpen(post); }}
               className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
             >
               <span className="text-sm">Read More</span>
@@ -137,7 +140,7 @@ const BlogCard: React.FC<{ post: LocalBlogPost; index: number }> = ({ post, inde
   );
 };
 
-const FeaturedPost: React.FC<{ post: LocalBlogPost }> = ({ post }) => {
+const FeaturedPost: React.FC<{ post: LocalBlogPost; onOpen: (post: LocalBlogPost) => void }> = ({ post, onOpen }) => {
   return (
     <motion.div
       variants={{
@@ -145,7 +148,8 @@ const FeaturedPost: React.FC<{ post: LocalBlogPost }> = ({ post }) => {
         visible: { opacity: 1, y: 0 },
       }}
       whileHover={{ y: -2 }}
-      className="group"
+      className="group cursor-pointer"
+      onClick={() => onOpen(post)}
     >
       <Card className="p-0 hover:shadow-2xl transition-all duration-300 border-2 hover:border-blue-200 dark:hover:border-blue-800 overflow-hidden">
         <div className="md:flex">
@@ -207,6 +211,7 @@ const FeaturedPost: React.FC<{ post: LocalBlogPost }> = ({ post }) => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={(e) => { e.stopPropagation(); onOpen(post); }}
                 className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors"
               >
                 <span>Read Article</span>
@@ -224,6 +229,7 @@ export const Blog: React.FC = () => {
   const { ref, controls } = useScrollAnimation();
   const [selectedTag, setSelectedTag] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [activePost, setActivePost] = useState<LocalBlogPost | null>(null);
   
   // Use local blog posts (you can also use the API hook)
   const blogPosts = localBlogPosts;
@@ -279,7 +285,7 @@ export const Blog: React.FC = () => {
             }}
             className="mb-16"
           >
-            <FeaturedPost post={featuredPost} />
+            <FeaturedPost post={featuredPost} onOpen={setActivePost} />
           </motion.div>
 
           {/* Search and Filter */}
@@ -337,7 +343,7 @@ export const Blog: React.FC = () => {
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
           >
             {filteredPosts.map((post, index) => (
-              <BlogCard key={post.id} post={post} index={index} />
+              <BlogCard key={post.id} post={post} index={index} onOpen={setActivePost} />
             ))}
           </motion.div>
 
@@ -387,6 +393,8 @@ export const Blog: React.FC = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      <BlogReader post={activePost} onClose={() => setActivePost(null)} />
     </section>
   );
 };
