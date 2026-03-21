@@ -14,6 +14,40 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    id: 0,
+    title: 'AI Fullstack Engineer (Freelance)',
+    company: 'Suntech Automation',
+    location: 'Vietnam',
+    startDate: '2025-12',
+    endDate: '2026-03',
+    type: 'ai',
+    description: [
+      'Architected and deployed end-to-end AI QA/QC system across 7+ production lines at a global agri-commodity processing facility, eliminating 100% manual inspection (sole developer)',
+      'Optimized YOLO inference pipeline on Jetson Orin Nano/NX via TensorRT + ONNX, achieving 99%+ accuracy and 0.4% false positive rate at 70-180 products/minute',
+      'Deployed 6 models in parallel across 3 Basler cameras per line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day',
+      'Built React + FastAPI operations dashboard with 6 modules: live camera feed, AI toggle, audit log, historical analytics, and LLM-powered agent for operator queries',
+      'Delivered full system in 3 months, from model training to multi-line production rollout across 7+ lines',
+      'LLM-powered agent enables operators to query production data and control AI modules via natural language (<5s response)'
+    ],
+    technologies: [
+      'YOLO',
+      'TensorRT',
+      'ONNX Runtime',
+      'Jetson Orin Nano/NX',
+      'Basler Camera',
+      'React',
+      'FastAPI',
+      'MongoDB',
+      'Python',
+      'LLM Agent'
+    ],
+    highlights: [
+      '99%+ accuracy and 0.4% false positive rate at 70-180 products/minute',
+      '100% manual QC inspection replaced across 7+ production lines',
+      'Full system delivered solo in 3 months from training to rollout'
+    ]
+  },
+  {
     id: 1,
     title: 'Research Assistant',
     company: 'Deep Learning & Media System Laboratory',
@@ -22,32 +56,29 @@ export const experiences: Experience[] = [
     endDate: 'Present',
     type: 'research',
     description: [
-      'Led multiple AI research projects using event-based camera technology',
-      'Designed and implemented data collection pipelines for specialized datasets',
-      'Developed deep learning models for eye gaze tracking with EVS cameras',
-      'Created algorithms for fingertip detection and human movement analysis',
-      'Built audio-to-3D animation conversion systems',
-      'Implemented fall detection systems with high accuracy rates',
-      'Optimized model performance for real-time applications',
-      'Documented research findings and prepared technical reports',
-      'Collaborated with cross-functional teams to integrate solutions'
+      'Designed eye gaze estimation model from scratch using PROPHESEE EVS camera — no pretrained backbone, trained on self-collected dataset of 25+ subjects',
+      'Reduced gaze angular error from 5-6° to 1-2.5° (~70% improvement) with real-time inference at <50ms on Jetson + GPU server',
+      'Optimized AVSR data pipeline via parallelization, batch inference, and architecture improvements — achieved 10× throughput, processing 2,000h raw data into 720h output in 7 days',
+      'Researching multi-camera VLM/LLM scene understanding using Qwen2-VL, LLaVA, and VILA for natural language queries over 24h multi-camera footage',
+      'Collected and processed hundreds of hours of EVS recordings — full pipeline from hardware setup to real-time inference deployment',
+      'Documented research findings and prepared technical reports for publication'
     ],
     technologies: [
-      'TensorFlow',
       'PyTorch',
-      'Keras',
       'Python',
+      'PROPHESEE Metavision SDK',
+      'EVS Cameras',
+      'Qwen2-VL',
+      'LLaVA',
+      'VILA',
+      'Jetson',
       'Computer Vision',
-      'Event-based Cameras',
-      'Deep Learning',
-      'Real-time Processing',
-      'PROPHESEE Metavision®',
-      'EVS Cameras'
+      'Deep Learning'
     ],
     highlights: [
-      'Leading cutting-edge research in event-based computer vision',
-      'Developing novel eye gaze tracking algorithms',
-      'Publishing research findings in academic conferences'
+      'Eye gaze angular error reduced from 5-6° to 1-2.5° (~70% improvement)',
+      'AVSR pipeline 10× throughput: 2,000h raw → 720h output in 7 days',
+      'Researching multi-camera VLM/LLM scene understanding'
     ]
   },
   {
@@ -59,35 +90,31 @@ export const experiences: Experience[] = [
     endDate: '2024-08',
     type: 'ai',
     description: [
-      'Analyzed and proposed solutions for specific challenges at the factory, from planning data collection to deploying AI models',
-      'Planned and executed the data collection process, including labeling, augmentation, and noise reduction, to optimize data quality',
-      'Selected and deployed suitable deep learning models, while evaluating results and planning model improvements as needed',
+      'Developed 4 production Vision AI systems end-to-end (data collection → 50,000+ labeled images → training → deployment) in a team of 1-3 engineers',
+      'Co-developed Safety AI CCTV and i-PPE 2 flagship products certified by a Fortune 500 FMCG manufacturer, deployed across 3+ factories, contributing to 100% revenue growth for the company',
+      'Packaged i-PPE as a standalone ISO 45001-compliant hardware + software product, deployed to 2–3 factories',
+      'Established Docker containerization and GitHub Actions CI/CD pipeline, reducing deployment errors across all projects',
       'Deployed models in real-world environments, integrating with IP cameras to predict data and display results on user interfaces',
-      'Communicated with PLC systems for tasks such as alerts and robot stops',
-      'Implemented Docker containers for application deployment, ensuring consistency across development and production environments',
-      'Set up CI/CD pipelines for automated testing and deployment, improving development workflow and reducing deployment errors',
-      'Collaborated with the Frontend team to map APIs and construct a website managing violations',
-      'Contributed to significant projects such as Oral Line 2, PPE detection systems',
-      'Ensured system stability and performance through rigorous testing and source code optimization'
+      'Communicated with PLC systems for tasks such as alerts and automated robot stops',
+      'Collaborated with the frontend team to map APIs and construct a violations management dashboard'
     ],
     technologies: [
-      'TensorFlow',
+      'YOLO',
+      'TensorRT',
       'PyTorch',
       'Python',
       'Computer Vision',
       'Docker',
-      'CI/CD',
+      'GitHub Actions CI/CD',
       'PLC Integration',
-      'IP Cameras',
       'FastAPI',
       'React',
-      'Deep Learning',
-      'MLOps'
+      'Jetson'
     ],
     highlights: [
-      'Achieved a globally recognized certification, officially confirmed by Unilever',
-      'Successfully deployed AI models in production factory environments',
-      'Reduced manufacturing defects through automated quality control systems'
+      'Commercialized i-PPE as an ISO 45001-compliant hardware + software product',
+      'Safety AI CCTV platform operating continuously for 2+ years in production',
+      'Established CI/CD pipeline reducing deployment errors across all projects'
     ]
   },
   {
@@ -99,30 +126,27 @@ export const experiences: Experience[] = [
     endDate: '2023-08',
     type: 'fullstack',
     description: [
-      'Design and implement APIs using design patterns in ASP.NET API to support the manufacturing process',
-      'Utilize Entity Framework to interact with the MSSQL database, ensuring data performance and consistency',
-      'Build and optimize stored procedures to execute complex queries and handle business logic on the database',
-      'Develop user interfaces for screens using Angular, ensuring aesthetic appeal and a good user experience',
-      'Implement data communication between the frontend and backend through APIs to ensure efficient data transfer',
-      'Use Azure for deploying and maintaining services related to the application, ensuring system availability and security',
-      'Collaborate closely with the team to design and deploy new features, and address issues arising during development'
+      'Built 10+ Angular modules and .NET 8 backend APIs for a manufacturing management system, collaborating within a cross-functional team of 15+ engineers',
+      'Utilized Entity Framework to interact with MSSQL database, ensuring data performance and consistency',
+      'Built and optimized stored procedures for 4-5M record datasets; co-deployed and maintained production services on Microsoft Azure',
+      'Developed user interfaces using Angular, ensuring aesthetic appeal and good user experience',
+      'Implemented data communication between frontend and backend through RESTful APIs',
+      'Collaborated closely with the team to design and deploy new features, and address issues during development'
     ],
     technologies: [
-      '.NET 8.0 API',
+      '.NET 8',
       'Entity Framework',
       'Azure',
       'Angular',
-      'Tailwind CSS',
-      'Ant Design',
       'MSSQL',
       'C#',
       'TypeScript',
       'RESTful APIs'
     ],
     highlights: [
-      'Successfully modernized legacy manufacturing systems',
-      'Improved system performance and user experience',
-      'Implemented scalable cloud-based solutions'
+      'Built 10+ Angular modules in a cross-functional team of 15+ engineers',
+      'Optimized stored procedures for 4-5M record datasets on Azure',
+      'Co-deployed and maintained production services on Microsoft Azure'
     ]
   },
   {
@@ -134,27 +158,26 @@ export const experiences: Experience[] = [
     endDate: '2023-02',
     type: 'software',
     description: [
-      'Worked on projects: Pleiger, Owlgardien, Higgs Korea SCM-MES',
-      'Developed a user interface using the DevExtreme library and implemented the backend with ASP.NET MVC and MS SQL for factory production process management project',
-      'Collaborated with a team of developers to design and implement features, debug and resolve software issues, ensuring stable and reliable operation',
-      'Utilized the C# programming language to write efficient and scalable code, including the creation of Store Procedures for data retrieval',
-      'Contributed to project documentation and training materials to ensure user-friendly implementation and effective utilization',
-      'Continuously stayed abreast of new technologies and implemented improvements to enhance system functionality'
+      'Built full-stack features across 3 factory management projects — frontend (DevExtreme), backend (ASP.NET MVC), and database (MS SQL) in a team of 6-10 engineers',
+      'Reduced purchase order query time by 90% on 1M+ records via index tuning and stored procedure refactoring',
+      'Maintained 60+ stored procedures supporting 10,000-100,000 daily transactions',
+      'Utilized C# to write efficient and scalable code, including the creation of stored procedures for data retrieval',
+      'Worked on projects: Pleiger, Owlgardien, Higgs Korea SCM-MES (international collaboration)',
+      'Continuously learned new technologies and implemented improvements to enhance system functionality'
     ],
     technologies: [
       'DevExtreme',
       'ASP.NET MVC',
       'MS SQL Server',
       'C#',
-      'EmguCV',
       'JavaScript',
       'HTML5',
       'CSS3',
       'Stored Procedures'
     ],
     highlights: [
-      'Successfully delivered multiple enterprise-level manufacturing systems',
-      'Implemented computer vision features using EmguCV',
+      'Reduced purchase order query time by 90% on 1M+ records',
+      'Maintained 60+ SPs supporting 10,000-100,000 daily transactions',
       'Contributed to international projects (Korea SCM-MES)'
     ]
   }
@@ -180,13 +203,13 @@ export const educations: Education[] = [
   {
     id: 1,
     school: 'National Central University',
-    degree: 'Master of Science (MS)',
-    field: 'Computer Science and Information Engineering',
+    degree: 'Master of Science (M.S.)',
+    field: 'Computer Science',
     startDate: 'Aug 2024',
-    endDate: 'Aug 2026',
+    endDate: 'Jun 2026',
     gpa: '93',
     gpaScale: '100',
-    description: 'Deep Learning & Media System Laboratory — research in event-based computer vision, eye gaze tracking, and real-time AI systems.',
+    description: 'Deep Learning & Media System Laboratory — research in event-based computer vision, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Expected graduation: June 2026.',
     images: [
       `${base}education/ncu/1.jpg`,
       `${base}education/ncu/2.jpg`,
@@ -195,15 +218,15 @@ export const educations: Education[] = [
   },
   {
     id: 2,
-    school: 'HCMC University of Technology and Engineering',
-    degree: 'Bachelor of Science (BS)',
-    field: 'Information Technology',
+    school: 'University of Technology & Education, Vietnam',
+    degree: 'Bachelor of Engineering (B.Eng.)',
+    field: 'Software Engineering',
     startDate: 'Aug 2019',
-    endDate: 'Apr 2024',
-    gpa: '7.77',
-    gpaScale: '10',
+    endDate: 'Mar 2024',
+    gpa: '3.1',
+    gpaScale: '4.0',
     activities: 'Football Club, Enrollment and Career Guidance',
-    description: 'Strong foundation in software engineering, algorithms, databases, and computer networks.',
+    description: 'Thesis: AI-powered Parking Management System (9.6/10). EUREKA Competition Semi-finalist. Strong foundation in software engineering, algorithms, databases, and computer networks.',
     images: [
       `${base}education/hcmute/1.jpg`,
       `${base}education/hcmute/2.jpg`,
@@ -212,13 +235,13 @@ export const educations: Education[] = [
   },
   {
     id: 3,
-    school: 'FPT University (FUNiX)',
+    school: 'FUNiX FPT, Vietnam',
     degree: 'Certification',
     field: 'Data Science',
-    startDate: 'Oct 2022',
-    endDate: 'Apr 2023',
-    gpa: '8.5',
-    gpaScale: '10',
+    startDate: 'Sep 2022',
+    endDate: 'Jun 2023',
+    gpa: '3.4',
+    gpaScale: '4.0',
     description: 'Intensive data science program covering machine learning, data analysis, Python, and statistical modeling.',
     images: [
       `${base}education/fpt/1.jpg`,

@@ -20,26 +20,38 @@ const highlights = [
   {
     icon: Brain,
     title: 'AI & Machine Learning',
-    description: 'Deep Learning, Computer Vision, NLP with TensorFlow, PyTorch, and Keras',
-    color: 'from-blue-500 to-purple-600'
+    description: 'YOLO, TensorRT, ONNX, PyTorch, TensorFlow — production AI systems at 99%+ accuracy in real factory environments',
+    color: 'from-blue-500 to-purple-600',
+    glow: 'rgba(99,102,241,0.35)',
+    border: 'group-hover:border-blue-400 dark:group-hover:border-blue-500',
+    shadow: '0 16px 40px rgba(99,102,241,0.3)',
   },
   {
     icon: Eye,
     title: 'Computer Vision',
-    description: 'Event-based camera technology, eye gaze tracking, and real-time video processing',
-    color: 'from-purple-500 to-pink-600'
+    description: 'Event-based cameras, eye gaze tracking (5-6° → 1-2.5°), real-time inference on Jetson edge devices',
+    color: 'from-purple-500 to-pink-600',
+    glow: 'rgba(217,70,239,0.35)',
+    border: 'group-hover:border-pink-400 dark:group-hover:border-pink-500',
+    shadow: '0 16px 40px rgba(217,70,239,0.3)',
   },
   {
     icon: Code,
-    title: 'Full Stack Development',
-    description: 'ASP.NET, Angular, Python, C#, with expertise in both frontend and backend',
-    color: 'from-green-500 to-blue-600'
+    title: 'Full-Stack Development',
+    description: 'FastAPI, React, TypeScript, Angular, C#, .NET 8 — end-to-end dashboards and AI-integrated platforms',
+    color: 'from-green-500 to-blue-600',
+    glow: 'rgba(34,197,94,0.35)',
+    border: 'group-hover:border-green-400 dark:group-hover:border-green-500',
+    shadow: '0 16px 40px rgba(34,197,94,0.3)',
   },
   {
     icon: Cpu,
-    title: 'Research & Innovation',
-    description: 'Leading AI research projects and contributing to cutting-edge solutions',
-    color: 'from-orange-500 to-red-600'
+    title: 'VLM / LLM & Agentic AI',
+    description: 'Researching Qwen2-VL, LLaVA, VILA for multi-camera scene understanding and agentic AI applications',
+    color: 'from-orange-500 to-red-600',
+    glow: 'rgba(249,115,22,0.35)',
+    border: 'group-hover:border-orange-400 dark:group-hover:border-orange-500',
+    shadow: '0 16px 40px rgba(249,115,22,0.3)',
   },
 ];
 
@@ -48,22 +60,22 @@ const achievements = [
     icon: GraduationCap,
     title: 'MS Computer Science',
     subtitle: 'National Central University (Taiwan)',
-    description: 'GPA: 93/100 • Deep Learning & Media System Laboratory',
+    description: 'GPA: 93/100 • Deep Learning & Media System Laboratory • Expected Jun 2026',
     timeline: '2024 - Present'
   },
   {
     icon: Award,
     title: 'Research Excellence',
-    subtitle: 'AI Research Projects',
-    description: 'Led multiple AI projects using event-based camera technology',
+    subtitle: 'NCU Deep Learning Lab',
+    description: 'Eye gaze angular error reduced from 5-6° to 1-2.5° (~70% improvement); AVSR pipeline 10× throughput',
     timeline: '2024 - Present'
   },
   {
     icon: Target,
-    title: 'Industry Recognition',
-    subtitle: 'Unilever Certification',
-    description: 'Achieved globally recognized certification for AI implementation',
-    timeline: '2024'
+    title: 'Production AI Deployment',
+    subtitle: 'Suntech Automation — Global Agri-Commodity Facility',
+    description: '100% manual QC replaced across 7+ production lines — 99%+ accuracy, 0.4% FPR at 70-180 products/min',
+    timeline: '2025-2026'
   },
 ];
 
@@ -119,17 +131,19 @@ export const About: React.FC = () => {
                   </p>
 
                   <p>
-                    As a <span className="font-semibold text-purple-600 dark:text-purple-400">solo developer</span>, I architected and deployed end-to-end
-                    computer vision systems at major industrial facilities including <span className="font-semibold text-purple-600 dark:text-purple-400">Unilever</span> and <span className="font-semibold text-purple-600 dark:text-purple-400">Olam</span>.
-                    These systems monitor workplace safety in real time and automate product quality inspection before goods reach the market —
-                    achieving <span className="font-semibold text-green-600 dark:text-green-400">zero recorded workplace accidents</span> since deployment and
-                    <span className="font-semibold text-green-600 dark:text-green-400"> ~99% accuracy</span> in quality defect detection, drastically reducing manual workload.
+                    As a <span className="font-semibold text-purple-600 dark:text-purple-400">solo developer</span>, I commercialized{' '}
+                    <span className="font-semibold text-purple-600 dark:text-purple-400">i-PPE</span> — an ISO 45001-compliant workplace safety product
+                    deployed across multiple factories — and architected an AI QA/QC system at a{' '}
+                    <span className="font-semibold text-purple-600 dark:text-purple-400">global agri-commodity processing facility</span> that replaced 100% of manual inspection
+                    across 7+ production lines, achieving{' '}
+                    <span className="font-semibold text-green-600 dark:text-green-400">99%+ accuracy</span> and{' '}
+                    <span className="font-semibold text-green-600 dark:text-green-400">0.4% false positive rate</span>.
                   </p>
 
                   <p>
                     Currently pursuing my <span className="font-semibold text-green-600 dark:text-green-400">Master's in Computer Science</span> at
-                    National Central University in Taiwan, where I'm actively involved in the Deep Learning & Media System Laboratory,
-                    pushing the boundaries of computer vision research and building AI systems that create real-world impact.
+                    National Central University in Taiwan, researching VLM/LLM, agentic AI, and multimodal systems at the{' '}
+                    Deep Learning & Media System Laboratory — pushing the boundaries of computer vision and building AI that creates real-world impact.
                   </p>
                 </div>
               </div>
@@ -143,15 +157,15 @@ export const About: React.FC = () => {
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                    Leading AI research projects using event-based camera technology
+                    Eye gaze estimation with PROPHESEE EVS camera (5-6° → 1-2.5° error, &lt;50ms latency)
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                    Developing deep learning models for eye gaze tracking
+                    Multi-camera VLM/LLM scene understanding (Qwen2-VL, LLaVA, VILA)
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full" />
-                    Implementing real-time AI solutions for industrial applications
+                    Building agentic AI and multimodal systems for real-world deployment
                   </li>
                 </ul>
               </div>
@@ -227,20 +241,68 @@ export const About: React.FC = () => {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 },
                   }}
-                  whileHover={{ y: -5 }}
+                  whileHover="hover"
                   className="group"
                 >
-                  <Card className="p-6 h-full text-center hover:shadow-xl transition-all duration-300 border-2 hover:border-blue-200 dark:hover:border-blue-800">
-                    <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${highlight.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                      <highlight.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h4 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-                      {highlight.title}
-                    </h4>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      {highlight.description}
-                    </p>
-                  </Card>
+                  {/* Lift wrapper */}
+                  <motion.div
+                    variants={{
+                      hover: { y: -12, transition: { duration: 0.25, ease: 'easeOut' } },
+                    }}
+                    className="h-full"
+                  >
+                    {/* Glow halo */}
+                    <motion.div
+                      variants={{ hover: { opacity: 1, scale: 1.08 } }}
+                      initial={{ opacity: 0, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 rounded-2xl blur-xl pointer-events-none"
+                      style={{ background: `radial-gradient(ellipse at center, ${highlight.glow}, transparent 70%)` }}
+                    />
+
+                    <Card className={`relative p-6 h-full text-center overflow-hidden border-2 border-transparent ${highlight.border} transition-colors duration-300`}
+                      style={{ '--tw-shadow': 'none' } as React.CSSProperties}
+                    >
+                      {/* Shimmer sweep */}
+                      <motion.div
+                        variants={{
+                          hover: {
+                            x: ['−110%', '210%'],
+                            transition: { duration: 0.55, ease: 'easeInOut' },
+                          },
+                        }}
+                        className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none z-0"
+                        style={{ x: '-110%' }}
+                      />
+
+                      <div className="relative z-10">
+                        {/* Icon */}
+                        <motion.div
+                          variants={{
+                            hover: {
+                              scale: 1.2,
+                              rotate: -8,
+                              transition: { type: 'spring', stiffness: 350, damping: 10 },
+                            },
+                          }}
+                          className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${highlight.color} flex items-center justify-center shadow-lg`}
+                        >
+                          <highlight.icon className="w-8 h-8 text-white" />
+                        </motion.div>
+
+                        <motion.h4
+                          variants={{ hover: { scale: 1.04, transition: { duration: 0.2 } } }}
+                          className="text-xl font-semibold mb-3 text-gray-900 dark:text-white"
+                        >
+                          {highlight.title}
+                        </motion.h4>
+
+                        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                          {highlight.description}
+                        </p>
+                      </div>
+                    </Card>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>

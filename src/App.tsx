@@ -12,7 +12,7 @@ import { Experience } from './components/sections/Experience';
 import { Education } from './components/sections/Education';
 import { Skills } from './components/sections/Skills';
 import { Blog } from './components/sections/Blog';
-// import { Projects } from './components/sections/Projects';
+import { Projects } from './components/sections/Projects';
 // import { Contact } from './components/sections/Contact';
 
 function App() {
@@ -30,9 +30,9 @@ function App() {
               <About />
               <Education />
               <Experience />
+              <Projects />
               <Skills />
               <Blog />
-              {/* <Projects /> */}
               {/* <Contact /> */}
               
               {/* Add other sections here */}

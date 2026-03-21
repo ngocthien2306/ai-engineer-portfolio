@@ -256,41 +256,93 @@ export const Experience: React.FC = () => {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 },
                   }}
-                  whileHover={{ y: -5 }}
-                  className="group"
+                  whileHover="hover"
+                  className="group cursor-default"
                 >
-                  <Card className="p-4 h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-yellow-200 dark:hover:border-yellow-800">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Award className="w-5 h-5 text-white" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-2">
-                          {cert.name}
-                        </h4>
-                        <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-1">
-                          {cert.issuer}
-                        </p>
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="text-xs text-gray-500 dark:text-gray-500">
-                            {cert.date}
+                  {/* Lift wrapper */}
+                  <motion.div
+                    variants={{
+                      hover: { y: -10, transition: { duration: 0.25, ease: 'easeOut' } },
+                    }}
+                    className="h-full"
+                  >
+                    {/* Glow halo */}
+                    <motion.div
+                      variants={{
+                        hover: { opacity: 1, scale: 1.05 },
+                      }}
+                      initial={{ opacity: 0, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 rounded-xl bg-gradient-to-br from-yellow-400/25 to-orange-500/25 blur-xl pointer-events-none"
+                    />
+
+                    <Card className="relative p-4 h-full overflow-hidden border-2 border-transparent group-hover:border-yellow-300 dark:group-hover:border-yellow-600 transition-colors duration-300 group-hover:shadow-[0_12px_32px_rgba(234,179,8,0.25)]">
+
+                      {/* Shimmer sweep */}
+                      <motion.div
+                        variants={{
+                          hover: {
+                            x: ['−100%', '200%'],
+                            transition: { duration: 0.55, ease: 'easeInOut' },
+                          },
+                        }}
+                        className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none z-0"
+                        style={{ x: '-100%' }}
+                      />
+
+                      <div className="relative z-10 flex items-start gap-3">
+                        {/* Icon badge */}
+                        <motion.div
+                          variants={{
+                            hover: {
+                              scale: 1.25,
+                              rotate: 12,
+                              transition: { type: 'spring', stiffness: 400, damping: 12 },
+                            },
+                          }}
+                          className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md"
+                        >
+                          <Award className="w-5 h-5 text-white" />
+                        </motion.div>
+
+                        <div className="flex-1 min-w-0">
+                          <motion.h4
+                            variants={{
+                              hover: { color: '#b45309' },
+                            }}
+                            className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-2 transition-colors"
+                          >
+                            {cert.name}
+                          </motion.h4>
+                          <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-1">
+                            {cert.issuer}
                           </p>
-                          {cert.verifyUrl && (
-                            <a
-                              href={cert.verifyUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="flex items-center gap-1 text-xs text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium transition-colors"
-                            >
-                              <ExternalLink className="w-3 h-3" />
-                              Verify
-                            </a>
-                          )}
+                          <div className="flex items-center justify-between gap-2">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {cert.date}
+                            </p>
+                            {cert.verifyUrl ? (
+                              <motion.a
+                                href={cert.verifyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                variants={{
+                                  hover: { scale: 1.1 },
+                                }}
+                                className="flex items-center gap-1 text-xs text-green-600 dark:text-green-400 hover:text-green-700 font-medium"
+                              >
+                                <ExternalLink className="w-3 h-3" />
+                                Verify
+                              </motion.a>
+                            ) : (
+                              <span className="text-xs text-gray-400 dark:text-gray-500 italic">—</span>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>

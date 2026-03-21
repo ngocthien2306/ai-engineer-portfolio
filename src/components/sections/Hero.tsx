@@ -36,7 +36,7 @@ export const Hero: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                Currently pursuing MS at National Central University, Taiwan
+                MS Computer Science @ National Central University, Taiwan
               </motion.div>
               
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
@@ -47,17 +47,22 @@ export const Hero: React.FC = () => {
               </h1>
               
               <h2 className="text-2xl md:text-3xl lg:text-4xl text-gray-700 dark:text-gray-300 font-semibold">
-                AI | ML Engineer
+                AI Engineer
               </h2>
+              <p className="text-base md:text-lg text-blue-600 dark:text-blue-400 font-medium">
+                Vision AI  •  Intelligent Manufacturing  •  Edge AI
+              </p>
             </motion.div>
             
             <motion.p 
               variants={itemVariants}
               className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl"
             >
-              With <span className="font-semibold text-blue-600 dark:text-blue-400">4+ years of software development experience</span> and
-              <span className="font-semibold text-purple-600 dark:text-purple-400"> 2+ years in Artificial Intelligence</span>,
-              specializing in Computer Vision, Deep Learning, and industrial AI deployments at scale.
+              AI Engineer with <span className="font-semibold text-blue-600 dark:text-blue-400">4+ years of software development</span> and{' '}
+              <span className="font-semibold text-purple-600 dark:text-purple-400">2+ years building production-grade Vision AI</span>{' '}
+              for intelligent manufacturing. Specialized in end-to-end pipelines from data collection and model training to{' '}
+              <span className="font-semibold text-blue-600 dark:text-blue-400">edge optimization (TensorRT/ONNX on Jetson)</span>{' '}
+              with proven deployment across real factory environments. Currently researching VLM/LLM, agentic AI, and multimodal systems at NCU Deep Learning Lab.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
@@ -87,7 +92,7 @@ export const Hero: React.FC = () => {
                 variant="outline"
                 size="lg"
                 leftIcon={<Download className="w-5 h-5" />}
-                onClick={() => window.open(`${import.meta.env.BASE_URL || './'}CV Nguyen Ngoc Thien - Junior AI Engineer.pdf`, '_blank')}
+                onClick={() => window.open(`${import.meta.env.BASE_URL || './'}Nguyen Ngoc Thien CV - AI Engineer.pdf`, '_blank')}
               >
                 Download CV
               </Button>
@@ -116,7 +121,7 @@ export const Hero: React.FC = () => {
                 <Linkedin className="w-6 h-6" />
               </Button>
               <Button
-                onClick={() => window.open('tel:+886965135477', '_blank')}
+                onClick={() => window.open('tel:+886916399690', '_blank')}
                 rel="noopener noreferrer"
                 variant="ghost"
                 size="sm"

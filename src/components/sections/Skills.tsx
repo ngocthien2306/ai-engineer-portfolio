@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import {
   Brain,
   Code,
-  Globe,
-  Settings,
+  Cpu,
+  Cloud,
+  MessageSquare,
   CheckCircle,
   Filter
 } from 'lucide-react';
@@ -14,30 +15,33 @@ import { skills, Skill } from '@/data/static/skills';
 
 const categoryIcons = {
   ai_ml: Brain,
-  programming: Code,
-  web_development: Globe,
-  tools_frameworks: Settings,
+  multimodal_llm: MessageSquare,
+  edge_ai: Cpu,
+  fullstack: Code,
+  devops_cloud: Cloud,
 };
 
 const categoryColors = {
   ai_ml: 'from-purple-500 to-pink-600',
-  programming: 'from-blue-500 to-cyan-600',
-  web_development: 'from-green-500 to-emerald-600',
-  tools_frameworks: 'from-orange-500 to-red-600',
+  multimodal_llm: 'from-violet-500 to-purple-700',
+  edge_ai: 'from-orange-500 to-red-600',
+  fullstack: 'from-blue-500 to-cyan-600',
+  devops_cloud: 'from-green-500 to-emerald-600',
 };
 
 const categoryNames = {
-  ai_ml: 'AI & Machine Learning',
-  programming: 'Programming Languages',
-  web_development: 'Web Development',
-  tools_frameworks: 'Tools & Frameworks',
+  ai_ml: 'AI / ML',
+  multimodal_llm: 'Multimodal / LLM',
+  edge_ai: 'Edge AI & Hardware',
+  fullstack: 'Full-Stack',
+  devops_cloud: 'DevOps / Cloud',
 };
 
 export const Skills: React.FC = () => {
   const { ref, controls } = useScrollAnimation();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  
-  const categories = ['all', 'ai_ml', 'programming', 'web_development', 'tools_frameworks'] as const;
+
+  const categories = ['all', 'ai_ml', 'multimodal_llm', 'edge_ai', 'fullstack', 'devops_cloud'] as const;
   
   const filteredSkills = selectedCategory === 'all' 
     ? skills 
@@ -53,18 +57,17 @@ export const Skills: React.FC = () => {
 
   const SkillTag: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) => {
     const IconComponent = categoryIcons[skill.category];
-    
+
     return (
       <motion.div
-        variants={{
-          hidden: { opacity: 0, scale: 0.8 },
-          visible: { opacity: 1, scale: 1 },
-        }}
-        transition={{ delay: index * 0.05 }}
+        layout
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.7 }}
+        transition={{ duration: 0.2, delay: index * 0.03 }}
         whileHover={{ scale: 1.05 }}
-        className="group"
       >
-        <div className={`relative bg-gradient-to-r ${categoryColors[skill.category]} p-3 rounded-xl text-white hover:shadow-lg transition-all duration-300`}>
+        <div className={`bg-gradient-to-r ${categoryColors[skill.category]} p-3 rounded-xl text-white hover:shadow-lg transition-shadow duration-300`}>
           <div className="flex items-center gap-2">
             <IconComponent className="w-4 h-4 flex-shrink-0" />
             <span className="font-medium text-sm">{skill.name}</span>
@@ -153,7 +156,7 @@ export const Skills: React.FC = () => {
               hidden: { opacity: 0, y: 30 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+            className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16"
           >
             {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
               <CategoryCard
@@ -205,17 +208,13 @@ export const Skills: React.FC = () => {
           </motion.div>
 
           {/* Skills Tags Grid */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
-            }}
-            className="flex flex-wrap gap-3 justify-center"
-          >
-            {filteredSkills.map((skill, index) => (
-              <SkillTag key={`${skill.name}-${skill.category}`} skill={skill} index={index} />
-            ))}
-          </motion.div>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <AnimatePresence mode="popLayout">
+              {filteredSkills.map((skill, index) => (
+                <SkillTag key={`${skill.name}-${skill.category}`} skill={skill} index={index} />
+              ))}
+            </AnimatePresence>
+          </div>
 
           {/* Simple Stats */}
           <motion.div
