@@ -1,0 +1,292 @@
+================================================================
+PROJECT ACHIEVEMENTS — FORM FILL REFERENCE
+Format follows platform example style:
+  Bold headline → Results → Role → Project main contents
+================================================================
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (none — no public video)
+Project Name  : AI QA/QC + Management System
+Start         : 2025 / December
+End           : 2026 / March
+Project Link  : (none)
+
+── Description (copy below, ~600 chars) ──────────────────────
+An end-to-end AI quality inspection system was deployed across 7+ production lines at a global agri-commodity processing facility, fully replacing manual QC.
+
+Results: 99%+ detection accuracy, 0.4% false positive rate, 100% manual inspection replaced across 7+ lines within 3 months. Operators query AI modules via natural language in <5s.
+
+As the sole developer, I designed, trained, and deployed the full system — from model training to multi-line production rollout.
+
+Project main contents:
+1. YOLO model optimization via TensorRT FP16/INT8 on Jetson Orin Nano/NX (6 models, 3 Basler cameras/line, 30,000–50,000 products/line/day)
+2. React + FastAPI operations dashboard with 6 modules: live camera feed, AI toggle, audit log, and analytics
+3. LLM-powered agent for natural language operator queries over production data
+4. Full deployment across 7+ production lines at a Category A processing facility
+
+Note: Client facility information has been generalized for confidentiality.
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 2
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : https://youtu.be/h9SG3g7DQt4
+Project Name  : i-PPE — ISO 45001 PPE Compliance Detection System
+Start         : 2023 / November
+End           : 2024 / June
+Project Link  : https://ippe.i-soft.com.vn
+
+── Description (copy below, ~560 chars) ──────────────────────
+An AI safety product was commercialized to enforce ISO 45001 PPE compliance at factory gate and machine access points — fully edge-native on Jetson devices.
+
+Results: 99% accuracy, <1% false positive rate at 30 FPS. Deployed across 7 camera clusters in 2–3 factories. Auto-generates SHE/EHS compliance reports.
+
+As the sole AI developer, I built and packaged the full hardware + software product from scratch.
+
+Project main contents:
+1. Real-time PPE detection (helmet, vest, gloves) at hazardous zone entry points using YOLO + TensorRT on Jetson
+2. Gate and machine access control logic based on detection results
+3. Standalone hardware + software product packaging and factory deployment
+4. Automated SHE/EHS compliance report generation for factory management
+
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 3
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : https://youtu.be/BeA65X_Bj84
+Project Name  : Safety AI CCTV — AI Workplace Safety Platform
+Start         : 2023 / September
+End           : 2024 / February
+Project Link  : https://sac.i-soft.com.vn
+
+── Description (copy below, ~590 chars) ──────────────────────
+An 8-module AI workplace safety platform was developed and deployed across 13 cameras at a Category A manufacturing facility, certified for production use.
+
+Results: ~90% reduction in workplace safety violations, <3% false positive rate. Platform has operated continuously for 2+ years with no downtime. Certified by factory management.
+
+As core AI engineer (team of 1–3), I developed and integrated all 8 AI safety modules end-to-end.
+
+Project main contents:
+1. 8+ AI models running in parallel at 20–30 FPS: handrail compliance, zone intrusion, AGV proximity alert, smart lighting
+2. PLC integration (Modbus TCP/RTU) for automated machine shutdown and buzzer alerts
+3. Full-stack operations dashboard: FastAPI backend, React frontend, GPU server
+4. Factory certification and production deployment across 13 camera clusters
+
+Note: Client facility information has been generalized for confidentiality.
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 4
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (Google Drive only — not supported; upload screenshot instead)
+Project Name  : Event-Based Eye Gaze Estimation
+Start         : 2024 / January
+End           : (Still in progress ☑)
+Project Link  : (none — lab research)
+
+── Description (copy below, ~560 chars) ──────────────────────
+A custom deep learning model for eye gaze estimation was designed from scratch using a PROPHESEE event-based camera (EVS), achieving near state-of-the-art accuracy with real-time edge inference.
+
+Results: Gaze angular error reduced from 5–6° to 1–2.5° (~70% improvement). Real-time inference at <50ms on Jetson + GPU server.
+
+As the primary researcher, I owned the full pipeline from hardware setup to model training and deployment.
+
+Project main contents:
+1. Custom CNN architecture trained on self-collected EVS dataset of 25+ subjects — no pretrained backbone
+2. End-to-end data pipeline: PROPHESEE Metavision SDK preprocessing → model training → Jetson deployment
+3. Collected and processed hundreds of hours of EVS recordings for training and evaluation
+4. MS Computer Science research at National Central University, Taiwan (GPA: 93/100)
+
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 5
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (Google Drive only — not supported; upload screenshot instead)
+Project Name  : Fall Detection & Object Tracking with Radar
+Start         : 2024 / January
+End           : (Still in progress ☑)
+Project Link  : (none — lab research)
+
+── Description (copy below, ~540 chars) ──────────────────────
+A real-time fall detection and object tracking system was built using PROPHESEE event-based camera fused with radar sensor data, deployed on Jetson edge device.
+
+Results: <3% false positive rate in real-time detection on Jetson edge device. Leverages microsecond EVS temporal resolution for blur-free high-speed motion capture.
+
+As the primary researcher, I designed the full pipeline from sensor fusion to edge deployment.
+
+Project main contents:
+1. EVS + radar sensor fusion for robust fall detection and multi-object tracking
+2. Data preprocessing pipeline using PROPHESEE Metavision SDK
+3. Model training and optimization for real-time Jetson edge inference
+4. Research at NCU Deep Learning & Media System Laboratory, Taiwan
+
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 6
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (Google Drive only — not supported; upload screenshot instead)
+Project Name  : Agent VLM — AI-Powered Video Intelligence
+Start         : 2024 / January
+End           : 2025 / December
+Project Link  : (none — lab research)
+
+── Description (copy below, ~570 chars) ──────────────────────
+A natural language video search system was built to query 24h multi-camera footage using a CLIP + SAM hybrid pipeline with LLM-powered query parsing.
+
+Results: Searches 10,000+ frames across 24h multi-camera footage in ~6s end-to-end. Supports Vietnamese & English queries. CLIP retrieval at ~100ms.
+
+As the primary developer, I built the full-stack system from embedding pipeline to production deployment.
+
+Project main contents:
+1. Two-stage hybrid search: CLIP embeddings for semantic retrieval + SAM for precise object detection and bounding box verification
+2. LLM query parser supporting both Ollama (local) and Claude API; real-time streaming via WebSocket + SSE
+3. Full-stack: FastAPI backend, React dashboard, Qdrant vector DB, AWS S3 storage
+4. CUDA-optimized Docker deployment on GPU server
+
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 7
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (none)
+Project Name  : GraphGuard — Graph-Based Fraud Detection
+Start         : 2025 / January
+End           : 2025 / December
+Project Link  : https://github.com/ngocthien2306/GraphGuard
+
+── Description (copy below, ~510 chars) ──────────────────────
+A GNN-based financial fraud detection system was built using RGTAN with continual learning (EWC) to adapt to evolving fraud patterns without catastrophic forgetting.
+
+Results: End-to-end fraud detection pipeline with automated report generation. EWC successfully prevents forgetting across sequential fraud pattern updates.
+
+As the sole developer, I implemented the full pipeline for NCU AI for Security R&D coursework.
+
+Project main contents:
+1. RGTAN (Relational Graph Temporal Attention Network) for transaction fraud detection on financial graph data
+2. EWC (Elastic Weight Consolidation) for continual learning across evolving fraud patterns
+3. Feature engineering and graph construction pipeline from raw transaction data
+4. Automated evaluation and compliance report generation
+
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 8
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (none)
+Project Name  : Task Agent — AI Scheduling with 3D Avatar
+Start         : 2025 / January
+End           : 2025 / December
+Project Link  : https://github.com/ngocthien2306/task-agent-backend
+
+── Description (copy below, ~480 chars) ──────────────────────
+A cross-platform AI agent was built for natural language task scheduling and reminders, with a 3D avatar as the interactive AI interface across web and mobile.
+
+Results: Full web + mobile productivity agent with NLP-driven intent parsing, deployed and containerized with Docker.
+
+As the sole developer, I built the entire cross-platform system from backend to mobile app.
+
+Project main contents:
+1. Natural language task creation, reminders, and schedule management via LLM intent parsing
+2. 3D avatar as interactive AI interface — responds and communicates task updates visually
+3. Cross-platform: Node.js backend, React web frontend, React Native mobile app
+4. Full Docker containerization for production deployment
+
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 9
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (none)
+Project Name  : Android PPE Detection — Mobile Edge AI
+Start         : 2024 / January
+End           : 2024 / December
+Project Link  : https://github.com/ngocthien2306/android-yolo
+
+── Description (copy below, ~450 chars) ──────────────────────
+Real-time PPE compliance detection was ported to Android using YOLO + C++ NDK for native inference, enabling portable safety inspection without a server.
+
+Results: Real-time PPE detection (helmet, vest, gloves) on mobile hardware with low latency and minimal memory footprint. No cloud or server required.
+
+As the sole developer, I ported and optimized the full inference pipeline for Android.
+
+Project main contents:
+1. YOLO model ported to Android via C++ NDK for native, low-latency inference
+2. Real-time PPE detection (helmet, vest, gloves) directly on-device
+3. Memory and latency optimization for mobile hardware constraints
+4. Mobile extension of i-PPE concept for portable factory floor inspection
+
+──────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 10
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (none)
+Project Name  : RAG Pipeline — Retrieval-Augmented Generation
+Start         : 2024 / January
+End           : 2025 / December
+Project Link  : https://github.com/ngocthien2306/rag-pipeline
+
+── Description (copy below, ~490 chars) ──────────────────────
+A modular RAG system was built with clean separation of concerns, serving as the foundation for LLM-powered query agents deployed in a production QA/QC dashboard.
+
+Results: Modular pipeline supporting pluggable embedding models and retrieval strategies. Deployed as the backend for production LLM agent at a Category A processing facility.
+
+As the sole developer, I designed and built the full RAG architecture.
+
+Project main contents:
+1. End-to-end pipeline: document preprocessing → embedding generation → vector indexing → context retrieval → LLM response
+2. Pluggable embedding models and retrieval strategies for different document domains
+3. Clean architecture: config, data, embedding, retrieval, and utils modules fully decoupled
+4. Foundation for production LLM operator agent (deployed in AI QA/QC dashboard)
+
+──────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECT 11
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Video URL     : (none — live site available)
+Project Name  : AI Engineer Portfolio Website
+Start         : 2026 / March
+End           : 2026 / March
+Project Link  : (deploy URL or GitHub repo)
+
+── Description (copy below, ~490 chars) ──────────────────────
+A fully responsive AI engineer portfolio website was designed and built from scratch to showcase production AI projects, research, work experience, and technical blog posts.
+
+Results: Fully deployed single-page application with 7 sections, interactive project demos (YouTube/Google Drive embeds), filterable skills and projects, and an in-page markdown blog reader.
+
+As the sole developer, I designed and implemented the entire frontend from UI to data architecture.
+
+Project main contents:
+1. Built with Vite + React 18 + TypeScript + TailwindCSS + Framer Motion — animated scroll transitions and hover effects throughout
+2. Projects section with multi-video demo modal (thumbnail strip for 7+ videos), filter by status
+3. In-page blog reader rendering markdown with syntax-highlighted code blocks (react-markdown + rehype-highlight)
+4. Sections: Hero, About, Education, Experience, Projects, Skills, Blog — all data-driven and easily updatable
+
+──────────────────────────────────────────────────────────────
+
+
+================================================================
+TIPS
+================================================================
+• Lead with a past-tense headline summarizing the outcome
+• Put Results line immediately after headline (with numbers)
+• Keep "Project main contents" as a clean numbered list (4 items)
+• For confidential clients: use "Category A facility" or "global agri-commodity processor"
+• Google Drive videos: upload a screenshot image instead of video URL
+================================================================
