@@ -33,7 +33,7 @@ export const projects: Project[] = [
     endDate: 'Mar 2026',
     stack: ['YOLO', 'TensorRT', 'ONNX', 'Jetson Orin Nano/NX', 'Basler Camera', 'React', 'FastAPI', 'MongoDB'],
     highlights: [
-      'Deployed 6 models in parallel across 3 Basler cameras/line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day at 70-180 products/min',
+      'Deployed 6 models in parallel across 3 Basler cameras/line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day at 70–180 products/min',
       'Achieved 99%+ detection accuracy and 0.4% false positive rate via TensorRT FP16/INT8 optimization',
       'Built React + FastAPI operations dashboard with LLM-powered agent — operators query production data and control AI modules via natural language (<5s response)',
       'Replaced 100% manual QC inspection solo within 3 months, deployed across 7+ production lines'
@@ -41,17 +41,18 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: 'Event-Based Eye Gaze Estimation',
-    subtitle: 'Custom deep learning model for PROPHESEE EVS camera data',
+    title: 'Event-Based Eye Gaze Estimation & Pupil Segmentation with SNNs',
+    subtitle: 'Spiking Neural Network architectures for PROPHESEE EVS camera data',
     organization: 'NCU Deep Learning Lab',
     status: 'Research',
     startDate: '2024',
     endDate: '2025',
-    stack: ['PyTorch', 'PROPHESEE Metavision SDK', 'Custom CNN Architecture', 'Jetson', 'GPU Server'],
+    stack: ['PyTorch', 'SNNTorch', 'PROPHESEE Metavision SDK', 'OpenCV', 'Jetson', 'GPU Server'],
     highlights: [
-      'Designed custom deep learning model from scratch on PROPHESEE EVS camera data — no pretrained backbone, trained on self-collected dataset of 25+ subjects',
-      'Reduced gaze angular error from 5-6° to 1-2.5° (~70% improvement) with real-time inference at <50ms on Jetson + GPU server',
-      'Collected and processed hundreds of hours of EVS recordings — full pipeline from hardware setup to real-time inference deployment'
+      'Designed three SNN architectures from scratch — PureSpikingGazeNet, SpikingEfficientGazeNet (gaze regression), and SNNUltraLightMobileNet (pupil segmentation) — built on Leaky Integrate-and-Fire (LIF) neurons with surrogate gradient (fast sigmoid) training',
+      'Implemented rate, latency, and temporal spike encoding strategies; custom combined loss functions for both tasks: Euclidean + angular loss for gaze regression, and Weighted CE + Dice + Focal loss for pupil segmentation',
+      'Collected and processed hundreds of hours of EVS recordings from 25+ subjects — full pipeline from PROPHESEE hardware setup to real-time inference deployment on GPU server and Jetson edge hardware',
+      'Achieved substantial error reduction with real-time inference across both tasks vs. baseline'
     ],
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1XsxSc0_fXKirsG994k08lBxj_kqYKDUi/preview', type: 'gdrive', title: 'Eye Gaze Demo 1' },
@@ -120,7 +121,7 @@ export const projects: Project[] = [
     stack: ['PROPHESEE Metavision SDK', 'EVS Camera', 'Radar Sensor', 'PyTorch', 'Jetson', 'GPU Server'],
     highlights: [
       'Designed fall detection and multi-object tracking system using PROPHESEE event-based camera fused with radar sensor data',
-      'Achieved <3% false positive rate in real-time detection on Jetson edge device',
+      'Achieved low false positive rate in real-time detection on Jetson edge device',
       'Leveraged EVS camera\'s microsecond temporal resolution for high-speed motion capture without motion blur',
       'Full pipeline from EVS data preprocessing via Metavision SDK to real-time inference deployment'
     ],
@@ -131,15 +132,15 @@ export const projects: Project[] = [
   {
     id: 6,
     title: 'Agent VLM — AI-Powered Video Intelligence',
-    subtitle: 'Natural language search across 24h multi-camera footage using CLIP + SAM3 hybrid pipeline',
+    subtitle: 'Natural language search across continuous multi-camera footage using CLIP + SAM3 hybrid pipeline',
     organization: 'NCU Deep Learning Lab',
     status: 'Research',
     startDate: '2024',
     endDate: '2025',
     stack: ['CLIP (ViT-B-32)', 'SAM3', 'Qdrant', 'FastAPI', 'React', 'PyTorch', 'Ollama', 'Claude API', 'Docker', 'AWS S3'],
     highlights: [
-      'Two-stage hybrid search: CLIP embeddings for fast semantic retrieval (~100ms) + SAM3 for precise object detection & bounding box verification',
-      'Natural language queries in Vietnamese & English — searches 10,000+ frames across 24h multi-camera footage in ~6s end-to-end',
+      'Two-stage hybrid search: CLIP embeddings for fast semantic retrieval + SAM3 for precise object detection & bounding box verification',
+      'Natural language queries in Vietnamese & English — searches large frame archives across continuous multi-camera footage',
       'Real-time result streaming via WebSocket + SSE; supports both Ollama (local LLM) and Claude API for query parsing',
       'Full-stack: FastAPI backend, React dashboard, Qdrant vector DB, AWS S3 cloud storage — containerized with CUDA-optimized Docker'
     ],

@@ -23,7 +23,7 @@ export const experiences: Experience[] = [
     type: 'ai',
     description: [
       'Architected and deployed end-to-end AI QA/QC system across 7+ production lines at a global agri-commodity processing facility, eliminating 100% manual inspection (sole developer)',
-      'Optimized YOLO inference pipeline on Jetson Orin Nano/NX via TensorRT + ONNX, achieving 99%+ accuracy and 0.4% false positive rate at 70-180 products/minute',
+      'Optimized YOLO inference pipeline on Jetson Orin Nano/NX via TensorRT + ONNX, achieving 99%+ accuracy and 0.4% false positive rate at 70–180 products/minute',
       'Deployed 6 models in parallel across 3 Basler cameras per line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day',
       'Built React + FastAPI operations dashboard with 6 modules: live camera feed, AI toggle, audit log, historical analytics, and LLM-powered agent for operator queries',
       'Delivered full system in 3 months, from model training to multi-line production rollout across 7+ lines',
@@ -42,7 +42,7 @@ export const experiences: Experience[] = [
       'LLM Agent'
     ],
     highlights: [
-      '99%+ accuracy and 0.4% false positive rate at 70-180 products/minute',
+      '99%+ accuracy and 0.4% false positive rate at 70–180 products/minute',
       '100% manual QC inspection replaced across 7+ production lines',
       'Full system delivered solo in 3 months from training to rollout'
     ]
@@ -56,15 +56,16 @@ export const experiences: Experience[] = [
     endDate: 'Present',
     type: 'research',
     description: [
-      'Designed eye gaze estimation model from scratch using PROPHESEE EVS camera — no pretrained backbone, trained on self-collected dataset of 25+ subjects',
-      'Reduced gaze angular error from 5-6° to 1-2.5° (~70% improvement) with real-time inference at <50ms on Jetson + GPU server',
-      'Optimized AVSR data pipeline via parallelization, batch inference, and architecture improvements — achieved 10× throughput, processing 2,000h raw data into 720h output in 7 days',
-      'Researching multi-camera VLM/LLM scene understanding using Qwen2-VL, LLaVA, and VILA for natural language queries over 24h multi-camera footage',
+      'Designed event-based eye gaze estimation and pupil segmentation systems from scratch using PROPHESEE EVS camera and Metavision SDK, implementing SNN architectures (PureSpikingGazeNet, SpikingEfficientGazeNet, SNNUltraLightMobileNet) with LIF neurons, surrogate gradient training, and custom loss functions',
+      'Achieved substantial angular error reduction with real-time inference on Jetson edge hardware and GPU server',
+      'Optimized AVSR data pipeline via parallelization, batch inference, and architecture improvements, achieving order-of-magnitude throughput improvement for large-scale audio-visual speech data processing',
+      'Researching multi-camera scene understanding using multimodal VLM/LLM systems (Qwen2-VL, LLaVA, VILA) to enable natural language queries over continuous multi-camera footage',
       'Collected and processed hundreds of hours of EVS recordings — full pipeline from hardware setup to real-time inference deployment',
-      'Documented research findings and prepared technical reports for publication'
+      'Fine-tuned a large language model on low-resource Hakka language (Sixian/Hailu dialects) via LoRA, achieving significant BLEU score improvements in both translation directions over zero-shot baseline'
     ],
     technologies: [
       'PyTorch',
+      'SNNTorch',
       'Python',
       'PROPHESEE Metavision SDK',
       'EVS Cameras',
@@ -76,8 +77,8 @@ export const experiences: Experience[] = [
       'Deep Learning'
     ],
     highlights: [
-      'Eye gaze angular error reduced from 5-6° to 1-2.5° (~70% improvement)',
-      'AVSR pipeline 10× throughput: 2,000h raw → 720h output in 7 days',
+      'Substantial angular error reduction in event-based eye gaze estimation',
+      'Order-of-magnitude throughput improvement in AVSR data pipeline',
       'Researching multi-camera VLM/LLM scene understanding'
     ]
   },
@@ -90,7 +91,7 @@ export const experiences: Experience[] = [
     endDate: '2024-08',
     type: 'ai',
     description: [
-      'Developed 4 production Vision AI systems end-to-end (data collection → 50,000+ labeled images → training → deployment) in a team of 1-3 engineers',
+      'Developed 4 production Vision AI systems end-to-end (data collection → 50,000+ labeled images → training → deployment) in a team of 1–3 engineers',
       'Co-developed Safety AI CCTV and i-PPE 2 flagship products certified by a Fortune 500 FMCG manufacturer, deployed across 3+ factories, contributing to 100% revenue growth for the company',
       'Packaged i-PPE as a standalone ISO 45001-compliant hardware + software product, deployed to 2–3 factories',
       'Established Docker containerization and GitHub Actions CI/CD pipeline, reducing deployment errors across all projects',
@@ -128,7 +129,7 @@ export const experiences: Experience[] = [
     description: [
       'Built 10+ Angular modules and .NET 8 backend APIs for a manufacturing management system, collaborating within a cross-functional team of 15+ engineers',
       'Utilized Entity Framework to interact with MSSQL database, ensuring data performance and consistency',
-      'Built and optimized stored procedures for 4-5M record datasets; co-deployed and maintained production services on Microsoft Azure',
+      'Built and optimized stored procedures for 4–5M record datasets; co-deployed and maintained production services on Microsoft Azure',
       'Developed user interfaces using Angular, ensuring aesthetic appeal and good user experience',
       'Implemented data communication between frontend and backend through RESTful APIs',
       'Collaborated closely with the team to design and deploy new features, and address issues during development'
@@ -145,7 +146,7 @@ export const experiences: Experience[] = [
     ],
     highlights: [
       'Built 10+ Angular modules in a cross-functional team of 15+ engineers',
-      'Optimized stored procedures for 4-5M record datasets on Azure',
+      'Optimized stored procedures for 4–5M record datasets on Azure',
       'Co-deployed and maintained production services on Microsoft Azure'
     ]
   },
@@ -158,9 +159,9 @@ export const experiences: Experience[] = [
     endDate: '2023-02',
     type: 'software',
     description: [
-      'Built full-stack features across 3 factory management projects — frontend (DevExtreme), backend (ASP.NET MVC), and database (MS SQL) in a team of 6-10 engineers',
+      'Built full-stack features across 3 factory management projects — frontend (DevExtreme), backend (ASP.NET MVC), and database (MS SQL) in a team of 6–10 engineers',
       'Reduced purchase order query time by 90% on 1M+ records via index tuning and stored procedure refactoring',
-      'Maintained 60+ stored procedures supporting 10,000-100,000 daily transactions',
+      'Maintained 60+ stored procedures supporting 10,000–100,000 daily transactions',
       'Utilized C# to write efficient and scalable code, including the creation of stored procedures for data retrieval',
       'Worked on projects: Pleiger, Owlgardien, Higgs Korea SCM-MES (international collaboration)',
       'Continuously learned new technologies and implemented improvements to enhance system functionality'
@@ -177,7 +178,7 @@ export const experiences: Experience[] = [
     ],
     highlights: [
       'Reduced purchase order query time by 90% on 1M+ records',
-      'Maintained 60+ SPs supporting 10,000-100,000 daily transactions',
+      'Maintained 60+ SPs supporting 10,000–100,000 daily transactions',
       'Contributed to international projects (Korea SCM-MES)'
     ]
   }
@@ -209,7 +210,7 @@ export const educations: Education[] = [
     endDate: 'Jun 2026',
     gpa: '93',
     gpaScale: '100',
-    description: 'Deep Learning & Media System Laboratory — research in event-based computer vision, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Expected graduation: June 2026.',
+    description: 'Deep Learning & Media System Laboratory — research in event-based computer vision, spiking neural networks, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Expected graduation: June 2026.',
     images: [
       `${base}education/ncu/1.jpg`,
       `${base}education/ncu/2.jpg`,

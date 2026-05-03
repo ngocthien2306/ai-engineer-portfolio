@@ -28,8 +28,8 @@ const highlights = [
   },
   {
     icon: Eye,
-    title: 'Computer Vision',
-    description: 'Event-based cameras, eye gaze tracking (5-6° → 1-2.5°), real-time inference on Jetson edge devices',
+    title: 'Neuromorphic & Event-Based Vision',
+    description: 'PROPHESEE EVS cameras, Spiking Neural Networks (SNNTorch), event-based gaze estimation and pupil segmentation — real-time inference on Jetson edge devices',
     color: 'from-purple-500 to-pink-600',
     glow: 'rgba(217,70,239,0.35)',
     border: 'group-hover:border-pink-400 dark:group-hover:border-pink-500',
@@ -65,17 +65,17 @@ const achievements = [
   },
   {
     icon: Award,
-    title: 'Research Excellence',
+    title: 'Neuromorphic AI Research',
     subtitle: 'NCU Deep Learning Lab',
-    description: 'Eye gaze angular error reduced from 5-6° to 1-2.5° (~70% improvement); AVSR pipeline 10× throughput',
+    description: 'Substantial angular error reduction in event-based eye gaze estimation; order-of-magnitude throughput improvement in AVSR pipeline',
     timeline: '2024 - Present'
   },
   {
     icon: Target,
     title: 'Production AI Deployment',
     subtitle: 'Suntech Automation — Global Agri-Commodity Facility',
-    description: '100% manual QC replaced across 7+ production lines — 99%+ accuracy, 0.4% FPR at 70-180 products/min',
-    timeline: '2025-2026'
+    description: '100% manual QC replaced across 7+ production lines — 99%+ accuracy, 0.4% FPR at 70–180 products/min',
+    timeline: '2025–2026'
   },
 ];
 
@@ -126,7 +126,7 @@ export const About: React.FC = () => {
                 <div className="space-y-4 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                   <p>
                     With <span className="font-semibold text-blue-600 dark:text-blue-400">over 4 years of software development experience</span> and
-                    more than <span className="font-semibold text-blue-600 dark:text-blue-400">2 years specializing in Artificial Intelligence</span>,
+                    more than <span className="font-semibold text-blue-600 dark:text-blue-400">3 years specializing in Artificial Intelligence</span>,
                     I have built a solid foundation in both engineering fundamentals and cutting-edge AI technologies.
                   </p>
 
@@ -142,8 +142,8 @@ export const About: React.FC = () => {
 
                   <p>
                     Currently pursuing my <span className="font-semibold text-green-600 dark:text-green-400">Master's in Computer Science</span> at
-                    National Central University in Taiwan, researching VLM/LLM, agentic AI, and multimodal systems at the{' '}
-                    Deep Learning & Media System Laboratory — pushing the boundaries of computer vision and building AI that creates real-world impact.
+                    National Central University in Taiwan, researching neuromorphic computing, event-based vision, and
+                    multimodal AI systems at the Deep Learning & Media System Laboratory — building AI that creates real-world impact.
                   </p>
                 </div>
               </div>
@@ -157,11 +157,11 @@ export const About: React.FC = () => {
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                    Eye gaze estimation with PROPHESEE EVS camera (5-6° → 1-2.5° error, &lt;50ms latency)
+                    Event-based eye gaze estimation and pupil segmentation using PROPHESEE EVS camera and Spiking Neural Networks
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                    Multi-camera VLM/LLM scene understanding (Qwen2-VL, LLaVA, VILA)
+                    Multi-camera scene understanding using multimodal VLM/LLM systems (Qwen2-VL, LLaVA, VILA)
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full" />
