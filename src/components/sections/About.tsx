@@ -29,7 +29,7 @@ const highlights = [
   {
     icon: Eye,
     title: 'Neuromorphic & Event-Based Vision',
-    description: 'PROPHESEE EVS cameras, Spiking Neural Networks (SNNTorch), event-based gaze estimation and pupil segmentation — real-time inference on Jetson edge devices',
+    description: 'Event-based (EVS) cameras, Spiking Neural Networks (SNNTorch), event-based gaze estimation and pupil segmentation — real-time inference on Jetson edge devices',
     color: 'from-purple-500 to-pink-600',
     glow: 'rgba(217,70,239,0.35)',
     border: 'group-hover:border-pink-400 dark:group-hover:border-pink-500',
@@ -47,7 +47,7 @@ const highlights = [
   {
     icon: Cpu,
     title: 'VLM / LLM & Agentic AI',
-    description: 'Researching Qwen2-VL, LLaVA, VILA for multi-camera scene understanding and agentic AI applications',
+    description: 'Researching open-weights multimodal VLM/LLM systems for multi-camera scene understanding and agentic AI applications',
     color: 'from-orange-500 to-red-600',
     glow: 'rgba(249,115,22,0.35)',
     border: 'group-hover:border-orange-400 dark:group-hover:border-orange-500',
@@ -67,7 +67,7 @@ const achievements = [
     icon: Award,
     title: 'Neuromorphic AI Research',
     subtitle: 'NCU Deep Learning Lab',
-    description: 'Substantial angular error reduction in event-based eye gaze estimation; order-of-magnitude throughput improvement in AVSR pipeline',
+    description: 'Custom Spiking Neural Network architectures for event-based gaze estimation and pupil segmentation, running real-time on edge hardware (details under lab NDA)',
     timeline: '2024 - Present'
   },
   {
@@ -157,11 +157,11 @@ export const About: React.FC = () => {
                 <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                    Event-based eye gaze estimation and pupil segmentation using PROPHESEE EVS camera and Spiking Neural Networks
+                    Event-based eye gaze estimation and pupil segmentation with event (EVS) cameras and Spiking Neural Networks
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                    Multi-camera scene understanding using multimodal VLM/LLM systems (Qwen2-VL, LLaVA, VILA)
+                    Multi-camera scene understanding using multimodal VLM/LLM systems
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full" />

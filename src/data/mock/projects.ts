@@ -1,7 +1,10 @@
 export interface VideoItem {
+  /** Embed URL for youtube/facebook/gdrive, or a file path (relative to BASE_URL) for `local`. */
   embedUrl: string;
-  type: 'youtube' | 'facebook' | 'gdrive';
+  type: 'youtube' | 'facebook' | 'gdrive' | 'local';
   title: string;
+  /** Poster frame — shown before playback and in the thumbnail strip. Used by `local` videos. */
+  poster?: string;
 }
 
 export interface Project {
@@ -19,7 +22,14 @@ export interface Project {
     url: string;
   }[];
   videos?: VideoItem[];
+  /**
+   * Disclosure note for work covered by an NDA. Rendered as a visible notice so the
+   * omission of model architectures / datasets / benchmark numbers is intentional and explicit.
+   */
+  confidential?: string;
 }
+
+const base = import.meta.env.BASE_URL || './';
 
 export const projects: Project[] = [
   // ── Top 4 CV Projects ──────────────────────────────────────────────────────
@@ -37,23 +47,44 @@ export const projects: Project[] = [
       'Achieved 99%+ detection accuracy and 0.4% false positive rate via TensorRT FP16/INT8 optimization',
       'Built React + FastAPI operations dashboard with LLM-powered agent — operators query production data and control AI modules via natural language (<5s response)',
       'Replaced 100% manual QC inspection solo within 3 months, deployed across 7+ production lines'
+    ],
+    videos: [
+      {
+        embedUrl: `${base}videos/qaqc-realtime-monitor.mp4`,
+        poster: `${base}videos/qaqc-realtime-monitor.jpg`,
+        type: 'local',
+        title: 'Realtime Inference Monitor'
+      },
+      {
+        embedUrl: `${base}videos/qaqc-line-inspection.mp4`,
+        poster: `${base}videos/qaqc-line-inspection.jpg`,
+        type: 'local',
+        title: 'Production Line Inspection'
+      },
+      {
+        embedUrl: `${base}videos/qaqc-onsite-monitor.mp4`,
+        poster: `${base}videos/qaqc-onsite-monitor.jpg`,
+        type: 'local',
+        title: 'On-Site Multi-Camera Result'
+      }
     ]
   },
   {
     id: 2,
     title: 'Event-Based Eye Gaze Estimation & Pupil Segmentation with SNNs',
-    subtitle: 'Spiking Neural Network architectures for PROPHESEE EVS camera data',
+    subtitle: 'Custom Spiking Neural Network research on event-camera (EVS) data',
     organization: 'NCU Deep Learning Lab',
     status: 'Research',
     startDate: '2024',
     endDate: '2025',
-    stack: ['PyTorch', 'SNNTorch', 'PROPHESEE Metavision SDK', 'OpenCV', 'Jetson', 'GPU Server'],
+    stack: ['PyTorch', 'SNNTorch', 'Event-Based Vision (EVS)', 'OpenCV', 'Jetson', 'GPU Server'],
     highlights: [
-      'Designed three SNN architectures from scratch — PureSpikingGazeNet, SpikingEfficientGazeNet (gaze regression), and SNNUltraLightMobileNet (pupil segmentation) — built on Leaky Integrate-and-Fire (LIF) neurons with surrogate gradient (fast sigmoid) training',
-      'Implemented rate, latency, and temporal spike encoding strategies; custom combined loss functions for both tasks: Euclidean + angular loss for gaze regression, and Weighted CE + Dice + Focal loss for pupil segmentation',
-      'Collected and processed hundreds of hours of EVS recordings from 25+ subjects — full pipeline from PROPHESEE hardware setup to real-time inference deployment on GPU server and Jetson edge hardware',
-      'Achieved substantial error reduction with real-time inference across both tasks vs. baseline'
+      'Designed custom Spiking Neural Network architectures from scratch — no pretrained backbone — for two tasks: gaze regression and pupil segmentation',
+      'Built on Leaky Integrate-and-Fire (LIF) neurons with surrogate-gradient training; explored several spike-encoding strategies and task-specific composite loss functions',
+      'Owned the full research pipeline end to end: event-camera capture rig, dataset collection and preprocessing, training, and real-time inference deployment on GPU server and Jetson edge hardware',
+      'Delivered real-time inference on edge hardware for both tasks'
     ],
+    confidential: 'Architecture names, dataset details and benchmark results are withheld under a laboratory NDA.',
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1XsxSc0_fXKirsG994k08lBxj_kqYKDUi/preview', type: 'gdrive', title: 'Eye Gaze Demo 1' },
       { embedUrl: 'https://drive.google.com/file/d/1bNwilr4LmGBT5CWpPjM6GpBmWft-LiVX/preview', type: 'gdrive', title: 'Eye Gaze Demo 2' }
@@ -113,18 +144,19 @@ export const projects: Project[] = [
   {
     id: 5,
     title: 'Fall Detection & Object Tracking with Radar',
-    subtitle: 'EVS camera + radar fusion for real-time fall detection and object tracking',
+    subtitle: 'Event-camera + radar sensor fusion for real-time fall detection and object tracking',
     organization: 'NCU Deep Learning Lab',
     status: 'Research',
     startDate: '2024',
     endDate: '2025',
-    stack: ['PROPHESEE Metavision SDK', 'EVS Camera', 'Radar Sensor', 'PyTorch', 'Jetson', 'GPU Server'],
+    stack: ['Event-Based Vision (EVS)', 'Radar Sensor', 'Sensor Fusion', 'PyTorch', 'Jetson', 'GPU Server'],
     highlights: [
-      'Designed fall detection and multi-object tracking system using PROPHESEE event-based camera fused with radar sensor data',
-      'Achieved low false positive rate in real-time detection on Jetson edge device',
-      'Leveraged EVS camera\'s microsecond temporal resolution for high-speed motion capture without motion blur',
-      'Full pipeline from EVS data preprocessing via Metavision SDK to real-time inference deployment'
+      'Designed a fall detection and multi-object tracking system fusing an event-based camera with radar sensor data',
+      'Leveraged the event camera\'s microsecond temporal resolution to capture high-speed motion without motion blur',
+      'Built the full pipeline from event-stream preprocessing to real-time inference on Jetson edge hardware',
+      'Privacy-friendly by design — event streams carry motion, not identifiable imagery'
     ],
+    confidential: 'Model architectures, sensor configuration and evaluation results are withheld under a laboratory NDA.',
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1WpBoKFJoz6AbCE4UUD7dUszqyzAwn7Cg/preview', type: 'gdrive', title: 'Fall Detection & Tracking Demo' }
     ]
@@ -132,18 +164,19 @@ export const projects: Project[] = [
   {
     id: 6,
     title: 'Agent VLM — AI-Powered Video Intelligence',
-    subtitle: 'Natural language search across continuous multi-camera footage using CLIP + SAM3 hybrid pipeline',
+    subtitle: 'Natural language search across continuous multi-camera footage via a hybrid retrieval + segmentation pipeline',
     organization: 'NCU Deep Learning Lab',
     status: 'Research',
     startDate: '2024',
     endDate: '2025',
-    stack: ['CLIP (ViT-B-32)', 'SAM3', 'Qdrant', 'FastAPI', 'React', 'PyTorch', 'Ollama', 'Claude API', 'Docker', 'AWS S3'],
+    stack: ['Vision-Language Models', 'Vector Search (Qdrant)', 'FastAPI', 'React', 'PyTorch', 'Ollama', 'Claude API', 'Docker', 'AWS S3'],
     highlights: [
-      'Two-stage hybrid search: CLIP embeddings for fast semantic retrieval + SAM3 for precise object detection & bounding box verification',
-      'Natural language queries in Vietnamese & English — searches large frame archives across continuous multi-camera footage',
-      'Real-time result streaming via WebSocket + SSE; supports both Ollama (local LLM) and Claude API for query parsing',
-      'Full-stack: FastAPI backend, React dashboard, Qdrant vector DB, AWS S3 cloud storage — containerized with CUDA-optimized Docker'
+      'Two-stage hybrid search: vision-language embeddings for fast semantic retrieval, then a promptable segmentation stage for precise object localisation and verification',
+      'Natural language queries in Vietnamese & English across large frame archives from continuous multi-camera footage',
+      'Real-time result streaming via WebSocket + SSE; pluggable query parsing on either a local LLM (Ollama) or a hosted API',
+      'Full-stack: FastAPI backend, React dashboard, vector DB, S3 storage — containerized with CUDA-optimized Docker'
     ],
+    confidential: 'Specific model choices, pipeline parameters and retrieval benchmarks are withheld under a laboratory NDA.',
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1yT1rOYZOmHMEe8-J4r_ZnzBXRxfyoxH7/preview', type: 'gdrive', title: 'Agent VLM Demo' }
     ]
@@ -156,13 +189,14 @@ export const projects: Project[] = [
     status: 'Research',
     startDate: '2025',
     endDate: '2025',
-    stack: ['Python', 'PyTorch', 'RGTAN', 'Graph Neural Network', 'EWC', 'Feature Engineering'],
+    stack: ['Python', 'PyTorch', 'Graph Neural Networks', 'Continual Learning', 'Feature Engineering'],
     highlights: [
-      'Implemented RGTAN (Relational Graph Temporal Attention Network) for transaction fraud detection on financial graph data',
-      'Extended with EWC (Elastic Weight Consolidation) for continual learning — prevents catastrophic forgetting across evolving fraud patterns',
-      'Built end-to-end pipeline: feature engineering, graph construction, model training, and automated report generation',
-      'Applied in coursework for NCU AI for Security R&D — covers real-world financial fraud detection scenarios'
+      'Implemented a relational graph attention architecture for transaction fraud detection on financial graph data',
+      'Extended it with continual-learning regularisation to prevent catastrophic forgetting as fraud patterns evolve',
+      'Built the end-to-end pipeline: feature engineering, graph construction, model training, and automated report generation',
+      'Developed for NCU AI for Security R&D coursework on real-world financial fraud detection scenarios'
     ],
+    confidential: 'An extended version of this work is under peer review — architecture details and benchmark scores are withheld until publication.',
     links: [
       { label: 'GitHub', url: 'https://github.com/ngocthien2306/GraphGuard' }
     ]

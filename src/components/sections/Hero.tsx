@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, MapPin, Mail, Phone } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { CV_URL } from '@/config/constants';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -92,7 +93,7 @@ export const Hero: React.FC = () => {
                 variant="outline"
                 size="lg"
                 leftIcon={<Download className="w-5 h-5" />}
-                onClick={() => window.open(`${import.meta.env.BASE_URL || './'}Nguyen Ngoc Thien CV - AI Engineer.pdf`, '_blank')}
+                onClick={() => window.open(CV_URL, '_blank')}
               >
                 Download CV
               </Button>

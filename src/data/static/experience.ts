@@ -56,29 +56,29 @@ export const experiences: Experience[] = [
     endDate: 'Present',
     type: 'research',
     description: [
-      'Designed event-based eye gaze estimation and pupil segmentation systems from scratch using PROPHESEE EVS camera and Metavision SDK, implementing SNN architectures (PureSpikingGazeNet, SpikingEfficientGazeNet, SNNUltraLightMobileNet) with LIF neurons, surrogate gradient training, and custom loss functions',
-      'Achieved substantial angular error reduction with real-time inference on Jetson edge hardware and GPU server',
-      'Optimized AVSR data pipeline via parallelization, batch inference, and architecture improvements, achieving order-of-magnitude throughput improvement for large-scale audio-visual speech data processing',
-      'Researching multi-camera scene understanding using multimodal VLM/LLM systems (Qwen2-VL, LLaVA, VILA) to enable natural language queries over continuous multi-camera footage',
-      'Collected and processed hundreds of hours of EVS recordings — full pipeline from hardware setup to real-time inference deployment',
-      'Fine-tuned a large language model on low-resource Hakka language (Sixian/Hailu dialects) via LoRA, achieving significant BLEU score improvements in both translation directions over zero-shot baseline'
+      'Designed event-based eye gaze estimation and pupil segmentation systems from scratch on event-camera (EVS) data — custom Spiking Neural Network architectures built on LIF neurons with surrogate-gradient training and task-specific loss functions, no pretrained backbone',
+      'Delivered real-time inference for both tasks on Jetson edge hardware and GPU server',
+      'Optimized a large-scale audio-visual speech data pipeline via parallelization, batch inference, and architecture improvements, substantially increasing preprocessing throughput',
+      'Researching multi-camera scene understanding with open-weights multimodal VLM/LLM systems to enable natural language queries over continuous multi-camera footage',
+      'Owned the full research pipeline for event-based vision: capture rig setup, dataset collection and preprocessing, training, and deployment',
+      'Fine-tuned a large language model for a low-resource regional language pair via parameter-efficient fine-tuning (LoRA), improving translation quality over the zero-shot baseline in both directions',
+      'Note: model architectures, datasets and benchmark results from this role are covered by a laboratory NDA and are described here only at a high level'
     ],
     technologies: [
       'PyTorch',
       'SNNTorch',
       'Python',
-      'PROPHESEE Metavision SDK',
-      'EVS Cameras',
-      'Qwen2-VL',
-      'LLaVA',
-      'VILA',
+      'Event-Based Vision (EVS)',
+      'Spiking Neural Networks',
+      'Multimodal VLM / LLM',
+      'LLM Fine-Tuning (LoRA)',
       'Jetson',
       'Computer Vision',
       'Deep Learning'
     ],
     highlights: [
-      'Substantial angular error reduction in event-based eye gaze estimation',
-      'Order-of-magnitude throughput improvement in AVSR data pipeline',
+      'Custom SNN architectures for event-based gaze estimation and pupil segmentation',
+      'Real-time inference on Jetson edge hardware and GPU server',
       'Researching multi-camera VLM/LLM scene understanding'
     ]
   },
@@ -212,6 +212,11 @@ export const educations: Education[] = [
     gpaScale: '100',
     description: 'Deep Learning & Media System Laboratory — research in event-based computer vision, spiking neural networks, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Expected graduation: June 2026.',
     images: [
+      // Graduation 2026 — newest first
+      `${base}education/ncu/grad-1.jpg`,
+      `${base}education/ncu/grad-2.jpg`,
+      `${base}education/ncu/grad-3.jpg`,
+      `${base}education/ncu/grad-4.jpg`,
       `${base}education/ncu/1.jpg`,
       `${base}education/ncu/2.jpg`,
       `${base}education/ncu/3.jpg`,

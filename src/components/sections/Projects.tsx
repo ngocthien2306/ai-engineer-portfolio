@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { ExternalLink, Calendar, Building2, CheckCircle2, Filter, PlayCircle } from 'lucide-react';
+import { ExternalLink, Calendar, Building2, CheckCircle2, Filter, PlayCircle, Lock } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Modal } from '../ui/Modal';
 import { projects, Project, VideoItem } from '@/data/mock/projects';
@@ -82,6 +82,22 @@ const FacebookVideoPlayer: React.FC<{ href: string; rounded: string }> = ({ href
 };
 
 const VideoEmbed: React.FC<{ video: VideoItem; rounded: string }> = ({ video, rounded }) => {
+  if (video.type === 'local') {
+    return (
+      <video
+        src={video.embedUrl}
+        poster={video.poster}
+        title={video.title}
+        controls
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className={`w-full max-h-[75vh] bg-black ${rounded}`}
+      />
+    );
+  }
   if (video.type === 'youtube') {
     return (
       <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -259,6 +275,16 @@ export const Projects: React.FC = () => {
                     ))}
                   </ul>
 
+                  {/* NDA / confidentiality notice */}
+                  {project.confidential && (
+                    <div className="flex items-start gap-2 mb-5 px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/60">
+                      <Lock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+                        {project.confidential}
+                      </p>
+                    </div>
+                  )}
+
                   {/* Stack Tags */}
                   <div className="flex flex-wrap gap-1.5">
                     {project.stack.map((tech) => (
@@ -302,7 +328,9 @@ export const Projects: React.FC = () => {
                 <div className="flex gap-2 p-3 overflow-x-auto bg-gray-50 dark:bg-gray-800/60 rounded-b-xl">
                   {activeVideos.items.map((v, i) => {
                     const isActive = i === activeVideoIdx;
-                    const ytId = v.type === 'youtube' ? getYoutubeId(v.embedUrl) : null;
+                    const thumbSrc =
+                      v.poster ??
+                      (v.type === 'youtube' ? `https://img.youtube.com/vi/${getYoutubeId(v.embedUrl)}/mqdefault.jpg` : null);
                     return (
                       <button
                         key={i}
@@ -313,10 +341,11 @@ export const Projects: React.FC = () => {
                             : 'border-transparent opacity-50 hover:opacity-90 hover:border-gray-300 dark:hover:border-gray-600'
                         }`}
                       >
-                        {ytId ? (
+                        {thumbSrc ? (
                           <img
-                            src={`https://img.youtube.com/vi/${ytId}/mqdefault.jpg`}
+                            src={thumbSrc}
                             alt={v.title}
+                            loading="lazy"
                             className="w-full aspect-video object-cover"
                           />
                         ) : (

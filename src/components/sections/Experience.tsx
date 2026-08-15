@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { 
+import { CV_URL } from '@/config/constants';
+import {
   Calendar, 
   MapPin, 
   ChevronRight,
@@ -374,7 +375,7 @@ export const Experience: React.FC = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => window.open('/CV_Nguyen_Ngoc_Thien.pdf', '_blank')}
+                  onClick={() => window.open(CV_URL, '_blank')}
                   className="border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-colors"
                 >
                   Download Resume
