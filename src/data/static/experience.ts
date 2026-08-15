@@ -95,7 +95,7 @@ export const experiences: Experience[] = [
     type: 'ai',
     description: [
       'Developed 4 production Vision AI systems end-to-end (data collection → 50,000+ labeled images → training → deployment) in a team of 1–3 engineers',
-      'Co-developed 2 flagship products, Safety AI CCTV and i-PPE, certified by a Fortune 500 FMCG manufacturer and deployed across 3+ factories. Company revenue grew 100% over the same period',
+      'Co-developed 2 flagship products, Safety AI CCTV and i-PPE, certified by a Fortune 500 FMCG manufacturer and deployed across 3+ factories',
       'Packaged i-PPE as a standalone ISO 45001-compliant hardware + software product, deployed to 2–3 factories',
       'Set up Docker containerization and a GitHub Actions CI/CD pipeline, adopted by every project on the team',
       'Deployed models on-site, integrating with IP camera streams and surfacing detections in the violations management dashboard',
