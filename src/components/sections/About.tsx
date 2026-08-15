@@ -67,7 +67,7 @@ const achievements = [
     icon: Award,
     title: 'Neuromorphic AI Research',
     subtitle: 'NCU Deep Learning Lab',
-    description: 'Custom Spiking Neural Network architectures for event-based gaze estimation and pupil segmentation, running real-time on edge hardware (details under lab NDA)',
+    description: 'Custom Spiking Neural Network architectures for event-based gaze estimation and pupil segmentation, running real-time on edge hardware',
     timeline: '2024 - Present'
   },
   {

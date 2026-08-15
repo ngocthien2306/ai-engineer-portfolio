@@ -62,8 +62,7 @@ export const experiences: Experience[] = [
       'Researching multi-camera scene understanding with open-weights multimodal VLM/LLM systems to enable natural language queries over continuous multi-camera footage',
       'Owned the full research pipeline for event-based vision: capture rig setup, dataset collection and preprocessing, training, and deployment',
       'Deployed lab research services to the cloud (Google Cloud Platform) — containerized inference APIs and demo frontends with Docker, backed by cloud object storage for datasets and model checkpoints',
-      'Fine-tuned a large language model for a low-resource regional language pair via parameter-efficient fine-tuning (LoRA), improving translation quality over the zero-shot baseline in both directions',
-      'Note: model architectures, datasets and benchmark results from this role are covered by a laboratory NDA and are described here only at a high level'
+      'Fine-tuned a large language model for a low-resource regional language pair via parameter-efficient fine-tuning (LoRA), improving translation quality over the zero-shot baseline in both directions'
     ],
     technologies: [
       'PyTorch',

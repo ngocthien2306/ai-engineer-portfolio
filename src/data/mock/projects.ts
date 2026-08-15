@@ -22,11 +22,6 @@ export interface Project {
     url: string;
   }[];
   videos?: VideoItem[];
-  /**
-   * Disclosure note for work covered by an NDA. Rendered as a visible notice so the
-   * omission of model architectures / datasets / benchmark numbers is intentional and explicit.
-   */
-  confidential?: string;
 }
 
 const base = import.meta.env.BASE_URL || './';
@@ -84,7 +79,6 @@ export const projects: Project[] = [
       'Owned the full research pipeline end to end: event-camera capture rig, dataset collection and preprocessing, training, and real-time inference deployment on GPU server and Jetson edge hardware',
       'Delivered real-time inference on edge hardware for both tasks'
     ],
-    confidential: 'Architecture names, dataset details and benchmark results are withheld under a laboratory NDA.',
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1XsxSc0_fXKirsG994k08lBxj_kqYKDUi/preview', type: 'gdrive', title: 'Eye Gaze Demo 1' },
       { embedUrl: 'https://drive.google.com/file/d/1bNwilr4LmGBT5CWpPjM6GpBmWft-LiVX/preview', type: 'gdrive', title: 'Eye Gaze Demo 2' }
@@ -175,7 +169,6 @@ export const projects: Project[] = [
       'Real-time result streaming via WebSocket + SSE; pluggable query parsing on either a local LLM (Ollama) or a hosted API',
       'Full-stack: FastAPI backend, React dashboard, vector DB, S3 storage — containerized with CUDA-optimized Docker'
     ],
-    confidential: 'Specific model choices, pipeline parameters and retrieval benchmarks are withheld under a laboratory NDA.',
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1yT1rOYZOmHMEe8-J4r_ZnzBXRxfyoxH7/preview', type: 'gdrive', title: 'Agent VLM Demo' }
     ]
@@ -195,7 +188,6 @@ export const projects: Project[] = [
       'Built the end-to-end pipeline: feature engineering, graph construction, model training, and automated report generation',
       'Developed for NCU AI for Security R&D coursework on real-world financial fraud detection scenarios'
     ],
-    confidential: 'An extended version of this work is under peer review — architecture details and benchmark scores are withheld until publication.',
     links: [
       { label: 'GitHub', url: 'https://github.com/ngocthien2306/GraphGuard' }
     ]

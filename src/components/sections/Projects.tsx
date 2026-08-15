@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { ExternalLink, Calendar, Building2, CheckCircle2, Filter, PlayCircle, Lock } from 'lucide-react';
+import { ExternalLink, Calendar, Building2, CheckCircle2, Filter, PlayCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Modal } from '../ui/Modal';
 import { projects, Project, VideoItem } from '@/data/mock/projects';
@@ -274,16 +274,6 @@ export const Projects: React.FC = () => {
                       </li>
                     ))}
                   </ul>
-
-                  {/* NDA / confidentiality notice */}
-                  {project.confidential && (
-                    <div className="flex items-start gap-2 mb-5 px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/60">
-                      <Lock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
-                        {project.confidential}
-                      </p>
-                    </div>
-                  )}
 
                   {/* Stack Tags */}
                   <div className="flex flex-wrap gap-1.5">
