@@ -43,7 +43,7 @@ export const projects: Project[] = [
     endDate: 'Mar 2026',
     stack: ['YOLO', 'TensorRT', 'ONNX', 'Jetson Orin Nano/NX', 'Basler Camera', 'React', 'FastAPI', 'MongoDB'],
     highlights: [
-      'Deployed 6 models in parallel across 3 Basler cameras/line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day at 70–180 products/min',
+      'Deployed 5 models in parallel across 3 Basler cameras/line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day at 70–180 products/min',
       'Achieved 99%+ detection accuracy and 0.4% false positive rate via TensorRT FP16/INT8 optimization',
       'Built React + FastAPI operations dashboard with LLM-powered agent — operators query production data and control AI modules via natural language (<5s response)',
       'Replaced 100% manual QC inspection solo within 3 months, deployed across 7+ production lines'
@@ -156,7 +156,6 @@ export const projects: Project[] = [
       'Built the full pipeline from event-stream preprocessing to real-time inference on Jetson edge hardware',
       'Privacy-friendly by design — event streams carry motion, not identifiable imagery'
     ],
-    confidential: 'Model architectures, sensor configuration and evaluation results are withheld under a laboratory NDA.',
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1WpBoKFJoz6AbCE4UUD7dUszqyzAwn7Cg/preview', type: 'gdrive', title: 'Fall Detection & Tracking Demo' }
     ]

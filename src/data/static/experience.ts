@@ -24,7 +24,7 @@ export const experiences: Experience[] = [
     description: [
       'Architected and deployed end-to-end AI QA/QC system across 7+ production lines at a global agri-commodity processing facility, eliminating 100% manual inspection (sole developer)',
       'Optimized YOLO inference pipeline on Jetson Orin Nano/NX via TensorRT + ONNX, achieving 99%+ accuracy and 0.4% false positive rate at 70–180 products/minute',
-      'Deployed 6 models in parallel across 3 Basler cameras per line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day',
+      'Deployed 5 models in parallel across 3 Basler cameras per line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day',
       'Built React + FastAPI operations dashboard with 6 modules: live camera feed, AI toggle, audit log, historical analytics, and LLM-powered agent for operator queries',
       'Delivered full system in 3 months, from model training to multi-line production rollout across 7+ lines',
       'LLM-powered agent enables operators to query production data and control AI modules via natural language (<5s response)'
@@ -61,6 +61,7 @@ export const experiences: Experience[] = [
       'Optimized a large-scale audio-visual speech data pipeline via parallelization, batch inference, and architecture improvements, substantially increasing preprocessing throughput',
       'Researching multi-camera scene understanding with open-weights multimodal VLM/LLM systems to enable natural language queries over continuous multi-camera footage',
       'Owned the full research pipeline for event-based vision: capture rig setup, dataset collection and preprocessing, training, and deployment',
+      'Deployed lab research services to the cloud (Google Cloud Platform) — containerized inference APIs and demo frontends with Docker, backed by cloud object storage for datasets and model checkpoints',
       'Fine-tuned a large language model for a low-resource regional language pair via parameter-efficient fine-tuning (LoRA), improving translation quality over the zero-shot baseline in both directions',
       'Note: model architectures, datasets and benchmark results from this role are covered by a laboratory NDA and are described here only at a high level'
     ],
@@ -73,13 +74,15 @@ export const experiences: Experience[] = [
       'Multimodal VLM / LLM',
       'LLM Fine-Tuning (LoRA)',
       'Jetson',
+      'Google Cloud Platform',
+      'Docker',
       'Computer Vision',
       'Deep Learning'
     ],
     highlights: [
       'Custom SNN architectures for event-based gaze estimation and pupil segmentation',
       'Real-time inference on Jetson edge hardware and GPU server',
-      'Researching multi-camera VLM/LLM scene understanding'
+      'Deployed containerized research services on GCP'
     ]
   },
   {
