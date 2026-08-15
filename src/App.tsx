@@ -13,7 +13,7 @@ import { Education } from './components/sections/Education';
 import { Skills } from './components/sections/Skills';
 import { Blog } from './components/sections/Blog';
 import { Projects } from './components/sections/Projects';
-// import { Contact } from './components/sections/Contact';
+import { Contact } from './components/sections/Contact';
 
 function App() {
   const { isLoading } = useUIStore();
@@ -33,9 +33,7 @@ function App() {
               <Projects />
               <Skills />
               <Blog />
-              {/* <Contact /> */}
-              
-              {/* Add other sections here */}
+              <Contact />
             </main>
             <Footer />
           </div>

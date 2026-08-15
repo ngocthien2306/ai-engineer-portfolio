@@ -60,15 +60,15 @@ const achievements = [
     icon: GraduationCap,
     title: 'MS Computer Science',
     subtitle: 'National Central University (Taiwan)',
-    description: 'GPA: 93/100 • Deep Learning & Media System Laboratory • Expected Jun 2026',
-    timeline: '2024 - Present'
+    description: 'GPA: 93/100 • Deep Learning & Media System Laboratory • Defended Jul 2026',
+    timeline: '2024–2026'
   },
   {
     icon: Award,
     title: 'Neuromorphic AI Research',
     subtitle: 'NCU Deep Learning Lab',
     description: 'Custom Spiking Neural Network architectures for event-based gaze estimation and pupil segmentation. Runs in real time on edge hardware',
-    timeline: '2024 - Present'
+    timeline: '2024–2026'
   },
   {
     icon: Target,
@@ -131,7 +131,7 @@ export const About: React.FC = () => {
                   </p>
 
                   <p>
-                    As a solo developer I commercialized i-PPE, an ISO 45001-compliant workplace safety product
+                    As the sole software developer I commercialized i-PPE, a workplace safety product
                     deployed across multiple factories. I also architected an AI QA/QC system at a global
                     agri-commodity processing facility that replaced 100% of manual inspection across 7+ production
                     lines, at <span className="font-semibold text-green-600 dark:text-green-400">99%+ accuracy</span> and a{' '}
@@ -139,9 +139,9 @@ export const About: React.FC = () => {
                   </p>
 
                   <p>
-                    Currently pursuing my Master's in Computer Science at
-                    National Central University in Taiwan, researching neuromorphic computing, event-based vision, and
-                    multimodal AI systems at the Deep Learning & Media System Laboratory.
+                    I finished my Master's in Computer Science at National Central University in Taiwan in July 2026,
+                    researching neuromorphic computing, event-based vision and multimodal AI systems at the
+                    Deep Learning & Media System Laboratory.
                   </p>
                 </div>
               </div>

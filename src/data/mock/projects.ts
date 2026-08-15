@@ -86,17 +86,17 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'i-PPE: ISO 45001 PPE Compliance Detection',
-    subtitle: 'Commercialized AI safety product for factory door/machine access control',
+    title: 'i-PPE: PPE Compliance Detection',
+    subtitle: 'Commercialized AI safety product for factory door and machine access control',
     organization: 'i-SOFT JSC',
     status: 'Commercialized',
     startDate: 'Nov 2023',
     endDate: 'Jun 2024',
     stack: ['YOLO', 'TensorRT', 'Jetson Edge Device', 'FastAPI', 'Python'],
     highlights: [
-      'Built an AI system enforcing ISO 45001 compliance: gate and machine access is granted only on real-time PPE detection at entry points of hazardous zones',
+      'Built an AI system that enforces the PPE control at hazardous-zone entry points, supporting customers\' ISO 45001 programmes: gate and machine access is granted only on real-time PPE detection',
       'Achieved 99% accuracy and <1% false positive rate at 30 FPS on Jetson. Runs fully on the edge, with no cloud dependency',
-      'Packaged and commercialized as standalone hardware + software product across 7 camera clusters in 2–3 factories',
+      'Packaged and commercialized as a standalone hardware + software product across 7 camera clusters in 3 factories',
       'Auto-generates SHE/EHS compliance reports for factory management'
     ],
     links: [
@@ -109,14 +109,14 @@ export const projects: Project[] = [
   {
     id: 4,
     title: 'Safety AI CCTV',
-    subtitle: '8-module safety platform running 8+ AI models across 13 cameras',
+    subtitle: '8-module safety platform covering 13 cameras on a single GPU server',
     organization: 'i-SOFT JSC',
     status: 'Production',
     startDate: 'Sep 2023',
     endDate: 'Feb 2024',
     stack: ['YOLO', 'Pose Estimation', 'OCR', 'PyTorch', 'GPU Server', 'FastAPI', 'React', 'PLC'],
     highlights: [
-      'Engineered 8-module safety platform running 8+ AI models in parallel across 13 cameras at 20–30 FPS: handrail compliance, zone intrusion, AGV proximity, smart lighting',
+      'Engineered an 8-module safety platform covering 13 cameras at 20–30 FPS: handrail compliance, zone intrusion, AGV proximity, smart lighting',
       'Reduced workplace safety violations by ~90% post-deployment with <3% false positive rate',
       'PLC-integrated for automated shutdown and buzzer alerts; platform has operated continuously for 2+ years',
       'Certified by factory for production deployment'
@@ -148,7 +148,7 @@ export const projects: Project[] = [
       'Designed a fall detection and multi-object tracking system fusing an event-based camera with radar sensor data',
       'Used the event camera\'s microsecond temporal resolution to capture high-speed motion without motion blur',
       'Built the full pipeline from event-stream preprocessing to real-time inference on Jetson edge hardware',
-      'Privacy-friendly: event streams contain motion data only, with no identifiable imagery'
+      'Privacy-friendly: no conventional frames are captured or stored, only brightness-change events'
     ],
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1WpBoKFJoz6AbCE4UUD7dUszqyzAwn7Cg/preview', type: 'gdrive', title: 'Fall Detection & Tracking Demo' }

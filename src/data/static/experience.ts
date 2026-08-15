@@ -95,8 +95,8 @@ export const experiences: Experience[] = [
     type: 'ai',
     description: [
       'Developed 4 production Vision AI systems end-to-end (data collection → 50,000+ labeled images → training → deployment) in a team of 1–3 engineers',
-      'Co-developed 2 flagship products, Safety AI CCTV and i-PPE, certified by a Fortune 500 FMCG manufacturer and deployed across 3+ factories',
-      'Packaged i-PPE as a standalone ISO 45001-compliant hardware + software product, deployed to 2–3 factories',
+      'Built the entire software stack for i-PPE and co-developed Safety AI CCTV: 2 flagship products certified by a Fortune 500 FMCG manufacturer and deployed across 3+ factories',
+      'Packaged i-PPE as a standalone hardware + software product supporting customers\' ISO 45001 programmes, deployed to 3 factories',
       'Set up Docker containerization and a GitHub Actions CI/CD pipeline, adopted by every project on the team',
       'Deployed models on-site, integrating with IP camera streams and surfacing detections in the violations management dashboard',
       'Integrated with PLC systems to trigger alerts and automated robot stops',
@@ -116,9 +116,9 @@ export const experiences: Experience[] = [
       'Jetson'
     ],
     highlights: [
-      'Commercialized i-PPE as an ISO 45001-compliant hardware + software product',
+      'Sole software developer on i-PPE, commercialized as a hardware + software product',
       'Safety AI CCTV platform operating continuously for 2+ years in production',
-      'Established CI/CD pipeline reducing deployment errors across all projects'
+      'Set up the Docker + CI/CD pipeline adopted across the team'
     ]
   },
   {
@@ -206,10 +206,10 @@ export const educations: Education[] = [
     degree: 'Master of Science (M.S.)',
     field: 'Computer Science',
     startDate: 'Aug 2024',
-    endDate: 'Jun 2026',
+    endDate: 'Jul 2026',
     gpa: '93',
     gpaScale: '100',
-    description: 'Deep Learning & Media System Laboratory: research in event-based computer vision, spiking neural networks, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Expected graduation: June 2026.',
+    description: 'Deep Learning & Media System Laboratory: research in event-based computer vision, spiking neural networks, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Thesis defended and passed in July 2026; diploma pending.',
     images: [
       // Graduation 2026 — newest first
       `${base}education/ncu/grad-1.jpg`,
@@ -231,12 +231,7 @@ export const educations: Education[] = [
     gpa: '3.1',
     gpaScale: '4.0',
     activities: 'Football Club, Enrollment and Career Guidance',
-    description: 'Thesis: AI-powered Parking Management System (9.6/10). EUREKA Competition Semi-finalist. Coursework: software engineering, algorithms, databases, computer networks.',
-    images: [
-      `${base}education/hcmute/1.jpg`,
-      `${base}education/hcmute/2.jpg`,
-      `${base}education/hcmute/3.jpg`,
-    ]
+    description: 'Thesis: AI-powered Parking Management System (9.6/10). EUREKA Competition Semi-finalist. Coursework: software engineering, algorithms, databases, computer networks.'
   },
   {
     id: 3,
@@ -247,11 +242,7 @@ export const educations: Education[] = [
     endDate: 'Jun 2023',
     gpa: '3.4',
     gpaScale: '4.0',
-    description: 'Data science program: machine learning, data analysis, Python, and statistical modeling.',
-    images: [
-      `${base}education/fpt/1.jpg`,
-      `${base}education/fpt/2.jpg`,
-    ]
+    description: 'Data science program: machine learning, data analysis, Python, and statistical modeling.'
   }
 ];
 

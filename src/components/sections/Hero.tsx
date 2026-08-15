@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, MapPin, Mail, Phone } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { CV_URL } from '@/config/constants';
+import { CV_URL, AVAILABILITY } from '@/config/constants';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -20,7 +20,7 @@ const itemVariants = {
 
 export const Hero: React.FC = () => {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center py-20">
+    <section id="home" className="relative min-h-screen flex items-center py-20">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900" />
       
       <div className="container-max section-padding relative z-10">
@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                MS Computer Science @ National Central University, Taiwan
+                {AVAILABILITY.status} &middot; M.S. Computer Science, National Central University
               </motion.div>
               
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">

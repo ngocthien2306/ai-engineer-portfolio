@@ -28,9 +28,19 @@ export const BREAKPOINTS = {
   '2xl': 1536,
 };
 
-export const SOCIAL_LINKS = {
-  github: 'https://github.com',
-  linkedin: 'https://linkedin.com',
-  twitter: 'https://twitter.com',
-  email: 'mailto:your-email@example.com',
+/** Real contact details. Used by Hero, Contact and Footer so they can't drift apart. */
+export const CONTACT = {
+  email: 'ngocthien.dev23@gmail.com',
+  phone: '+886 916 399 690',
+  phoneHref: 'tel:+886916399690',
+  location: 'Taoyuan City, Taiwan',
+  github: 'https://github.com/ngocthien2306',
+  linkedin: 'https://www.linkedin.com/in/nguyen-ngoc-thien-331ab425b/',
+};
+
+/** Shown wherever a recruiter would ask "can I hire him, where, and when". */
+export const AVAILABILITY = {
+  status: 'Open to AI engineering roles',
+  detail:
+    'M.S. thesis defended and passed in July 2026, diploma pending. Eligible for a job-seeking ARC in Taiwan with unrestricted work rights, and open to relocation.',
 };
