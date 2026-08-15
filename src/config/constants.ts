@@ -1,15 +1,11 @@
 /**
  * Where the "Download CV" / "Download Resume" buttons point. Single source of truth.
  *
- * Currently the shared 104.com.tw profile (temporary). To go back to serving the
- * PDF from /public, swap in CV_PDF_URL below — the file is still in the repo.
+ * Currently the shared 104.com.tw profile. The PDF is deliberately not published
+ * from /public, so this is the only public route to the CV.
  */
 export const CV_URL = 'https://pda.104.com.tw/profile/share/dkZPfzYMBnCG68u2p4iAFW2vQZjoasjr';
 
-/** Self-hosted PDF fallback, kept in /public. */
-export const CV_PDF_URL = `${import.meta.env.BASE_URL || './'}${encodeURIComponent(
-  'Nguyen Ngoc Thien CV - AI Engineer-2.pdf'
-)}`;
 
 export const CONSTANTS = {
   CACHE_TIME: 5 * 60 * 1000, // 5 minutes
@@ -31,8 +27,8 @@ export const BREAKPOINTS = {
 /** Real contact details. Used by Hero, Contact and Footer so they can't drift apart. */
 export const CONTACT = {
   email: 'ngocthien.dev23@gmail.com',
-  phone: '+886 916 399 690',
-  phoneHref: 'tel:+886916399690',
+  phone: '+886 917 806 205',
+  phoneHref: 'tel:+886917806205',
   location: 'Taoyuan City, Taiwan',
   github: 'https://github.com/ngocthien2306',
   linkedin: 'https://www.linkedin.com/in/nguyen-ngoc-thien-331ab425b/',

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" width="760" height="340" role="img" aria-label="Leaky integrate-and-fire dynamics: input spikes push the membrane potential up, it decays between inputs, and when it crosses the threshold the neuron emits a spike and the potential is reset.">
+  <style>
+    .bg   { fill: #f6f8f8; }
+    .card { fill: #ffffff; stroke: #d7dede; stroke-width: 1; }
+    .ink  { fill: #16211f; }
+    .mid  { fill: #5a6a68; }
+    .soft { fill: #8a9998; }
+    .axis { stroke: #b0bcbb; stroke-width: 1.2; }
+    .grid { stroke: #e2e8e8; stroke-width: 1; }
+    .blue { stroke: #2563a8; fill: #2563a8; }
+    .teal { stroke: #0d7a72; fill: #0d7a72; }
+    .trace{ stroke: #0d7a72; stroke-width: 2.2; fill: none; }
+    .dash { stroke: #b8524a; stroke-width: 1.4; stroke-dasharray: 5 4; }
+    .red  { fill: #b8524a; }
+    .note { stroke: #8a9998; stroke-width: 1; fill: none; }
+    text  { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .h    { font-size: 14px; font-weight: 700; }
+    .l    { font-size: 11.5px; }
+    .s    { font-size: 10px; }
+    .m    { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg   { fill: #131c1b; }
+      .card { fill: #1a2524; stroke: #2e3e3c; }
+      .ink  { fill: #e4ecea; }
+      .mid  { fill: #a6b5b3; }
+      .soft { fill: #7d8c8a; }
+      .axis { stroke: #445553; }
+      .grid { stroke: #253433; }
+      .blue { stroke: #6ba8e8; fill: #6ba8e8; }
+      .teal { stroke: #45c2b6; fill: #45c2b6; }
+      .trace{ stroke: #45c2b6; }
+      .dash { stroke: #e8877d; }
+      .red  { fill: #e8877d; }
+      .note { stroke: #7d8c8a; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="760" height="340" rx="4"/>
+  <rect class="card" x="16" y="16" width="728" height="308" rx="4"/>
+
+  <text class="h ink" x="36" y="44">Leaky integrate-and-fire, one timestep at a time</text>
+  <text class="s soft" x="36" y="61">Every input adds to the potential; between inputs it leaks away by a factor β.</text>
+
+  <!-- input spike row -->
+  <text class="s soft" x="36" y="92">input</text>
+  <line class="axis" x1="90" y1="96" x2="700" y2="96"/>
+  <g class="blue" stroke-width="2">
+    <line x1="128" y1="96" x2="128" y2="80"/>
+    <line x1="170" y1="96" x2="170" y2="80"/>
+    <line x1="206" y1="96" x2="206" y2="80"/>
+    <line x1="286" y1="96" x2="286" y2="80"/>
+    <line x1="322" y1="96" x2="322" y2="80"/>
+    <line x1="360" y1="96" x2="360" y2="80"/>
+    <line x1="398" y1="96" x2="398" y2="80"/>
+    <line x1="500" y1="96" x2="500" y2="80"/>
+    <line x1="536" y1="96" x2="536" y2="80"/>
+    <line x1="574" y1="96" x2="574" y2="80"/>
+  </g>
+
+  <!-- membrane axis -->
+  <text class="s soft" x="36" y="140">V(t)</text>
+  <line class="axis" x1="90" y1="252" x2="700" y2="252"/>
+  <line class="axis" x1="90" y1="130" x2="90" y2="252"/>
+  <line class="grid" x1="90" y1="212" x2="700" y2="212"/>
+  <line class="grid" x1="90" y1="172" x2="700" y2="172"/>
+
+  <!-- threshold -->
+  <line class="dash" x1="90" y1="150" x2="700" y2="150"/>
+  <text class="m red" x="706" y="154">θ</text>
+
+  <!-- trace: rise on input, exponential-ish decay between, reset after crossing -->
+  <path class="trace" d="M90 252
+    L128 252 L128 214 L150 226 L170 226 L170 190 L190 200 L206 200 L206 164 L226 176
+    L250 194 L286 194 L286 158 L306 168 L322 168 L322 148
+    L324 252 L360 252 L360 216 L380 226 L398 226 L398 190 L418 200
+    L450 220 L500 220 L500 186 L520 196 L536 196 L536 162 L556 172 L574 172 L574 146
+    L576 252 L700 252"/>
+
+  <!-- fire markers -->
+  <circle class="red" cx="322" cy="148" r="3.5"/>
+  <circle class="red" cx="574" cy="146" r="3.5"/>
+
+  <!-- output spike row -->
+  <text class="s soft" x="36" y="292">output</text>
+  <line class="axis" x1="90" y1="296" x2="700" y2="296"/>
+  <g class="teal" stroke-width="2.4">
+    <line x1="323" y1="296" x2="323" y2="272"/>
+    <line x1="575" y1="296" x2="575" y2="272"/>
+  </g>
+
+  <!-- annotations -->
+  <path class="note" d="M240 186 L240 172"/>
+  <text class="s mid" x="216" y="168">leak (×β)</text>
+
+  <path class="note" d="M330 168 L352 176"/>
+  <text class="s mid" x="356" y="180">fire, then reset</text>
+
+  <text class="m ink" x="90" y="322">V[t] = β·V[t−1] + I[t]   ·   spike if V[t] ≥ θ   ·   then V[t] ← V[t] − θ</text>
+</svg>

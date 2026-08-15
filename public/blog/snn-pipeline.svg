@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="End to end spiking network pipeline: input is encoded into spikes, unrolled through the network for T timesteps while membrane state carries forward, then a readout aggregates the output spikes into a prediction.">
+  <style>
+    .bg    { fill: #f6f8f8; }
+    .card  { fill: #ffffff; stroke: #d7dede; stroke-width: 1; }
+    .stage { fill: #ffffff; stroke: #c2cccb; stroke-width: 1.2; }
+    .loop  { fill: #eef4f3; stroke: #0d7a72; stroke-width: 1.2; stroke-dasharray: 4 3; }
+    .ink   { fill: #16211f; }
+    .mid   { fill: #5a6a68; }
+    .soft  { fill: #8a9998; }
+    .arrow { stroke: #8a9998; stroke-width: 1.6; fill: none; }
+    .head  { fill: #8a9998; }
+    .teal  { stroke: #0d7a72; fill: #0d7a72; }
+    .blue  { stroke: #2563a8; fill: #2563a8; }
+    text   { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .h     { font-size: 14px; font-weight: 700; }
+    .t     { font-size: 11.5px; font-weight: 600; }
+    .s     { font-size: 9.5px; }
+    .m     { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; }
+    @media (prefers-color-scheme: dark) {
+      .bg    { fill: #131c1b; }
+      .card  { fill: #1a2524; stroke: #2e3e3c; }
+      .stage { fill: #1f2b2a; stroke: #3a4a48; }
+      .loop  { fill: #162927; stroke: #45c2b6; }
+      .ink   { fill: #e4ecea; }
+      .mid   { fill: #a6b5b3; }
+      .soft  { fill: #7d8c8a; }
+      .arrow { stroke: #7d8c8a; }
+      .head  { fill: #7d8c8a; }
+      .teal  { stroke: #45c2b6; fill: #45c2b6; }
+      .blue  { stroke: #6ba8e8; fill: #6ba8e8; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="760" height="300" rx="4"/>
+  <rect class="card" x="16" y="16" width="728" height="268" rx="4"/>
+
+  <text class="h ink" x="36" y="44">The shape of every SNN forward pass</text>
+  <text class="s soft" x="36" y="61">The network is unrolled T times. State carries across timesteps; weights do not change within the pass.</text>
+
+  <!-- stage 1: input -->
+  <rect class="stage" x="36" y="94" width="118" height="72" rx="3"/>
+  <text class="t ink" x="50" y="120">Input</text>
+  <text class="s mid" x="50" y="137">Frames, sensor data,</text>
+  <text class="s mid" x="50" y="150">or event-camera stream</text>
+
+  <path class="arrow" d="M158 130 L182 130"/>
+  <polygon class="head" points="182,126 190,130 182,134"/>
+
+  <!-- stage 2: encoding -->
+  <rect class="stage" x="194" y="94" width="122" height="72" rx="3"/>
+  <text class="t ink" x="208" y="120">Encoding</text>
+  <text class="s mid" x="208" y="137">Rate, latency, or</text>
+  <text class="s mid" x="208" y="150">direct injection</text>
+  <g class="blue" stroke-width="1.8">
+    <line x1="208" y1="106" x2="208" y2="98"/>
+    <line x1="216" y1="106" x2="216" y2="98"/>
+    <line x1="230" y1="106" x2="230" y2="98"/>
+  </g>
+
+  <path class="arrow" d="M320 130 L344 130"/>
+  <polygon class="head" points="344,126 352,130 344,134"/>
+
+  <!-- stage 3: unrolled SNN -->
+  <rect class="loop" x="356" y="82" width="216" height="140" rx="4"/>
+  <text class="t ink" x="370" y="102">Spiking layers, unrolled</text>
+
+  <rect class="stage" x="370" y="112" width="86" height="34" rx="3"/>
+  <text class="s ink" x="382" y="133">Linear / Conv</text>
+  <rect class="stage" x="370" y="154" width="86" height="34" rx="3"/>
+  <text class="s ink" x="386" y="175">LIF neuron</text>
+
+  <path class="arrow" d="M413 146 L413 152"/>
+  <polygon class="head" points="409,152 413,158 417,152"/>
+
+  <!-- state carry arrow -->
+  <path class="arrow" d="M462 171 C500 171 500 129 462 129" stroke-dasharray="3 3"/>
+  <polygon class="head" points="466,125 458,129 466,133"/>
+  <text class="s teal" x="470" y="152">V carries</text>
+  <text class="s teal" x="470" y="164">forward</text>
+
+  <text class="m mid" x="370" y="208">for t in range(T)</text>
+
+  <path class="arrow" d="M576 152 L600 152"/>
+  <polygon class="head" points="600,148 608,152 600,156"/>
+
+  <!-- stage 4: readout -->
+  <rect class="stage" x="612" y="94" width="112" height="72" rx="3"/>
+  <text class="t ink" x="626" y="120">Readout</text>
+  <text class="s mid" x="626" y="137">Count spikes, or</text>
+  <text class="s mid" x="626" y="150">take final membrane</text>
+  <g class="teal" stroke-width="1.8">
+    <line x1="626" y1="106" x2="626" y2="98"/>
+    <line x1="636" y1="106" x2="636" y2="98"/>
+  </g>
+
+  <path class="arrow" d="M668 172 L668 194"/>
+  <polygon class="head" points="664,194 668,202 672,194"/>
+  <text class="t ink" x="628" y="220">Prediction</text>
+
+  <!-- cost note -->
+  <text class="s soft" x="36" y="200">Cost note</text>
+  <text class="s mid" x="36" y="216">A forward pass costs T times</text>
+  <text class="s mid" x="36" y="229">an equivalent ANN pass.</text>
+  <text class="s mid" x="36" y="242">Sparsity only becomes a saving</text>
+  <text class="s mid" x="36" y="255">on neuromorphic silicon.</text>
+</svg>

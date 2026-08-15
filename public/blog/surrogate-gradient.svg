@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="760" height="320" role="img" aria-label="Forward pass uses a hard step function at the threshold, whose derivative is zero everywhere. The backward pass substitutes a smooth bump centred on the threshold, not on zero.">
+  <style>
+    .bg   { fill: #f6f8f8; }
+    .card { fill: #ffffff; stroke: #d7dede; stroke-width: 1; }
+    .ink  { fill: #16211f; }
+    .mid  { fill: #5a6a68; }
+    .soft { fill: #8a9998; }
+    .axis { stroke: #b0bcbb; stroke-width: 1.2; }
+    .step { stroke: #16211f; stroke-width: 2.4; fill: none; }
+    .surr { stroke: #0d7a72; stroke-width: 2.4; fill: none; }
+    .fillsurr { fill: #0d7a72; fill-opacity: .10; stroke: none; }
+    .dash { stroke: #b8524a; stroke-width: 1.3; stroke-dasharray: 5 4; }
+    .red  { fill: #b8524a; }
+    .warnbox { fill: #fdf0ee; stroke: #e6c3bd; stroke-width: 1; }
+    text  { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .h    { font-size: 13px; font-weight: 700; }
+    .l    { font-size: 11.5px; }
+    .s    { font-size: 10px; }
+    .m    { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; }
+    @media (prefers-color-scheme: dark) {
+      .bg   { fill: #131c1b; }
+      .card { fill: #1a2524; stroke: #2e3e3c; }
+      .ink  { fill: #e4ecea; }
+      .mid  { fill: #a6b5b3; }
+      .soft { fill: #7d8c8a; }
+      .axis { stroke: #445553; }
+      .step { stroke: #e4ecea; }
+      .surr { stroke: #45c2b6; }
+      .fillsurr { fill: #45c2b6; fill-opacity: .14; }
+      .dash { stroke: #e8877d; }
+      .red  { fill: #e8877d; }
+      .warnbox { fill: #2b1a18; stroke: #4d302c; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="760" height="320" rx="4"/>
+
+  <!-- forward -->
+  <rect class="card" x="16" y="16" width="352" height="230" rx="4"/>
+  <text class="h ink" x="34" y="42">Forward: hard step</text>
+  <text class="s soft" x="34" y="58">S = 1 if V ≥ θ, else 0</text>
+
+  <line class="axis" x1="60" y1="200" x2="340" y2="200"/>
+  <line class="axis" x1="60" y1="86" x2="60" y2="200"/>
+  <line class="dash" x1="200" y1="86" x2="200" y2="200"/>
+  <text class="m red" x="194" y="216">θ</text>
+  <text class="s soft" x="330" y="216">V</text>
+  <text class="s soft" x="38" y="92">1</text>
+  <text class="s soft" x="38" y="204">0</text>
+
+  <path class="step" d="M60 200 L200 200"/>
+  <path class="step" d="M200 86 L340 86"/>
+  <circle class="ink" cx="200" cy="86" r="3"/>
+
+  <text class="s mid" x="80" y="234">Derivative is 0 everywhere it is defined,</text>
+  <text class="s mid" x="80" y="248">and undefined at θ. Backprop dies here.</text>
+
+  <!-- backward -->
+  <rect class="card" x="392" y="16" width="352" height="230" rx="4"/>
+  <text class="h ink" x="410" y="42">Backward: smooth surrogate</text>
+  <text class="s soft" x="410" y="58">∂S/∂V ≈ σ′(k(V − θ))</text>
+
+  <line class="axis" x1="436" y1="200" x2="716" y2="200"/>
+  <line class="axis" x1="436" y1="86" x2="436" y2="200"/>
+  <line class="dash" x1="576" y1="86" x2="576" y2="200"/>
+  <text class="m red" x="570" y="216">θ</text>
+  <text class="s soft" x="706" y="216">V</text>
+
+  <path class="fillsurr" d="M436 200 C500 200 528 196 546 168 C560 144 566 100 576 100
+                            C586 100 592 144 606 168 C624 196 652 200 716 200 Z"/>
+  <path class="surr" d="M436 200 C500 200 528 196 546 168 C560 144 566 100 576 100
+                        C586 100 592 144 606 168 C624 196 652 200 716 200"/>
+  <circle class="surr" cx="576" cy="100" r="3.5" fill="none"/>
+
+  <text class="s mid" x="452" y="234">Gradient is largest exactly at the decision</text>
+  <text class="s mid" x="452" y="248">boundary, and k controls how sharp it is.</text>
+
+  <!-- the trap -->
+  <rect class="warnbox" x="16" y="258" width="728" height="46" rx="3"/>
+  <text class="l ink" x="34" y="278">The trap: centre it on the threshold, not on zero.</text>
+  <text class="s mid" x="34" y="294">Writing σ(V) instead of σ(k(V − θ)) puts the steepest gradient where the neuron is furthest from firing — exactly backwards.</text>
+</svg>

@@ -14,6 +14,7 @@ export interface LocalBlogPost {
   };
 }
 
+const B = import.meta.env.BASE_URL || './';
 const AUTHOR_AVATAR = `${import.meta.env.BASE_URL || './'}profile1.jpg`;
 
 export const localBlogPosts: LocalBlogPost[] = [
@@ -420,8 +421,8 @@ The toolchain is ready. The hardware is accessible. The bottleneck is now data c
   },
   {
     id: 1,
-    title: "Understanding Spiking Neural Networks: The Third Generation of Neural Networks",
-    description: "Explore the fascinating world of Spiking Neural Networks (SNNs), their biological inspiration, advantages over traditional neural networks, and real-world applications in neuromorphic computing.",
+    title: "Understanding Spiking Neural Networks",
+    description: "How LIF neurons and surrogate gradients actually work, why the energy-efficiency claim only holds on neuromorphic silicon, and the two implementation mistakes that quietly stop an SNN from being one. With working snnTorch code.",
     publishedAt: "2025-01-08",
     slug: "spiking-neural-networks-basics",
     readingTime: 12,
@@ -432,227 +433,254 @@ The toolchain is ready. The hardware is accessible. The bottleneck is now data c
       avatar: AUTHOR_AVATAR
     },
     content: `
-# Understanding Spiking Neural Networks: The Third Generation of Neural Networks
+# Understanding Spiking Neural Networks
 
-As artificial intelligence continues to evolve, researchers are constantly seeking more efficient and biologically-inspired approaches to machine learning. Enter **Spiking Neural Networks (SNNs)** – often referred to as the "third generation" of neural networks. Unlike traditional artificial neural networks, SNNs more closely mimic the behavior of biological neurons by incorporating the concept of time into their computational model.
+Spiking Neural Networks (SNNs) are often called the "third generation" of neural networks. The label oversells it a little, but the underlying idea is real: instead of passing a single number between layers, an SNN passes discrete events through time, and every neuron carries state between timesteps.
 
-## What Are Spiking Neural Networks?
+I work with SNNs on event-camera data, so most of what follows is written from the position of someone who has had to make these things actually train and actually run on a Jetson, rather than from the position of the survey papers. That means this post spends as much time on what does not work as on what does.
 
-Spiking Neural Networks are a type of artificial neural network that models neurons using discrete events called "spikes" or "action potentials." Unlike conventional neural networks that use continuous activation functions, SNNs process information through temporal sequences of spikes, making them fundamentally different in how they encode and process information.
+## What actually changes
 
-### Key Characteristics
+An artificial neuron is a pure function. Give it the same input twice and you get the same output twice. A spiking neuron is not: it has a membrane potential that persists, so the same input arriving at a different moment produces a different result.
 
-1. **Temporal Dynamics**: SNNs incorporate time as a fundamental dimension
-2. **Event-Driven Processing**: Information is encoded in the timing of spikes
-3. **Biological Realism**: More closely mimics actual brain function
-4. **Energy Efficiency**: Potentially more power-efficient than traditional ANNs
+![Comparison of an artificial neuron and a spiking neuron](${B}blog/ann-vs-snn.svg)
 
-## How Do Spiking Neural Networks Work?
+That single change is the whole story. Everything else in this post is a consequence of it: the training difficulty, the hardware requirements, the temporal processing, and the energy argument.
 
-### Neuron Models
+### Key characteristics
 
-The most common neuron model used in SNNs is the **Leaky Integrate-and-Fire (LIF)** model:
+1. **Time is part of the model.** There is no forward pass without a number of timesteps.
+2. **Communication is binary.** A neuron either fires or it does not; there is no magnitude.
+3. **State is local.** Each neuron remembers its own potential rather than relying on an explicit memory mechanism.
+
+## The Leaky Integrate-and-Fire neuron
+
+Almost everything practical uses the **Leaky Integrate-and-Fire (LIF)** model. Input current pushes the potential up, the potential leaks away between inputs, and when it crosses a threshold the neuron fires and the potential is knocked back down.
+
+![Leaky integrate-and-fire dynamics over time](${B}blog/lif-dynamics.svg)
+
+The discretisation matters more than people expect. The standard form decays the *previous* state and then adds the new input:
 
 \`\`\`python
-# Simplified LIF neuron implementation
 class LIFNeuron:
-    def __init__(self, threshold=1.0, reset=0.0, decay=0.95):
+    """V[t] = beta * V[t-1] + I[t], fire when V >= threshold."""
+
+    def __init__(self, threshold=1.0, beta=0.95, reset="subtract"):
         self.threshold = threshold
+        self.beta = beta            # beta = exp(-dt / tau_m)
         self.reset = reset
-        self.decay = decay
-        self.membrane_potential = 0.0
-        
-    def update(self, input_current, dt=1.0):
-        # Integrate input
-        self.membrane_potential += input_current * dt
-        
-        # Apply decay
-        self.membrane_potential *= self.decay
-        
-        # Check for spike
-        if self.membrane_potential >= self.threshold:
-            spike = True
-            self.membrane_potential = self.reset
-        else:
-            spike = False
-            
+        self.v = 0.0
+
+    def step(self, input_current):
+        # 1. Decay the existing potential, then integrate the new input.
+        self.v = self.beta * self.v + input_current
+
+        # 2. Fire if we crossed the threshold.
+        spike = self.v >= self.threshold
+
+        # 3. Reset. Subtracting the threshold preserves the overshoot,
+        #    which loses less information than clamping to zero.
+        if spike:
+            if self.reset == "subtract":
+                self.v -= self.threshold
+            else:
+                self.v = 0.0
+
         return spike
 \`\`\`
 
-### Information Encoding
+Two details worth calling out, because getting them wrong is the most common way a hand-rolled SNN silently fails to be an SNN at all:
 
-SNNs use several encoding schemes to convert input data into spike trains:
+**Decay order.** If you write \`v += input\` and *then* \`v *= beta\`, you are decaying the current on the timestep it arrives, which is not the LIF equation. It will still train, badly, and you will spend a day wondering why.
 
-1. **Rate Coding**: Information encoded in the firing rate
-2. **Temporal Coding**: Information encoded in precise spike timing
-3. **Population Coding**: Information distributed across multiple neurons
-4. **Phase Coding**: Information encoded in the phase of oscillatory activity
+**The reset is not optional.** Without it the potential stays above threshold once it gets there and the neuron fires on every subsequent timestep forever. A "LIF" implementation with no reset is not leaky, not integrate-and-fire, and not doing anything useful.
 
-## Advantages of Spiking Neural Networks
+### Getting information in
 
-### 1. Energy Efficiency
-SNNs are inherently more energy-efficient because:
-- Neurons only consume energy when they spike
-- Sparse activity patterns reduce computational load
-- Event-driven processing eliminates unnecessary calculations
+Real-valued input has to become spikes somehow. The usual options:
 
-### 2. Temporal Processing
-- Natural handling of temporal sequences
-- Ability to process time-varying signals
-- Memory through dynamics rather than explicit storage
+1. **Rate coding.** Higher value, more spikes. Robust and simple, but it needs many timesteps to represent a value precisely, and timesteps are exactly what costs you.
+2. **Latency coding.** Higher value, earlier spike. Far fewer spikes, much more sensitive to noise.
+3. **Direct injection.** Feed the analogue value in as input current at every timestep and let the first layer do the encoding. In practice this trains best for vision tasks, and it is what most modern work uses.
 
-### 3. Biological Plausibility
-- More realistic model of brain function
-- Potential for better brain-computer interfaces
-- Insights into neurological processes
+Event-camera data is a special case: the sensor already emits asynchronous brightness-change events, so there is no encoding step in the usual sense. What you choose instead is a **representation**: how to bin events into timesteps, whether to use fixed time windows or fixed event counts, and whether to build event frames, voxel grids, or feed events in directly.
 
-### 4. Online Learning
-- Continuous learning capabilities
-- Real-time adaptation to new data
-- No need for batch processing
+## Training: the non-differentiable problem
 
-## Challenges and Limitations
+The forward pass contains a step function. Its derivative is zero everywhere it exists and undefined at the threshold, so gradients cannot flow. The standard fix is the **surrogate gradient**: keep the hard step in the forward pass, substitute a smooth function in the backward pass.
 
-### 1. Training Complexity
-Training SNNs is more challenging than traditional neural networks:
-- Non-differentiable spike functions
-- Credit assignment problem across time
-- Limited availability of established training algorithms
+![Forward hard step versus smooth surrogate gradient in the backward pass](${B}blog/surrogate-gradient.svg)
 
-### 2. Hardware Requirements
-- Specialized neuromorphic hardware for optimal performance
-- Current general-purpose processors not optimized for spike-based computation
-- Limited software frameworks and tools
-
-### 3. Performance Gap
-- Often underperform compared to traditional deep networks on standard benchmarks
-- Requires careful architecture design and hyperparameter tuning
-- Limited theoretical understanding
-
-## Training Spiking Neural Networks
-
-### Surrogate Gradient Methods
 \`\`\`python
 import torch
 import torch.nn as nn
+
+
+class SurrogateSpike(torch.autograd.Function):
+    """Heaviside forward, sigmoid-derivative backward."""
+
+    @staticmethod
+    def forward(ctx, v_minus_theta, k):
+        ctx.save_for_backward(v_minus_theta)
+        ctx.k = k
+        return (v_minus_theta >= 0).float()
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        (v_minus_theta,) = ctx.saved_tensors
+        k = ctx.k
+        # Derivative of sigmoid(k * (V - theta)), peaked AT the threshold.
+        sig = torch.sigmoid(k * v_minus_theta)
+        return grad_output * k * sig * (1.0 - sig), None
+
 
 class SpikingActivation(nn.Module):
-    def __init__(self, threshold=1.0):
+    def __init__(self, threshold=1.0, k=10.0):
         super().__init__()
         self.threshold = threshold
-        
-    def forward(self, x):
-        # Forward pass: Heaviside step function
-        spikes = (x >= self.threshold).float()
-        
-        # Backward pass: Use surrogate gradient (sigmoid derivative)
-        if self.training:
-            surrogate_grad = torch.sigmoid(x)
-            spikes = spikes.detach() + surrogate_grad - surrogate_grad.detach()
-            
-        return spikes
+        self.k = k  # surrogate steepness; 5-25 is the usual range
+
+    def forward(self, v):
+        return SurrogateSpike.apply(v - self.threshold, self.k)
 \`\`\`
 
-### Conversion from ANNs
-- Train conventional neural network first
-- Convert activation functions to spiking equivalents
-- Fine-tune the converted network
+The argument is \`v - threshold\`, not \`v\`. This is worth being pedantic about because it is easy to get wrong and the failure is quiet. If you write \`torch.sigmoid(v)\` with a threshold of 1.0, the surrogate peaks at \`v = 0\`, which means the gradient is largest when the neuron is furthest from firing and smallest at the decision boundary. The network still trains. It just trains against a gradient pointing at the wrong place.
 
-### Direct Training Methods
-- Spike-Timing Dependent Plasticity (STDP)
-- Evolutionary algorithms for weight optimization
-- Reinforcement learning approaches
+The steepness \`k\` is a real hyperparameter. Too flat and every neuron gets gradient regardless of whether it was close to firing; too sharp and you are back to a step function with vanishing gradients. Fast-sigmoid and arctan surrogates are common alternatives with slightly better-behaved tails.
 
-## Applications of Spiking Neural Networks
+### The other two options
 
-### 1. Neuromorphic Computing
-- Intel's Loihi chip
-- IBM's TrueNorth processor
-- Ultra-low power edge computing
+**ANN-to-SNN conversion.** Train a normal network, then map ReLU activations onto firing rates. It reaches good accuracy without touching a surrogate gradient, but it needs a lot of timesteps to converge on the right rates, which makes it slow at inference.
 
-### 2. Sensory Processing
-- Event-based vision systems
-- Auditory signal processing
-- Tactile sensing and robotics
+**Local learning rules** such as STDP. Biologically motivated and genuinely online, but they do not currently reach competitive accuracy on anything non-trivial.
 
-### 3. Brain-Computer Interfaces
-- Neural prosthetics
-- Motor control systems
-- Cognitive enhancement devices
+For most work today the answer is surrogate-gradient backpropagation through time. It is what the field runs on, and it is what the rest of this post assumes.
 
-### 4. Time-Series Analysis
-- Financial market prediction
-- Speech recognition
-- Sensor data processing
+## What a forward pass actually looks like
 
-## Getting Started with SNNs
+![End-to-end spiking network pipeline unrolled over timesteps](${B}blog/snn-pipeline.svg)
 
-### Popular Frameworks
+Note what the diagram implies about cost. The network is unrolled T times, so a forward pass does roughly T times the work of an equivalent ANN, and backpropagation through time holds T timesteps of activations in memory. This is the fact that most introductions to SNNs quietly skip, and it shapes everything about when they are worth using.
 
-1. **BindsNET**: PyTorch-based SNN simulation
-2. **NEST**: Large-scale neural network simulation
-3. **Brian2**: Python-based neural simulator
-4. **SpyTorch**: PyTorch extension for SNNs
+## Honest advantages
 
-### Simple Example
+### Energy efficiency, with a large asterisk
+
+The usual claim is that SNNs are inherently more efficient because neurons only consume energy when they spike. That is true **on neuromorphic hardware**, where sparse activity maps directly onto skipped operations.
+
+On a GPU or a Jetson it is generally false, and often backwards. A GPU executes dense matrix multiplications; a tensor of mostly zeros costs the same as a tensor of mostly non-zeros. Run that dense computation T times and an SNN is more expensive than the ANN you are comparing it to, not less.
+
+So if you are deploying to conventional hardware, pick SNNs for their fit to the data, not for power. The energy argument is real but it is an argument about silicon.
+
+### Temporal processing and event data
+
+This is the advantage that survives on ordinary hardware. SNNs are a natural match for asynchronous, sparse, high-temporal-resolution input, which is exactly what event cameras produce. Neither the data nor the model has a notion of a frame, so nothing has to be forced into one.
+
+### A note on biological plausibility
+
+SNNs are frequently sold as the biologically realistic option. The neuron model is closer to biology than a ReLU, which is fair. But surrogate-gradient BPTT, the method that makes them work, requires weight transport, non-local credit assignment, and backpropagation through time, none of which the brain does.
+
+You can have biological plausibility or you can have competitive accuracy. Current practice picks accuracy. That is a reasonable choice, but it is worth being clear-eyed that "trains with surrogate gradients" and "models the brain" are largely separate claims.
+
+## Honest limitations
+
+### There is a real accuracy gap
+
+On standard vision benchmarks, deep SNNs land a few points behind comparable ANNs. Spiking ResNets reach roughly 95 to 96 percent on CIFAR-10, and current spiking architectures reach roughly 70 to 75 percent top-1 on ImageNet against 80 percent and up for comparable ANNs. The gap has narrowed considerably but it has not closed.
+
+### Latency is a design constraint
+
+Accuracy usually improves with more timesteps, and every timestep costs latency and memory. Choosing T is a genuine accuracy-versus-cost trade that has no equivalent in ANN work.
+
+### Tooling is thinner
+
+The ecosystem is small. Fewer pretrained backbones, fewer reference implementations, and far more opportunity to introduce a subtle bug in the neuron model itself, as the decay-order and reset problems above illustrate.
+
+## Getting started
+
+### Frameworks worth your time
+
+1. **snnTorch.** PyTorch-native, surrogate gradients built in, the gentlest starting point. This is what I use.
+2. **SpikingJelly.** PyTorch-based, faster CUDA kernels, more architectures, steeper learning curve.
+3. **Norse.** PyTorch-based, cleaner functional API, good if you want to compose your own neuron models.
+4. **Intel Lava.** The route to deploying on Loihi hardware rather than simulating on a GPU.
+
+A note to save you time: **NEST** and **Brian2** come up constantly in search results, but they are computational-neuroscience simulators built for biophysical modelling. They are not gradient-based deep-learning tools and they are the wrong choice for this work. **SpyTorch** is a well-known tutorial repository on surrogate-gradient learning, worth reading, but it is not an installable package.
+
+### A network that runs
+
 \`\`\`python
 import torch
 import torch.nn as nn
-from spytorch import functional as SF
+import snntorch as snn
+from snntorch import surrogate
+
 
 class SimpleSNN(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size):
+    def __init__(self, input_size, hidden_size, output_size,
+                 num_steps=25, beta=0.95):
         super().__init__()
+        self.num_steps = num_steps
+        spike_grad = surrogate.fast_sigmoid(slope=25)
+
         self.fc1 = nn.Linear(input_size, hidden_size)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.fc2 = nn.Linear(hidden_size, output_size)
-        
-    def forward(self, x, time_steps=100):
-        # Convert input to spike train
-        spike_input = SF.rate_coding(x, time_steps)
-        
-        outputs = []
-        membrane1 = torch.zeros(x.size(0), self.fc1.out_features)
-        membrane2 = torch.zeros(x.size(0), self.fc2.out_features)
-        
-        for t in range(time_steps):
-            # Layer 1
-            membrane1 += self.fc1(spike_input[t])
-            spikes1 = SF.lif_activation(membrane1)
-            
-            # Layer 2
-            membrane2 += self.fc2(spikes1)
-            output = SF.lif_activation(membrane2)
-            
-            outputs.append(output)
-            
-        return torch.stack(outputs)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+
+    def forward(self, x):
+        # Membrane state is initialised once per sample, not per timestep.
+        mem1 = self.lif1.init_leaky()
+        mem2 = self.lif2.init_leaky()
+        spike_record = []
+
+        for _ in range(self.num_steps):
+            # Direct injection: feed the analogue input at every timestep
+            # and let the first layer learn the encoding.
+            cur1 = self.fc1(x)
+            spk1, mem1 = self.lif1(cur1, mem1)
+
+            cur2 = self.fc2(spk1)
+            spk2, mem2 = self.lif2(cur2, mem2)
+
+            spike_record.append(spk2)
+
+        # [T, batch, classes] -- sum over T for a rate-coded readout.
+        return torch.stack(spike_record)
+
+
+model = SimpleSNN(784, 256, 10)
+out = model(torch.rand(32, 784))     # [25, 32, 10]
+logits = out.sum(dim=0)              # spike counts as class scores
 \`\`\`
 
-## Future Directions
+The state handling is the part to pay attention to. \`mem1\` and \`mem2\` are created once and threaded through the loop; if you reinitialise them inside the loop you have removed the only thing that made this a spiking network.
 
-### Research Areas
-- Novel learning algorithms for SNNs
-- Hybrid SNN-ANN architectures
-- Improved neuromorphic hardware
-- Better understanding of temporal coding
+## Neuromorphic hardware
 
-### Industry Applications
-- Edge AI and IoT devices
-- Autonomous vehicles
-- Medical diagnostics
-- Smart sensors and actuators
+This is where the energy argument becomes true rather than aspirational.
+
+- **Intel Loihi 2**, and the **Hala Point** system built from it, is the most accessible research platform, reachable through Lava.
+- **IBM NorthPole** is the successor to the much-cited TrueNorth, which dates from 2014 and is no longer the state of the art.
+- **SynSense Speck** integrates an event camera with a spiking processor on one chip, which is the most directly relevant option if you work on event-based vision.
+
+The honest summary is that access remains the bottleneck. Most published SNN work, including mine, trains and evaluates on GPUs, which means most published efficiency claims are theoretical rather than measured.
+
+## Where they make sense today
+
+Reach for an SNN when the input is genuinely asynchronous and sparse, when you have event-based sensors, when latency matters more than peak accuracy, or when you have a path to neuromorphic silicon.
+
+Do not reach for one because it sounds more brain-like. On static images, on conventional hardware, chasing benchmark numbers, a well-tuned CNN will beat it on accuracy, latency and power at the same time.
 
 ## Conclusion
 
-Spiking Neural Networks represent a fascinating intersection of neuroscience and artificial intelligence. While they face current limitations in training complexity and performance on traditional benchmarks, their potential for energy-efficient, temporal processing makes them an exciting area of research.
+SNNs are not a drop-in replacement for deep learning and the honest case for them is narrower than the enthusiasm suggests. But the narrow case is real. Event-based sensing produces data that conventional networks have to distort into frames before they can process it, and a model built around events rather than frames does not.
 
-As neuromorphic hardware continues to mature and training algorithms improve, SNNs may play a crucial role in the next generation of AI systems, particularly in applications requiring real-time processing, low power consumption, and biological compatibility.
-
-The field is rapidly evolving, with new breakthroughs in both theory and application emerging regularly. For researchers and practitioners interested in bio-inspired computing, SNNs offer a rich and promising avenue for exploration.
+If you want to start: install snnTorch, implement LIF from scratch once so the decay and reset are in your fingers, then use the library version. Get the surrogate centred on the threshold. Everything after that is ordinary deep learning with an extra loop.
 
 ---
 
-*This post explores the fundamentals of Spiking Neural Networks, their advantages, challenges, and applications. As someone working with cutting-edge neural network technologies, I'm excited about the potential of SNNs to revolutionize how we approach artificial intelligence and neuromorphic computing.*
+*Written from hands-on work with event-based vision and spiking architectures. Corrections welcome.*
     `
   }
 ];

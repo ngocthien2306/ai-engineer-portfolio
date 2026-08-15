@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, MapPin, Mail, Phone } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { CV_URL, AVAILABILITY } from '@/config/constants';
+import { CV_URL, AVAILABILITY, CONTACT } from '@/config/constants';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -69,11 +69,11 @@ export const Hero: React.FC = () => {
             <motion.div variants={itemVariants} className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-blue-500" />
-                <span>Taoyuan City, Taiwan</span>
+                <span>{CONTACT.location}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-green-500" />
-                <span>ngocthien.dev23@gmail.com</span>
+                <span>{CONTACT.email}</span>
               </div>
             </motion.div>
             
@@ -104,7 +104,7 @@ export const Hero: React.FC = () => {
               className="flex gap-4"
             >
               <Button
-                onClick={() => window.open('https://github.com/ngocthien2306', '_blank')}
+                onClick={() => window.open(CONTACT.github, '_blank')}
                 rel="noopener noreferrer"
                 variant="ghost"
                 size="sm"
@@ -113,7 +113,7 @@ export const Hero: React.FC = () => {
                 <Github className="w-6 h-6" />
               </Button>
               <Button
-                onClick={() => window.open('https://www.linkedin.com/in/nguyen-ngoc-thien-331ab425b/', '_blank')}
+                onClick={() => window.open(CONTACT.linkedin, '_blank')}
                 rel="noopener noreferrer"
                 variant="ghost"
                 size="sm"
@@ -122,7 +122,7 @@ export const Hero: React.FC = () => {
                 <Linkedin className="w-6 h-6" />
               </Button>
               <Button
-                onClick={() => window.open('tel:+886916399690', '_blank')}
+                onClick={() => { window.location.href = CONTACT.phoneHref; }}
                 rel="noopener noreferrer"
                 variant="ghost"
                 size="sm"
