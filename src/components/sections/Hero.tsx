@@ -60,7 +60,7 @@ export const Hero: React.FC = () => {
               className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl"
             >
               AI Engineer with <span className="font-semibold text-blue-600 dark:text-blue-400">4+ years of software development</span> and{' '}
-              <span className="font-semibold text-purple-600 dark:text-purple-400">2+ years building Vision AI</span>{' '}
+              <span className="font-semibold text-purple-600 dark:text-purple-400">3+ years building Vision AI</span>{' '}
               for intelligent manufacturing. I work end to end: data collection, model training,{' '}
               <span className="font-semibold text-blue-600 dark:text-blue-400">edge optimization (TensorRT/ONNX on Jetson)</span>{' '}
               and deployment in factory environments. Currently researching VLM/LLM, agentic AI, and multimodal systems at NCU Deep Learning Lab.
@@ -142,7 +142,7 @@ export const Hero: React.FC = () => {
                 <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">2+</div>
+                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">3+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Years in AI/ML</div>
               </div>
               <div className="text-center">
