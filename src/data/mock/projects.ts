@@ -40,7 +40,7 @@ export const projects: Project[] = [
     highlights: [
       'Deployed 5 models in parallel across 3 Basler cameras/line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day at 70–180 products/min',
       'Achieved 99%+ detection accuracy and 0.4% false positive rate via TensorRT FP16/INT8 optimization',
-      'Built React + FastAPI operations dashboard with LLM-powered agent — operators query production data and control AI modules via natural language (<5s response)',
+      'Built React + FastAPI operations dashboard with an LLM-powered agent; operators query production data and control AI modules in natural language (<5s response)',
       'Replaced 100% manual QC inspection solo within 3 months, deployed across 7+ production lines'
     ],
     videos: [
@@ -74,9 +74,9 @@ export const projects: Project[] = [
     endDate: '2025',
     stack: ['PyTorch', 'SNNTorch', 'Event-Based Vision (EVS)', 'OpenCV', 'Jetson', 'GPU Server'],
     highlights: [
-      'Designed custom Spiking Neural Network architectures from scratch — no pretrained backbone — for two tasks: gaze regression and pupil segmentation',
+      'Designed custom Spiking Neural Network architectures from scratch (no pretrained backbone) for two tasks: gaze regression and pupil segmentation',
       'Built on Leaky Integrate-and-Fire (LIF) neurons with surrogate-gradient training; explored several spike-encoding strategies and task-specific composite loss functions',
-      'Owned the full research pipeline end to end: event-camera capture rig, dataset collection and preprocessing, training, and real-time inference deployment on GPU server and Jetson edge hardware',
+      'Owned the full research pipeline: event-camera capture rig, dataset collection and preprocessing, training, and real-time inference deployment on GPU server and Jetson edge hardware',
       'Delivered real-time inference on edge hardware for both tasks'
     ],
     videos: [
@@ -86,7 +86,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'i-PPE — ISO 45001 PPE Compliance Detection',
+    title: 'i-PPE: ISO 45001 PPE Compliance Detection',
     subtitle: 'Commercialized AI safety product for factory door/machine access control',
     organization: 'i-SOFT JSC',
     status: 'Commercialized',
@@ -94,8 +94,8 @@ export const projects: Project[] = [
     endDate: 'Jun 2024',
     stack: ['YOLO', 'TensorRT', 'Jetson Edge Device', 'FastAPI', 'Python'],
     highlights: [
-      'Built AI system enforcing ISO 45001 compliance — gate/machine access based on real-time PPE detection at entry points of hazardous zones',
-      'Achieved 99% accuracy and <1% false positive rate at 30 FPS on Jetson — no cloud dependency, fully edge-native',
+      'Built an AI system enforcing ISO 45001 compliance: gate and machine access is granted only on real-time PPE detection at entry points of hazardous zones',
+      'Achieved 99% accuracy and <1% false positive rate at 30 FPS on Jetson. Runs fully on the edge, with no cloud dependency',
       'Packaged and commercialized as standalone hardware + software product across 7 camera clusters in 2–3 factories',
       'Auto-generates SHE/EHS compliance reports for factory management'
     ],
@@ -108,7 +108,7 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    title: 'Safety AI CCTV — AI Workplace Safety Platform',
+    title: 'Safety AI CCTV',
     subtitle: '8-module safety platform running 8+ AI models across 13 cameras',
     organization: 'i-SOFT JSC',
     status: 'Production',
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     endDate: 'Feb 2024',
     stack: ['YOLO', 'Pose Estimation', 'OCR', 'PyTorch', 'GPU Server', 'FastAPI', 'React', 'PLC'],
     highlights: [
-      'Engineered 8-module safety platform running 8+ AI models in parallel across 13 cameras at 20–30 FPS — handrail compliance, zone intrusion, AGV proximity, smart lighting',
+      'Engineered 8-module safety platform running 8+ AI models in parallel across 13 cameras at 20–30 FPS: handrail compliance, zone intrusion, AGV proximity, smart lighting',
       'Reduced workplace safety violations by ~90% post-deployment with <3% false positive rate',
       'PLC-integrated for automated shutdown and buzzer alerts; platform has operated continuously for 2+ years',
       'Certified by factory for production deployment'
@@ -146,9 +146,9 @@ export const projects: Project[] = [
     stack: ['Event-Based Vision (EVS)', 'Radar Sensor', 'Sensor Fusion', 'PyTorch', 'Jetson', 'GPU Server'],
     highlights: [
       'Designed a fall detection and multi-object tracking system fusing an event-based camera with radar sensor data',
-      'Leveraged the event camera\'s microsecond temporal resolution to capture high-speed motion without motion blur',
+      'Used the event camera\'s microsecond temporal resolution to capture high-speed motion without motion blur',
       'Built the full pipeline from event-stream preprocessing to real-time inference on Jetson edge hardware',
-      'Privacy-friendly by design — event streams carry motion, not identifiable imagery'
+      'Privacy-friendly: event streams contain motion data only, with no identifiable imagery'
     ],
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1WpBoKFJoz6AbCE4UUD7dUszqyzAwn7Cg/preview', type: 'gdrive', title: 'Fall Detection & Tracking Demo' }
@@ -156,7 +156,7 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: 'Agent VLM — AI-Powered Video Intelligence',
+    title: 'Agent VLM',
     subtitle: 'Natural language search across continuous multi-camera footage via a hybrid retrieval + segmentation pipeline',
     organization: 'NCU Deep Learning Lab',
     status: 'Research',
@@ -164,10 +164,10 @@ export const projects: Project[] = [
     endDate: '2025',
     stack: ['Vision-Language Models', 'Vector Search (Qdrant)', 'FastAPI', 'React', 'PyTorch', 'Ollama', 'Claude API', 'Docker', 'AWS S3'],
     highlights: [
-      'Two-stage hybrid search: vision-language embeddings for fast semantic retrieval, then a promptable segmentation stage for precise object localisation and verification',
+      'Two-stage hybrid search: vision-language embeddings for fast semantic retrieval, then a promptable segmentation stage for precise object localization and verification',
       'Natural language queries in Vietnamese & English across large frame archives from continuous multi-camera footage',
       'Real-time result streaming via WebSocket + SSE; pluggable query parsing on either a local LLM (Ollama) or a hosted API',
-      'Full-stack: FastAPI backend, React dashboard, vector DB, S3 storage — containerized with CUDA-optimized Docker'
+      'Full-stack: FastAPI backend, React dashboard, vector DB and S3 storage, all containerized with CUDA-optimized Docker'
     ],
     videos: [
       { embedUrl: 'https://drive.google.com/file/d/1yT1rOYZOmHMEe8-J4r_ZnzBXRxfyoxH7/preview', type: 'gdrive', title: 'Agent VLM Demo' }
@@ -175,18 +175,18 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    title: 'GraphGuard — Graph-Based Fraud Detection',
+    title: 'GraphGuard',
     subtitle: 'GNN system for transaction fraud & anomaly detection with continual learning',
-    organization: 'NCU — AI for Security R&D',
+    organization: 'NCU, AI for Security R&D',
     status: 'Research',
     startDate: '2025',
     endDate: '2025',
     stack: ['Python', 'PyTorch', 'Graph Neural Networks', 'Continual Learning', 'Feature Engineering'],
     highlights: [
       'Implemented a relational graph attention architecture for transaction fraud detection on financial graph data',
-      'Extended it with continual-learning regularisation to prevent catastrophic forgetting as fraud patterns evolve',
+      'Extended it with continual-learning regularization to prevent catastrophic forgetting as fraud patterns evolve',
       'Built the end-to-end pipeline: feature engineering, graph construction, model training, and automated report generation',
-      'Developed for NCU AI for Security R&D coursework on real-world financial fraud detection scenarios'
+      'Developed for NCU AI for Security R&D coursework on financial fraud detection'
     ],
     links: [
       { label: 'GitHub', url: 'https://github.com/ngocthien2306/GraphGuard' }
@@ -194,7 +194,7 @@ export const projects: Project[] = [
   },
   {
     id: 8,
-    title: 'Task Agent — AI Scheduling with 3D Avatar',
+    title: 'Task Agent',
     subtitle: 'Natural language task scheduling, reminders, and 3D avatar AI agent',
     organization: 'Personal Project',
     status: 'Personal',
@@ -203,9 +203,9 @@ export const projects: Project[] = [
     stack: ['Node.js', 'React', 'React Native', 'LLM', '3D Avatar', 'Docker', 'REST API'],
     highlights: [
       'Built a cross-platform AI agent (web + mobile) that creates tasks, sets reminders, and manages schedules via natural language input',
-      'Integrated 3D avatar as the interactive AI interface — responds and communicates task updates visually',
+      'Integrated a 3D avatar as the interactive AI interface. It responds to the user and shows task updates visually',
       'Full-stack architecture: Node.js backend, React web frontend, React Native mobile app, all containerized with Docker',
-      'Designed for real-world daily productivity use with NLP-driven intent parsing'
+      'Uses NLP intent parsing to turn free-form text into scheduled tasks and reminders'
     ],
     links: [
       { label: 'Backend', url: 'https://github.com/ngocthien2306/task-agent-backend' },
@@ -215,7 +215,7 @@ export const projects: Project[] = [
   },
   {
     id: 9,
-    title: 'Android PPE Detection — Mobile Edge AI',
+    title: 'Android PPE Detection',
     subtitle: 'Real-time PPE compliance detection on Android using YOLO + C++ NDK',
     organization: 'Personal Project',
     status: 'Personal',
@@ -224,9 +224,9 @@ export const projects: Project[] = [
     stack: ['YOLO', 'C++ NDK', 'Android', 'OpenCV', 'TFLite / ONNX'],
     highlights: [
       'Ported YOLO object detection to Android using C++ NDK for native inference performance',
-      'Detects PPE compliance (helmet, vest, gloves) in real time directly on mobile device — no server required',
+      'Detects PPE compliance (helmet, vest, gloves) in real time directly on the device, with no server required',
       'Optimized for mobile hardware constraints: low latency inference with minimal memory footprint',
-      'Extends i-PPE concept to mobile deployment, enabling portable safety inspection on the factory floor'
+      'A mobile version of the i-PPE concept, for walk-around safety inspection on the factory floor'
     ],
     links: [
       { label: 'GitHub', url: 'https://github.com/ngocthien2306/android-yolo' }
@@ -234,7 +234,7 @@ export const projects: Project[] = [
   },
   {
     id: 10,
-    title: 'RAG Pipeline — Retrieval-Augmented Generation',
+    title: 'RAG Pipeline',
     subtitle: 'Modular RAG system with embedding, retrieval, and LLM integration',
     organization: 'Personal Project',
     status: 'Personal',

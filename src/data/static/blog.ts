@@ -14,6 +14,8 @@ export interface LocalBlogPost {
   };
 }
 
+const AUTHOR_AVATAR = `${import.meta.env.BASE_URL || './'}profile1.jpg`;
+
 export const localBlogPosts: LocalBlogPost[] = [
   {
     id: 2,
@@ -26,7 +28,7 @@ export const localBlogPosts: LocalBlogPost[] = [
     coverImage: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     author: {
       name: "Nguyen Ngoc Thien",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+      avatar: AUTHOR_AVATAR
     },
     content: `
 # The Definitive Guide to Domain-Specific LLM Fine-Tuning
@@ -427,7 +429,7 @@ The toolchain is ready. The hardware is accessible. The bottleneck is now data c
     coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
     author: {
       name: "Nguyen Ngoc Thien",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+      avatar: AUTHOR_AVATAR
     },
     content: `
 # Understanding Spiking Neural Networks: The Third Generation of Neural Networks

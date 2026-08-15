@@ -358,9 +358,9 @@ export const Experience: React.FC = () => {
             className="text-center mt-16"
           >
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-4">Ready to Work Together?</h3>
+              <h3 className="text-2xl font-bold mb-4">Open to new roles</h3>
               <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                I'm always open to discussing new opportunities, innovative projects, and ways to contribute to meaningful AI solutions.
+                I'm open to AI engineering roles and happy to talk through any of the work above.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <motion.button

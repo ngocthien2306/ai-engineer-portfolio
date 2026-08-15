@@ -166,7 +166,7 @@ export const Projects: React.FC = () => {
               Featured <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Production AI systems, commercialized products, and cutting-edge research
+              Production AI systems, commercialized products, and research
             </p>
           </motion.div>
 

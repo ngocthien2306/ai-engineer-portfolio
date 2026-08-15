@@ -127,7 +127,7 @@ export const Education: React.FC = () => {
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Education</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Academic background that built my foundation in computer science and AI
+              Degrees, GPA, and coursework
             </p>
           </motion.div>
 

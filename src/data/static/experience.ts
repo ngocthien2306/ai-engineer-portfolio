@@ -22,7 +22,7 @@ export const experiences: Experience[] = [
     endDate: '2026-03',
     type: 'ai',
     description: [
-      'Architected and deployed end-to-end AI QA/QC system across 7+ production lines at a global agri-commodity processing facility, eliminating 100% manual inspection (sole developer)',
+      'Architected and deployed an end-to-end AI QA/QC system across 7+ production lines at a global agri-commodity processing facility, eliminating 100% of manual inspection (sole developer)',
       'Optimized YOLO inference pipeline on Jetson Orin Nano/NX via TensorRT + ONNX, achieving 99%+ accuracy and 0.4% false positive rate at 70–180 products/minute',
       'Deployed 5 models in parallel across 3 Basler cameras per line on Jetson Orin Nano/NX, inspecting 30,000–50,000 products/line/day',
       'Built React + FastAPI operations dashboard with 6 modules: live camera feed, AI toggle, audit log, historical analytics, and LLM-powered agent for operator queries',
@@ -56,13 +56,14 @@ export const experiences: Experience[] = [
     endDate: 'Present',
     type: 'research',
     description: [
-      'Designed event-based eye gaze estimation and pupil segmentation systems from scratch on event-camera (EVS) data — custom Spiking Neural Network architectures built on LIF neurons with surrogate-gradient training and task-specific loss functions, no pretrained backbone',
+      'Designed event-based eye gaze estimation and pupil segmentation systems from scratch on event-camera (EVS) data, with no pretrained backbone',
+      'Built custom Spiking Neural Network architectures on LIF neurons, with surrogate-gradient training and task-specific loss functions',
       'Delivered real-time inference for both tasks on Jetson edge hardware and GPU server',
-      'Optimized a large-scale audio-visual speech data pipeline via parallelization, batch inference, and architecture improvements, substantially increasing preprocessing throughput',
+      'Optimized a large-scale audio-visual speech data pipeline via parallelization, batch inference, and architecture improvements, which increased preprocessing throughput',
       'Researching multi-camera scene understanding with open-weights multimodal VLM/LLM systems to enable natural language queries over continuous multi-camera footage',
       'Owned the full research pipeline for event-based vision: capture rig setup, dataset collection and preprocessing, training, and deployment',
-      'Deployed lab research services to the cloud (Google Cloud Platform) — containerized inference APIs and demo frontends with Docker, backed by cloud object storage for datasets and model checkpoints',
-      'Fine-tuned a large language model for a low-resource regional language pair via parameter-efficient fine-tuning (LoRA), improving translation quality over the zero-shot baseline in both directions'
+      'Deployed lab research services on Google Cloud Platform: containerized inference APIs and demo frontends with Docker, plus object storage for datasets and model checkpoints',
+      'Fine-tuned a large language model with LoRA for a low-resource regional language pair. Translation quality beat the zero-shot baseline in both directions'
     ],
     technologies: [
       'PyTorch',
@@ -94,12 +95,12 @@ export const experiences: Experience[] = [
     type: 'ai',
     description: [
       'Developed 4 production Vision AI systems end-to-end (data collection → 50,000+ labeled images → training → deployment) in a team of 1–3 engineers',
-      'Co-developed Safety AI CCTV and i-PPE 2 flagship products certified by a Fortune 500 FMCG manufacturer, deployed across 3+ factories, contributing to 100% revenue growth for the company',
+      'Co-developed 2 flagship products, Safety AI CCTV and i-PPE, certified by a Fortune 500 FMCG manufacturer and deployed across 3+ factories. Company revenue grew 100% over the same period',
       'Packaged i-PPE as a standalone ISO 45001-compliant hardware + software product, deployed to 2–3 factories',
-      'Established Docker containerization and GitHub Actions CI/CD pipeline, reducing deployment errors across all projects',
-      'Deployed models in real-world environments, integrating with IP cameras to predict data and display results on user interfaces',
-      'Communicated with PLC systems for tasks such as alerts and automated robot stops',
-      'Collaborated with the frontend team to map APIs and construct a violations management dashboard'
+      'Set up Docker containerization and a GitHub Actions CI/CD pipeline, adopted by every project on the team',
+      'Deployed models on-site, integrating with IP camera streams and surfacing detections in the violations management dashboard',
+      'Integrated with PLC systems to trigger alerts and automated robot stops',
+      'Worked with the frontend team to map APIs and build the violations management dashboard'
     ],
     technologies: [
       'YOLO',
@@ -130,11 +131,9 @@ export const experiences: Experience[] = [
     type: 'fullstack',
     description: [
       'Built 10+ Angular modules and .NET 8 backend APIs for a manufacturing management system, collaborating within a cross-functional team of 15+ engineers',
-      'Utilized Entity Framework to interact with MSSQL database, ensuring data performance and consistency',
+      'Used Entity Framework over MSSQL for data access',
       'Built and optimized stored procedures for 4–5M record datasets; co-deployed and maintained production services on Microsoft Azure',
-      'Developed user interfaces using Angular, ensuring aesthetic appeal and good user experience',
-      'Implemented data communication between frontend and backend through RESTful APIs',
-      'Collaborated closely with the team to design and deploy new features, and address issues during development'
+      'Implemented data communication between frontend and backend through RESTful APIs'
     ],
     technologies: [
       '.NET 8',
@@ -161,12 +160,10 @@ export const experiences: Experience[] = [
     endDate: '2023-02',
     type: 'software',
     description: [
-      'Built full-stack features across 3 factory management projects — frontend (DevExtreme), backend (ASP.NET MVC), and database (MS SQL) in a team of 6–10 engineers',
+      'Built full-stack features across 3 factory management projects: frontend (DevExtreme), backend (ASP.NET MVC), and database (MS SQL), in a team of 6–10 engineers',
       'Reduced purchase order query time by 90% on 1M+ records via index tuning and stored procedure refactoring',
       'Maintained 60+ stored procedures supporting 10,000–100,000 daily transactions',
-      'Utilized C# to write efficient and scalable code, including the creation of stored procedures for data retrieval',
-      'Worked on projects: Pleiger, Owlgardien, Higgs Korea SCM-MES (international collaboration)',
-      'Continuously learned new technologies and implemented improvements to enhance system functionality'
+      'Worked on projects: Pleiger, Owlgardien, Higgs Korea SCM-MES (international collaboration)'
     ],
     technologies: [
       'DevExtreme',
@@ -212,7 +209,7 @@ export const educations: Education[] = [
     endDate: 'Jun 2026',
     gpa: '93',
     gpaScale: '100',
-    description: 'Deep Learning & Media System Laboratory — research in event-based computer vision, spiking neural networks, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Expected graduation: June 2026.',
+    description: 'Deep Learning & Media System Laboratory: research in event-based computer vision, spiking neural networks, eye gaze tracking, and multimodal AI. Courses: NLP, AI for Security R&D, Data Science, Machine Learning. Expected graduation: June 2026.',
     images: [
       // Graduation 2026 — newest first
       `${base}education/ncu/grad-1.jpg`,
@@ -234,7 +231,7 @@ export const educations: Education[] = [
     gpa: '3.1',
     gpaScale: '4.0',
     activities: 'Football Club, Enrollment and Career Guidance',
-    description: 'Thesis: AI-powered Parking Management System (9.6/10). EUREKA Competition Semi-finalist. Strong foundation in software engineering, algorithms, databases, and computer networks.',
+    description: 'Thesis: AI-powered Parking Management System (9.6/10). EUREKA Competition Semi-finalist. Coursework: software engineering, algorithms, databases, computer networks.',
     images: [
       `${base}education/hcmute/1.jpg`,
       `${base}education/hcmute/2.jpg`,
@@ -250,7 +247,7 @@ export const educations: Education[] = [
     endDate: 'Jun 2023',
     gpa: '3.4',
     gpaScale: '4.0',
-    description: 'Intensive data science program covering machine learning, data analysis, Python, and statistical modeling.',
+    description: 'Data science program: machine learning, data analysis, Python, and statistical modeling.',
     images: [
       `${base}education/fpt/1.jpg`,
       `${base}education/fpt/2.jpg`,

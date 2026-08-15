@@ -20,7 +20,7 @@ const highlights = [
   {
     icon: Brain,
     title: 'AI & Machine Learning',
-    description: 'YOLO, TensorRT, ONNX, PyTorch, TensorFlow — production AI systems at 99%+ accuracy in real factory environments',
+    description: 'YOLO, TensorRT, ONNX, PyTorch, TensorFlow. Production systems running at 99%+ accuracy on factory floors',
     color: 'from-blue-500 to-purple-600',
     glow: 'rgba(99,102,241,0.35)',
     border: 'group-hover:border-blue-400 dark:group-hover:border-blue-500',
@@ -29,7 +29,7 @@ const highlights = [
   {
     icon: Eye,
     title: 'Neuromorphic & Event-Based Vision',
-    description: 'Event-based (EVS) cameras, Spiking Neural Networks (SNNTorch), event-based gaze estimation and pupil segmentation — real-time inference on Jetson edge devices',
+    description: 'Event-based (EVS) cameras, Spiking Neural Networks (SNNTorch), gaze estimation and pupil segmentation. Real-time inference on Jetson edge devices',
     color: 'from-purple-500 to-pink-600',
     glow: 'rgba(217,70,239,0.35)',
     border: 'group-hover:border-pink-400 dark:group-hover:border-pink-500',
@@ -38,7 +38,7 @@ const highlights = [
   {
     icon: Code,
     title: 'Full-Stack Development',
-    description: 'FastAPI, React, TypeScript, Angular, C#, .NET 8 — end-to-end dashboards and AI-integrated platforms',
+    description: 'FastAPI, React, TypeScript, Angular, C#, .NET 8. End-to-end dashboards and AI-integrated platforms',
     color: 'from-green-500 to-blue-600',
     glow: 'rgba(34,197,94,0.35)',
     border: 'group-hover:border-green-400 dark:group-hover:border-green-500',
@@ -67,14 +67,14 @@ const achievements = [
     icon: Award,
     title: 'Neuromorphic AI Research',
     subtitle: 'NCU Deep Learning Lab',
-    description: 'Custom Spiking Neural Network architectures for event-based gaze estimation and pupil segmentation, running real-time on edge hardware',
+    description: 'Custom Spiking Neural Network architectures for event-based gaze estimation and pupil segmentation. Runs in real time on edge hardware',
     timeline: '2024 - Present'
   },
   {
     icon: Target,
     title: 'Production AI Deployment',
-    subtitle: 'Suntech Automation — Global Agri-Commodity Facility',
-    description: '100% manual QC replaced across 7+ production lines — 99%+ accuracy, 0.4% FPR at 70–180 products/min',
+    subtitle: 'Suntech Automation (global agri-commodity facility)',
+    description: '100% manual QC replaced across 7+ production lines. 99%+ accuracy, 0.4% FPR at 70–180 products/min',
     timeline: '2025–2026'
   },
 ];
@@ -106,7 +106,7 @@ export const About: React.FC = () => {
               About <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Me</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Passionate AI/ML Engineer with a dedication to pushing the boundaries of artificial intelligence and creating impactful solutions
+              Computer vision in production factories, neuromorphic vision research at NCU.
             </p>
           </motion.div>
           
@@ -127,23 +127,21 @@ export const About: React.FC = () => {
                   <p>
                     With <span className="font-semibold text-blue-600 dark:text-blue-400">over 4 years of software development experience</span> and
                     more than <span className="font-semibold text-blue-600 dark:text-blue-400">3 years specializing in Artificial Intelligence</span>,
-                    I have built a solid foundation in both engineering fundamentals and cutting-edge AI technologies.
+                    I work on both sides: production software engineering and applied AI.
                   </p>
 
                   <p>
-                    As a <span className="font-semibold text-purple-600 dark:text-purple-400">solo developer</span>, I commercialized{' '}
-                    <span className="font-semibold text-purple-600 dark:text-purple-400">i-PPE</span> — an ISO 45001-compliant workplace safety product
-                    deployed across multiple factories — and architected an AI QA/QC system at a{' '}
-                    <span className="font-semibold text-purple-600 dark:text-purple-400">global agri-commodity processing facility</span> that replaced 100% of manual inspection
-                    across 7+ production lines, achieving{' '}
-                    <span className="font-semibold text-green-600 dark:text-green-400">99%+ accuracy</span> and{' '}
+                    As a solo developer I commercialized i-PPE, an ISO 45001-compliant workplace safety product
+                    deployed across multiple factories. I also architected an AI QA/QC system at a global
+                    agri-commodity processing facility that replaced 100% of manual inspection across 7+ production
+                    lines, at <span className="font-semibold text-green-600 dark:text-green-400">99%+ accuracy</span> and a{' '}
                     <span className="font-semibold text-green-600 dark:text-green-400">0.4% false positive rate</span>.
                   </p>
 
                   <p>
-                    Currently pursuing my <span className="font-semibold text-green-600 dark:text-green-400">Master's in Computer Science</span> at
+                    Currently pursuing my Master's in Computer Science at
                     National Central University in Taiwan, researching neuromorphic computing, event-based vision, and
-                    multimodal AI systems at the Deep Learning & Media System Laboratory — building AI that creates real-world impact.
+                    multimodal AI systems at the Deep Learning & Media System Laboratory.
                   </p>
                 </div>
               </div>
@@ -165,7 +163,7 @@ export const About: React.FC = () => {
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full" />
-                    Building agentic AI and multimodal systems for real-world deployment
+                    Agentic AI and multimodal systems for production deployment
                   </li>
                 </ul>
               </div>
@@ -229,7 +227,7 @@ export const About: React.FC = () => {
             <div className="text-center">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">Areas of Expertise</h3>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Specialized skills and technologies I work with to create innovative AI solutions
+                The tools I use day to day
               </p>
             </div>
             
@@ -317,9 +315,9 @@ export const About: React.FC = () => {
             className="text-center mt-16"
           >
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-4">Let's Build the Future Together</h3>
+              <h3 className="text-2xl font-bold mb-4">Get in touch</h3>
               <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                I'm always excited to collaborate on innovative AI projects and contribute to meaningful technological advancements.
+                I'm open to AI engineering roles and to collaborating on vision or edge-AI work. Email is the fastest way to reach me.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -327,7 +325,7 @@ export const About: React.FC = () => {
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 className="bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
               >
-                Start a Conversation
+                Contact me
               </motion.button>
             </div>
           </motion.div>

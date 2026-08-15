@@ -60,10 +60,10 @@ export const Hero: React.FC = () => {
               className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl"
             >
               AI Engineer with <span className="font-semibold text-blue-600 dark:text-blue-400">4+ years of software development</span> and{' '}
-              <span className="font-semibold text-purple-600 dark:text-purple-400">2+ years building production-grade Vision AI</span>{' '}
-              for intelligent manufacturing. Specialized in end-to-end pipelines from data collection and model training to{' '}
+              <span className="font-semibold text-purple-600 dark:text-purple-400">2+ years building Vision AI</span>{' '}
+              for intelligent manufacturing. I work end to end: data collection, model training,{' '}
               <span className="font-semibold text-blue-600 dark:text-blue-400">edge optimization (TensorRT/ONNX on Jetson)</span>{' '}
-              with proven deployment across real factory environments. Currently researching VLM/LLM, agentic AI, and multimodal systems at NCU Deep Learning Lab.
+              and deployment on factory floors. Currently researching VLM/LLM, agentic AI, and multimodal systems at NCU Deep Learning Lab.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">

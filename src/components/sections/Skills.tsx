@@ -146,7 +146,7 @@ export const Skills: React.FC = () => {
               Technical <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Skills</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              My expertise across AI, programming, and web development
+              AI/ML, multimodal LLM, edge AI, full-stack, and DevOps
             </p>
           </motion.div>
 
