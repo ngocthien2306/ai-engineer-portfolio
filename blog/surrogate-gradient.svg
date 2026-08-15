@@ -78,5 +78,5 @@
   <!-- the trap -->
   <rect class="warnbox" x="16" y="258" width="728" height="46" rx="3"/>
   <text class="l ink" x="34" y="278">The trap: centre it on the threshold, not on zero.</text>
-  <text class="s mid" x="34" y="294">Writing σ(V) instead of σ(k(V − θ)) puts the steepest gradient where the neuron is furthest from firing — exactly backwards.</text>
+  <text class="s mid" x="34" y="294">Writing σ(V) instead of σ(k(V − θ)) puts the steepest gradient where the neuron is furthest from firing, which is exactly backwards.</text>
 </svg>

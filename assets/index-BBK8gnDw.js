@@ -316,7 +316,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`),w=R,D=F),A===void 0&&(
                   prose-th:bg-gray-100 prose-th:dark:bg-gray-800
                   prose-li:text-gray-700 prose-li:dark:text-gray-300
                   prose-hr:border-gray-200 prose-hr:dark:border-gray-700
-                `,children:p.jsx(vP,{remarkPlugins:[ID],rehypePlugins:[d3],children:e.content})}),p.jsxs("div",{className:"mt-10 pt-6 border-t border-gray-200 dark:border-gray-700",children:[p.jsx("div",{className:"flex flex-wrap gap-2 mb-6",children:e.tags.map(n=>p.jsxs("span",{className:"px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium",children:["#",n]},n))}),p.jsxs("button",{onClick:t,className:"flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium hover:underline",children:[p.jsx(_A,{className:"w-4 h-4"}),"Back to Blog"]})]})]})]})})]})})),Ue="/ai-engineer-portfolio/",To="/ai-engineer-portfolio/profile1.jpg",p3=[{id:4,title:"Template Matching, From Correlation to SuperPoint",description:"Four ways to find a known region in a new frame, from a single cv2.matchTemplate call to SuperPoint and LightGlue. Why the newest one is not the default, and why validating the recovered homography matters more than which matcher produced it.",publishedAt:"2026-08-16",slug:"template-matching-to-superpoint",readingTime:9,tags:["Computer Vision","Template Matching","SIFT","SuperPoint","LightGlue","OpenCV","Homography","Industrial AI"],coverImage:`${Ue}blog/iso-correlation-vs-keypoints.jpg`,author:{name:"Nguyen Ngoc Thien",avatar:To},content:`
+                `,children:p.jsx(vP,{remarkPlugins:[ID],rehypePlugins:[d3],children:e.content})}),p.jsxs("div",{className:"mt-10 pt-6 border-t border-gray-200 dark:border-gray-700",children:[p.jsx("div",{className:"flex flex-wrap gap-2 mb-6",children:e.tags.map(n=>p.jsxs("span",{className:"px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium",children:["#",n]},n))}),p.jsxs("button",{onClick:t,className:"flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium hover:underline",children:[p.jsx(_A,{className:"w-4 h-4"}),"Back to Blog"]})]})]})]})})]})})),Ue="/ai-engineer-portfolio/",To="/ai-engineer-portfolio/profile1.jpg",p3=[{id:4,title:"Template Matching, From Correlation to SuperPoint",description:"Four ways to find a known region in a new frame, from a single cv2.matchTemplate call to SuperPoint and LightGlue. Why the newest one is not the default, and why validating the recovered homography matters more than which matcher produced it.",publishedAt:"2026-08-16",slug:"template-matching-to-superpoint",readingTime:9,tags:["Computer Vision","Template Matching","SIFT","SuperPoint","LightGlue","OpenCV","Homography","Industrial AI"],coverImage:`${Ue}blog/matching-methods-real.jpg`,author:{name:"Nguyen Ngoc Thien",avatar:To},content:`
 
 # Template Matching, From Correlation to SuperPoint
 
@@ -324,7 +324,7 @@ The job is narrow and it comes up constantly in industrial vision. An operator d
 
 I built four ways of doing it into the same system, from a twenty-year-old OpenCV call to a learned keypoint matcher, and the interesting part is that the newest one is not the default.
 
-![Sliding a template patch across an image versus detecting and matching sparse keypoints](${Ue}blog/iso-correlation-vs-keypoints.jpg)
+![A correlation response map peaking on the barcode, beside a keypoint match visualisation between two views of the same carton](${Ue}blog/matching-methods-real.jpg)
 
 Everything below is one of two ideas. Either you take the template patch and try it at every position, or you find distinctive points in both images and pair them up.
 
@@ -409,7 +409,9 @@ Read left to right it looks like a ladder where each rung is better. It is not. 
 
 None of the four is the interesting engineering. This is.
 
-![The three checks applied to a recovered homography, and the three possible outcomes](${Ue}blog/homography-guard.svg)
+Both rows below are the same matcher on the same reference. Both found plenty of points, both produced a homography, and both reported success. Only one of them is looking at the right object.
+
+![Two keypoint matches that both look confident: one produces a neat outline on the product, the other a collapsed sliver across the wrong object](${Ue}blog/homography-accept-reject.jpg)
 
 RANSAC does not have a failure return value. Feed it matches from the wrong product and it will find the subset of them that best agrees with some homography and hand it back, with an inlier count that looks reasonable. The regions get mapped through a transform that is confident, precise and wrong, and the crop that comes out still contains pixels, and the recogniser still reads something off it.
 

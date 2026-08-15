@@ -75,8 +75,8 @@
   <!-- state carry arrow -->
   <path class="arrow" d="M462 171 C500 171 500 129 462 129" stroke-dasharray="3 3"/>
   <polygon class="head" points="466,125 458,129 466,133"/>
-  <text class="s teal" x="470" y="152">V carries</text>
-  <text class="s teal" x="470" y="164">forward</text>
+  <text class="s teal" x="506" y="146">V carries</text>
+  <text class="s teal" x="506" y="158">forward</text>
 
   <text class="m mid" x="370" y="208">for t in range(T)</text>
 

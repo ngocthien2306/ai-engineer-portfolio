@@ -108,7 +108,7 @@
                            L612 240 L640 244 L640 224 L662 230 L662 192 L664 248 L712 248"/>
 
   <!-- output spikes -->
-  <text class="s soft" x="410" y="288">output spikes</text>
+  <text class="s soft" x="410" y="278">output spikes</text>
   <line class="rule" x1="410" y1="300" x2="712" y2="300"/>
   <line class="teal" x1="467" y1="300" x2="467" y2="284" stroke-width="2"/>
   <line class="teal" x1="531" y1="300" x2="531" y2="284" stroke-width="2"/>
