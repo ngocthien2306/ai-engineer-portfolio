@@ -55,13 +55,15 @@ Four things shape every decision in this kind of work, and none of them appear i
 
 **The two failure modes are not equal.** Missing a defect ships a bad unit. Falsely rejecting throws away a good one, and if it happens often enough the operators switch the system off, which is worse than not having built it. Which error you can afford depends entirely on the plant, and nobody in the plant will tell you in the units you want.
 
-![The closed loop from encoder trigger to reject actuator](${B}blog/inspection-loop.svg)
+![Isometric view of an inspection station: trigger cabinet, three cameras over a conveyor, reject arm and operator monitor](${B}blog/iso-station.jpg)
 
-Concretely, that loop runs on three cameras at once. Each one answers a different question, and a product only passes if all of them agree.
+The loop is short and fixed. A sensor on the machine tells the station a product is in position, the cameras fire on that hardware trigger with strobed light, the frame is located and cropped and read, the verdict is compared against the recipe, and only a fail sends a command back to the PLC to fire the reject arm. Everything else the system does, logging, counters, dashboards, happens off to the side and can be late without consequence.
 
-![Signal path from PLC trigger through three cameras to the reject actuator](${B}blog/station-signal-path.svg)
+Concretely, that loop runs on three cameras at once, and each one answers a different question.
 
-Splitting the work that way is what makes the deadline reachable. Each camera takes around 170 ms on its own, which does not fit three times over inside a 330 ms budget, so they run in parallel and the verdicts are combined once.
+![Isometric view of one bottle inspected from three angles: front label, back label and date code](${B}blog/iso-three-cameras.jpg)
+
+On the station I worked on these were the front label and its alignment, the back label and its wrinkles, and the date code. A product passes only if all three agree, so one camera failing is enough to reject. Each camera takes around 173 ms on its own, which does not fit three times over inside the budget, so they run in parallel and the verdicts are combined once at the end.
 
 ## Localisation: the part that is not machine learning
 
@@ -69,7 +71,7 @@ The station has to answer two questions: where is the thing, and what does it sa
 
 The instinct is to train a detector. It is what the tooling is built for and it works well in general settings. But a production line is not a general setting, and that turns out to matter in both directions.
 
-![Training a detector versus matching against the fixture](${B}blog/detector-vs-template.svg)
+![Training a detector on many product variants versus matching one reference template against a fixture](${B}blog/iso-detector-vs-template.jpg)
 
 The line is a fixed fixture. The camera does not move. The light does not move. The product arrives in roughly the same place every time, held by mechanical guides. A detector spends most of its capacity learning to be robust to variation that has been engineered out of the problem, and then fails on the one axis that does vary, which is the product itself.
 
@@ -111,7 +113,11 @@ Nothing about deploying to a cabinet is glamorous, and it is where a large share
 
 It also helps to be clear about which parts of the system are actually on the critical path, because most of them are not.
 
-![System functions grouped by audience: setup, run, and review](${B}blog/system-functions.svg)
+![Three isometric scenes: an engineer's setup desk, the running line, and a manager's dashboard](${B}blog/iso-three-audiences.jpg)
+
+Setup is an engineer with the line stopped: recipes, camera calibration, the reference image and the regions drawn on it, thresholds. Run is an operator with the line moving: start and stop, the live monitor, a simulate-trigger button, and a toggle that runs inference without acting on the verdict. Review is a manager afterwards: the results log with its images, counters by shift and by camera, and trends.
+
+Only the middle one has a deadline. The other two are ordinary web software that can be slow or down for an hour without stopping anything, and keeping them in separate processes is what lets the dashboard crash without taking the line with it.
 
 Edge devices share memory between CPU and GPU, so the inference engines, the camera SDK, the application, and the database all draw from the same pool. On one deployment the fix was mundane: disable the default compressed-RAM swap, put a real swap file on the NVMe drive, and cap the database cache so it stopped competing with the model for the same memory. None of that is computer vision. All of it is the difference between a station that runs for a month and one that dies overnight.
 

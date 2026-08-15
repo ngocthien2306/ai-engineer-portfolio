@@ -62,3 +62,15 @@ Restraint is the point. These are meant to read as figures from an engineering d
 ## Grounding
 
 Where a diagram describes a system that actually exists, take the labels from the real thing. The camera names, the counters, the measured latency and the exact wording on the buttons are all visible in the screen recordings in `public/videos/`. Sample a frame with `ffmpeg -ss <t> -i <file> -frames:v 1 -vf crop=...` and read the values off it rather than inventing plausible ones. A reader who has seen the system will notice either way.
+
+## Two lanes: generated illustrations and hand-drawn figures
+
+Figures on this site come from one of two routes, and the choice is about how much precise text the figure has to carry.
+
+**Isometric illustrations, generated with Gemini.** For a scene: a station, a comparison of two approaches, a set of roles. Use `gemini-3-pro-image` with the API key in `.env`. The house look, matching what is already published, is: deep navy ground with a faint low-contrast geometric mesh, isometric vector 3D, flat shading with soft ambient occlusion, white and light-grey machinery, muted steel tones, light blue as the only accent, and red or green used once and only where it carries meaning. Ask for crisp geometry and generous empty space, and say no photorealism.
+
+The one hard constraint: **short uppercase labels only**, three to six of them, each with a thin leader line to its object. Those render reliably. Sentences, numbers and units do not, so every measurement, latency figure and piece of reasoning belongs in the prose under the figure instead. Always end the prompt with a line forbidding any other text, logos or watermarks.
+
+**Hand-authored SVG.** For anything where the data is the point: a membrane potential crossing a threshold, a gradient curve, a timing budget, a table-like comparison. Precision and correct text matter more than polish, and a generated image cannot be trusted to place a curve accurately.
+
+If a figure needs both a scene and precise values, generate the scene and put the values in the caption. Do not ask the image model for them.
