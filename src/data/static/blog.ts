@@ -19,6 +19,151 @@ const AUTHOR_AVATAR = `${import.meta.env.BASE_URL || './'}profile1.jpg`;
 
 export const localBlogPosts: LocalBlogPost[] = [
   {
+    id: 4,
+    title: "Template Matching, From Correlation to SuperPoint",
+    description: "Four ways to find a known region in a new frame, from a single cv2.matchTemplate call to SuperPoint and LightGlue. Why the newest one is not the default, and why validating the recovered homography matters more than which matcher produced it.",
+    publishedAt: "2026-08-16",
+    slug: "template-matching-to-superpoint",
+    readingTime: 9,
+    tags: ["Computer Vision", "Template Matching", "SIFT", "SuperPoint", "LightGlue", "OpenCV", "Homography", "Industrial AI"],
+    coverImage: `${B}blog/iso-correlation-vs-keypoints.jpg`,
+    author: {
+      name: "Nguyen Ngoc Thien",
+      avatar: AUTHOR_AVATAR
+    },
+    content: `
+
+# Template Matching, From Correlation to SuperPoint
+
+The job is narrow and it comes up constantly in industrial vision. An operator draws a few boxes once on a reference image: read the text here, check the date code there, look at the barcode in this corner. Then every frame after that, the system has to find those same regions on a product that is never in exactly the same place.
+
+I built four ways of doing it into the same system, from a twenty-year-old OpenCV call to a learned keypoint matcher, and the interesting part is that the newest one is not the default.
+
+![Sliding a template patch across an image versus detecting and matching sparse keypoints](${B}blog/iso-correlation-vs-keypoints.jpg)
+
+Everything below is one of two ideas. Either you take the template patch and try it at every position, or you find distinctive points in both images and pair them up.
+
+## 1. Correlation, at one scale
+
+The simplest version is a single OpenCV call:
+
+\`\`\`python
+result = cv2.matchTemplate(target_gray, self.template_region, cv2.TM_CCOEFF_NORMED)
+_, max_val, _, max_loc = cv2.minMaxLoc(result)
+\`\`\`
+
+The template slides across every position in the target and a normalised correlation coefficient is computed at each one. The brightest peak is the answer, and its value is the confidence. \`TM_CCOEFF_NORMED\` subtracts the mean and divides by the standard deviation on both sides, which makes it immune to a uniform change in brightness or gain.
+
+**What it costs.** Roughly template area times search area. Small template on a cropped search region, and it is the fastest option by a wide margin.
+
+**What breaks it.** Anything that is not a pure translation. Rotate the product two degrees and the score collapses. Move the camera slightly closer and the scale changes and the score collapses. Tilt the product and the perspective changes and it collapses. It has no way to represent any of those, so it does not fail gracefully. It just stops finding things.
+
+For a well-guided fixture with a fixed camera, none of that happens, and this is genuinely the right answer.
+
+## 2. Correlation, at twenty scales
+
+The obvious repair for the scale problem is to try more scales:
+
+\`\`\`python
+scales = np.linspace(0.5, 2.0, 20)
+for scale in scales:
+    # resize the target down, or the template up, then correlate
+    ...
+    if max_val > best_score:
+        best_score, best_match, best_scale = max_val, max_loc, scale
+\`\`\`
+
+Twenty correlations instead of one, keep the best. It buys tolerance from half size to double size.
+
+**What it costs.** About twenty times the compute, and a coarser answer: with twenty steps between 0.5 and 2.0, the scale is quantised to roughly 8% increments, so the reported position is slightly off unless the true scale lands near a step.
+
+**What it does not buy.** Rotation. Perspective. Those need a different representation, not more samples of the same one. This is worth saying plainly because scanning more parameters is a tempting trap: you can add rotation steps too, and then you are searching a three-dimensional space with correlation at every point, and it will be slower than the feature-based method that solves it properly.
+
+## 3. Classical keypoints: SIFT and a homography
+
+The second idea. Instead of trying the template everywhere, find points in both images that are individually recognisable, describe each one by its local neighbourhood, and match the descriptions.
+
+SIFT finds corner-like points across a scale pyramid, assigns each an orientation, and produces a 128-dimensional descriptor that is invariant to rotation and scale by construction. Match descriptors between template and target, then fit a homography through RANSAC to throw out the pairs that do not agree with a single consistent transform.
+
+**What it buys.** Rotation, scale, and full perspective in one step. And it gives you the transform itself, not just a position, which means the regions the operator drew can be mapped through it rather than merely offset. That is the property that makes the whole approach work: one reference image, arbitrarily many regions, all transferred at once.
+
+**What it costs.** Texture. SIFT needs local structure to key on. A plain white label on a plain white bottle produces almost no keypoints, and no amount of tuning fixes that. It is also markedly slower than correlation, and repeatability drops under motion blur, low light, and specular highlights, all of which a production line has in quantity.
+
+ORB is the same idea with a binary descriptor: much faster, less robust. Worth having as an option, rarely the best one.
+
+## 4. Learned keypoints: SuperPoint and LightGlue
+
+The same two steps, with both of them learned.
+
+SuperPoint is a small convolutional network that outputs a keypoint heat map and a dense descriptor field in one pass, trained so that the points it picks are the ones that can be re-found from another viewpoint. LightGlue is a graph neural network that takes the two sets of keypoints and reasons about them jointly, using the spatial arrangement of the whole set rather than comparing descriptors one pair at a time.
+
+That joint reasoning is the real difference. SIFT matching asks, for each descriptor, which descriptor in the other image is closest. LightGlue asks which overall assignment is most consistent, which is why it holds up on repetitive patterns where nearest-neighbour matching produces confident nonsense.
+
+**What it buys.** Far better repeatability on low-texture and repetitive surfaces, and on the viewpoint changes where SIFT starts dropping matches.
+
+**What it costs.** A model file, a runtime, and hardware. Running it as ONNX on an edge device is fine but it is another dependency in the deployment, another thing to version, another thing that can fail to load at 3am. Latency is higher than correlation by a wide margin. On a device already running several inference engines, the memory it occupies is memory the inspection models do not get.
+
+Here is what the transfer actually looks like. The reference on the left with the regions drawn on it, the target on the right at a different distance and angle, with each region mapped through the recovered homography:
+
+![Regions drawn on a reference image, transferred onto a target photographed from a different distance and angle](${B}blog/roi-transfer-real.jpg)
+
+Note that the transferred regions on the right are no longer axis-aligned rectangles. They are quadrilaterals, because the transform that maps them is a full homography.
+
+## The comparison
+
+| | Translation | Scale | Rotation | Perspective | Needs texture | Relative cost |
+|---|---|---|---|---|---|---|
+| Correlation | yes | no | no | no | no | 1 |
+| Multi-scale correlation | yes | yes | no | no | no | ~20 |
+| SIFT + RANSAC | yes | yes | yes | yes | yes | high |
+| SuperPoint + LightGlue | yes | yes | yes | yes | less so | highest |
+
+Read left to right it looks like a ladder where each rung is better. It is not. Each row buys invariance you may not need and pays for it in compute, in dependencies, and in new failure modes. A fixture that holds the product in the same place every time has already solved translation, scale, rotation and perspective mechanically, for free, more reliably than any of these will.
+
+## The part that actually matters
+
+None of the four is the interesting engineering. This is.
+
+![The three checks applied to a recovered homography, and the three possible outcomes](${B}blog/homography-guard.svg)
+
+RANSAC does not have a failure return value. Feed it matches from the wrong product and it will find the subset of them that best agrees with some homography and hand it back, with an inlier count that looks reasonable. The regions get mapped through a transform that is confident, precise and wrong, and the crop that comes out still contains pixels, and the recogniser still reads something off it.
+
+So the recovered matrix gets checked against what is physically possible for a camera bolted above a fixture:
+
+\`\`\`python
+H = H / H[2, 2]
+
+# Perspective terms should be near zero for a flat product under a fixed camera
+if abs(H[2, 0]) > 0.001 or abs(H[2, 1]) > 0.001:
+    return False
+
+# The two axis scales should agree
+scale_x = np.sqrt(H[0, 0]**2 + H[1, 0]**2)
+scale_y = np.sqrt(H[0, 1]**2 + H[1, 1]**2)
+if abs(scale_x - scale_y) / max(scale_x, scale_y) > 0.1:
+    return False
+\`\`\`
+
+Three cheap tests on nine numbers, and they do three jobs at once. They catch nonsense matches. They decide whether the region can be transferred as a plain rectangle or needs a four-point polygon and a perspective correction. And when the answer is wildly off, they let the system report no result, which is a far better outcome than a wrong one, because a station that says "I could not read this" gets the unit set aside for a human, while a station that says the wrong thing confidently does not.
+
+A match score does not do this. A score answers "how well did these two things line up", and the failure case here lines up beautifully. What separates a real match from a confident wrong one is a geometry question, not a confidence question.
+
+## What I would actually pick
+
+Start at the top of the list and stop at the first method that works, then spend the time you saved on the fixture and the lighting.
+
+If the camera and the product are mechanically constrained, plain correlation is correct, and it is correct at a fraction of the latency and with no model file to deploy. If distance varies, add scales. If the product genuinely arrives at arbitrary angles, you need a homography, and then the question is only which keypoints get you there: SIFT if the surface has texture and the light is controlled, SuperPoint if it does not or is not.
+
+The system I built keeps all four and picks based on the recipe, which sounds like indecision but is not. Different products on the same line have genuinely different geometry, and the cost of the fast path being available is one branch.
+
+The habit worth keeping is the one in the section above. Whichever method produces the transform, check that the transform is possible before trusting it.
+
+---
+
+*Based on a production inspection system. The reference images shown are personal test shots, not customer product.*
+    `
+  },
+  {
     id: 3,
     title: "Putting Computer Vision on a Production Line",
     description: "Notes from deploying inspection and safety vision systems in factories: why a trained detector was the wrong tool for localisation, the physical detail that caused 500 false rejects an hour, and why accuracy is the wrong number to report.",
@@ -714,6 +859,8 @@ On a GPU or a Jetson it is generally false, and often backwards. A GPU executes 
 So if you are deploying to conventional hardware, pick SNNs for their fit to the data, not for power. The energy argument is real but it is an argument about silicon.
 
 ### Temporal processing and event data
+
+![Isometric comparison: a frame camera producing dense stacked images, an event camera producing sparse points, and a neuromorphic chip](${B}blog/iso-event-vision.jpg)
 
 This is the advantage that survives on ordinary hardware. SNNs are a natural match for asynchronous, sparse, high-temporal-resolution input, which is exactly what event cameras produce. Neither the data nor the model has a notion of a frame, so nothing has to be forced into one.
 

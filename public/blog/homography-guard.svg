@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="RANSAC always returns a homography, so it has to be checked before use: the perspective terms, the two scale factors and the shear angle each get a threshold, and the outcome decides whether the region is transferred as a rectangle, as a perspective-corrected polygon, or rejected.">
+  <style>
+    .bg    { fill: #f5f7f7; }
+    .card  { fill: #ffffff; stroke: #d5dcdc; stroke-width: 1; }
+    .box   { fill: #ffffff; stroke: #b9c4c3; stroke-width: 1.2; }
+    .okbox { fill: #eef5f1; stroke: #b6d5c5; stroke-width: 1.2; }
+    .warnb { fill: #f8efed; stroke: #e0c5c0; stroke-width: 1.2; }
+    .ink   { fill: #16211f; }
+    .mid   { fill: #566664; }
+    .soft  { fill: #869593; }
+    .teal  { fill: #0d7a72; }
+    .red   { fill: #b8524a; }
+    .green { fill: #1c7a58; }
+    .wire  { stroke: #869593; stroke-width: 1.4; fill: none; }
+    .whead { fill: #869593; }
+    .m     { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; }
+    .mb    { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; font-weight: 600; }
+    text   { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .h     { font-size: 14px; font-weight: 700; }
+    .t     { font-size: 11px; font-weight: 600; }
+    .s     { font-size: 9.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg    { fill: #131b1a; }
+      .card  { fill: #1a2423; stroke: #2d3b3a; }
+      .box   { fill: #1f2b2a; stroke: #3b4a49; }
+      .okbox { fill: #162a22; stroke: #2e5443; }
+      .warnb { fill: #2a1c1a; stroke: #4a332e; }
+      .ink   { fill: #e3ebe9; }
+      .mid   { fill: #a4b3b1; }
+      .soft  { fill: #7b8a88; }
+      .teal  { fill: #45c2b6; }
+      .red   { fill: #e8877d; }
+      .green { fill: #55c093; }
+      .wire  { stroke: #7b8a88; }
+      .whead { fill: #7b8a88; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="800" height="400" rx="4"/>
+  <rect class="card" x="16" y="16" width="768" height="368" rx="4"/>
+
+  <text class="h ink" x="36" y="44">RANSAC always returns a homography. Check it before you use it.</text>
+  <text class="s soft" x="36" y="61">Three cheap tests on the matrix separate a real match from a confident-looking wrong one.</text>
+
+  <!-- H matrix -->
+  <rect class="box" x="36" y="84" width="150" height="112" rx="3"/>
+  <text class="t ink" x="50" y="104">Recovered H</text>
+  <text class="mb teal" x="50" y="128">h00  h01  h02</text>
+  <text class="mb teal" x="50" y="146">h10  h11  h12</text>
+  <text class="mb red"  x="50" y="164">h20  h21   1</text>
+  <text class="s soft" x="50" y="184">normalised by h22</text>
+
+  <path class="wire" d="M190 140 L214 140"/>
+  <polygon class="whead" points="214,136 222,140 214,144"/>
+
+  <!-- three checks -->
+  <rect class="box" x="232" y="84" width="238" height="34" rx="3"/>
+  <text class="s ink" x="244" y="105">Perspective terms</text>
+  <text class="m red" x="380" y="105">|h20|, |h21| &lt; 0.001</text>
+
+  <rect class="box" x="232" y="124" width="238" height="34" rx="3"/>
+  <text class="s ink" x="244" y="145">Scale, both axes</text>
+  <text class="m red" x="380" y="145">|sx − sy| / max &lt; 0.1</text>
+
+  <rect class="box" x="232" y="164" width="238" height="34" rx="3"/>
+  <text class="s ink" x="244" y="185">Shear angle</text>
+  <text class="m red" x="380" y="185">off-square &lt; 3°</text>
+
+  <text class="m soft" x="244" y="216">sx = √(h00² + h10²)   ·   sy = √(h01² + h11²)</text>
+
+  <!-- outcomes -->
+  <path class="wire" d="M474 101 L498 101"/>
+  <polygon class="whead" points="498,97 506,101 498,105"/>
+  <path class="wire" d="M474 141 L498 141"/>
+  <polygon class="whead" points="498,137 506,141 498,145"/>
+  <path class="wire" d="M474 181 L498 181"/>
+  <polygon class="whead" points="498,177 506,181 498,185"/>
+
+  <rect class="okbox" x="516" y="80" width="248" height="52" rx="3"/>
+  <text class="t green" x="530" y="100">All three pass</text>
+  <text class="s mid" x="530" y="118">Transfer the region as a plain rectangle. No warp needed.</text>
+
+  <rect class="box" x="516" y="140" width="248" height="52" rx="3"/>
+  <text class="t ink" x="530" y="160">Perspective is real</text>
+  <text class="s mid" x="530" y="178">Transfer as a four-point polygon, then rectify the crop.</text>
+
+  <rect class="warnb" x="516" y="200" width="248" height="52" rx="3"/>
+  <text class="t red" x="530" y="220">Wildly off</text>
+  <text class="s mid" x="530" y="238">Reject the match. Report no result rather than a wrong one.</text>
+
+  <!-- why it matters -->
+  <rect class="box" x="36" y="272" width="728" height="96" rx="3"/>
+  <text class="t ink" x="52" y="294">Why this is the part that matters</text>
+  <text class="s mid" x="52" y="313">A keypoint matcher fed a frame with the wrong product still returns matches, RANSAC still fits a homography to them, and the result is a</text>
+  <text class="s mid" x="52" y="328">confident, precise, completely wrong answer. Nothing downstream can tell the difference, because a mangled crop still reads as some text.</text>
+  <text class="s mid" x="52" y="347">Match score alone does not catch this. What catches it is asking whether the recovered transform is physically possible given a camera bolted</text>
+  <text class="s mid" x="52" y="362">above a fixture, which is a question about geometry rather than about confidence.</text>
+</svg>
