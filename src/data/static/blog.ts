@@ -26,7 +26,7 @@ export const localBlogPosts: LocalBlogPost[] = [
     slug: "template-matching-to-superpoint",
     readingTime: 9,
     tags: ["Computer Vision", "Template Matching", "SIFT", "SuperPoint", "LightGlue", "OpenCV", "Homography", "Industrial AI"],
-    coverImage: `${B}blog/iso-correlation-vs-keypoints.jpg`,
+    coverImage: `${B}blog/matching-methods-real.jpg`,
     author: {
       name: "Nguyen Ngoc Thien",
       avatar: AUTHOR_AVATAR
@@ -39,7 +39,7 @@ The job is narrow and it comes up constantly in industrial vision. An operator d
 
 I built four ways of doing it into the same system, from a twenty-year-old OpenCV call to a learned keypoint matcher, and the interesting part is that the newest one is not the default.
 
-![Sliding a template patch across an image versus detecting and matching sparse keypoints](${B}blog/iso-correlation-vs-keypoints.jpg)
+![A correlation response map peaking on the barcode, beside a keypoint match visualisation between two views of the same carton](${B}blog/matching-methods-real.jpg)
 
 Everything below is one of two ideas. Either you take the template patch and try it at every position, or you find distinctive points in both images and pair them up.
 
@@ -124,7 +124,9 @@ Read left to right it looks like a ladder where each rung is better. It is not. 
 
 None of the four is the interesting engineering. This is.
 
-![The three checks applied to a recovered homography, and the three possible outcomes](${B}blog/homography-guard.svg)
+Both rows below are the same matcher on the same reference. Both found plenty of points, both produced a homography, and both reported success. Only one of them is looking at the right object.
+
+![Two keypoint matches that both look confident: one produces a neat outline on the product, the other a collapsed sliver across the wrong object](${B}blog/homography-accept-reject.jpg)
 
 RANSAC does not have a failure return value. Feed it matches from the wrong product and it will find the subset of them that best agrees with some homography and hand it back, with an inlier count that looks reasonable. The regions get mapped through a transform that is confident, precise and wrong, and the crop that comes out still contains pixels, and the recogniser still reads something off it.
 
