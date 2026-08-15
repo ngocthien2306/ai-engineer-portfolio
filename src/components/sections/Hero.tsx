@@ -63,7 +63,7 @@ export const Hero: React.FC = () => {
               <span className="font-semibold text-purple-600 dark:text-purple-400">2+ years building Vision AI</span>{' '}
               for intelligent manufacturing. I work end to end: data collection, model training,{' '}
               <span className="font-semibold text-blue-600 dark:text-blue-400">edge optimization (TensorRT/ONNX on Jetson)</span>{' '}
-              and deployment on factory floors. Currently researching VLM/LLM, agentic AI, and multimodal systems at NCU Deep Learning Lab.
+              and deployment in factory environments. Currently researching VLM/LLM, agentic AI, and multimodal systems at NCU Deep Learning Lab.
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">

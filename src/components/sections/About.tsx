@@ -20,7 +20,7 @@ const highlights = [
   {
     icon: Brain,
     title: 'AI & Machine Learning',
-    description: 'YOLO, TensorRT, ONNX, PyTorch, TensorFlow. Production systems running at 99%+ accuracy on factory floors',
+    description: 'YOLO, TensorRT, ONNX, PyTorch, TensorFlow. Production systems running at 99%+ accuracy in factory environments',
     color: 'from-blue-500 to-purple-600',
     glow: 'rgba(99,102,241,0.35)',
     border: 'group-hover:border-blue-400 dark:group-hover:border-blue-500',
