@@ -19,6 +19,131 @@ const AUTHOR_AVATAR = `${import.meta.env.BASE_URL || './'}profile1.jpg`;
 
 export const localBlogPosts: LocalBlogPost[] = [
   {
+    id: 3,
+    title: "Putting Computer Vision on a Production Line",
+    description: "Notes from deploying inspection and safety vision systems in factories: why a trained detector was the wrong tool for localisation, the physical detail that caused 500 false rejects an hour, and why accuracy is the wrong number to report.",
+    publishedAt: "2026-08-16",
+    slug: "computer-vision-production-line",
+    readingTime: 9,
+    tags: ["Computer Vision", "Industrial AI", "Edge AI", "Manufacturing", "OCR", "Jetson", "Machine Vision"],
+    coverImage: `${B}blog/industrial-inspection-station.jpg`,
+    author: {
+      name: "Nguyen Ngoc Thien",
+      avatar: AUTHOR_AVATAR
+    },
+    content: `
+
+# Putting Computer Vision on a Production Line
+
+The most useful thing I have learned about industrial computer vision is that the model is rarely the problem.
+
+A while into one deployment, a station I had built was rejecting roughly 500 good products an hour. Not missing defects: rejecting perfectly fine product. The detection model was working exactly as trained. The problem was that the factory ran more than 200 container variants, I had training data for a fraction of them, and on an unseen shape the model put the object centre in the wrong place. Everything downstream of that wrong centre was arithmetic on a bad number.
+
+That failure is a fair summary of the difference between a benchmark and a factory. On a benchmark you optimise a metric. On a line you are one component inside a machine that is already running, and the machine does not stop to accommodate you.
+
+![Machine vision inspection station over a bottling conveyor](${B}blog/industrial-inspection-station.jpg)
+
+## The constraints are the design
+
+Four things shape every decision in this kind of work, and none of them appear in a paper.
+
+**The line does not wait.** Products arrive at a fixed rate set by mechanical equipment. If a station runs at 180 products per minute, everything from trigger to actuator has to complete in roughly 330 ms, and the reject arm has to fire while the product is still in front of it. A model that is 2% more accurate and 200 ms slower is not a better model. It is an unusable one.
+
+**There is no cloud.** Plant networks are segmented, often air-gapped, and a round trip to a server is a dependency that will eventually take the line down at 2am. Inference runs on hardware bolted to the machine, sharing a cabinet with a power supply and a PLC.
+
+**The operators are not engineers.** When a new product runs, someone on shift has to set the station up. If that requires collecting images, labelling them, and retraining, it will not happen. It has to be something a person can do in a few minutes between batches.
+
+**The two failure modes are not equal.** Missing a defect ships a bad unit. Falsely rejecting throws away a good one, and if it happens often enough the operators switch the system off, which is worse than not having built it. Which error you can afford depends entirely on the plant, and nobody in the plant will tell you in the units you want.
+
+![The closed loop from encoder trigger to reject actuator](${B}blog/inspection-loop.svg)
+
+## Localisation: the part that is not machine learning
+
+The station has to answer two questions: where is the thing, and what does it say. Almost all of the difficulty is in the first one.
+
+The instinct is to train a detector. It is what the tooling is built for and it works well in general settings. But a production line is not a general setting, and that turns out to matter in both directions.
+
+![Training a detector versus matching against the fixture](${B}blog/detector-vs-template.svg)
+
+The line is a fixed fixture. The camera does not move. The light does not move. The product arrives in roughly the same place every time, held by mechanical guides. A detector spends most of its capacity learning to be robust to variation that has been engineered out of the problem, and then fails on the one axis that does vary, which is the product itself.
+
+Template matching goes the other way. An operator draws the regions once on a reference image. At run time the system matches that reference against the incoming frame, solves a homography, and rectifies. Adding a product is drawing new boxes, not collecting a dataset. No labelling, no training run, no model to redeploy, and no risk that a new variant silently degrades a network that was fine yesterday.
+
+It is a less interesting technique and a better fit. That trade comes up constantly in this work.
+
+## The detail that no model saves you from
+
+Here is a frame from the inspection camera. Look at the sides of the bottle.
+
+![A transparent bottle under directional light showing two bright edges on each side](${B}blog/bottle-edge-problem.jpg)
+
+Each side shows two bright vertical lines, not one. The plastic is transparent, so the camera sees the near wall and the far wall of the bottle as separate specular highlights. The outer line is the back of the bottle seen through the front of it. The inner line is the wall you actually care about.
+
+My edge finder was taking the strongest response in the outer part of the search band, which meant it locked onto the outer line every time. The measurement was consistent, repeatable, and about a wall thickness wrong.
+
+It got worse when the label was misaligned, which was the thing being measured. A shifted label moved the crop, the crop cut one side of the bottle out of frame entirely, and the algorithm went looking for an edge in a region that no longer contained one. The failure was largest exactly where the answer mattered most.
+
+The eventual fix does not involve a neural network. Measure the inner width once on the reference image, find whichever edge is still visible in the crop, and extrapolate the other one. One stable measurement plus one observation, instead of two unreliable observations.
+
+I have come to treat this as the shape of most industrial vision problems. The hard part is a physical fact about the object, the material, or the lighting, and the solution is usually geometry. Reaching for a bigger model is often a way of avoiding the twenty minutes it takes to understand what the camera is actually seeing.
+
+## Reading is the easy half
+
+Once the region is located and rectified, reading it is comparatively simple, and worth simplifying further.
+
+A general OCR pipeline runs text detection and then text recognition. But the detection stage exists to answer "where is the text", and the template match has already answered that with better precision than a detector would. So the detection stage gets deleted and only the recognition model runs, on a fixed crop, batched across regions.
+
+The result is faster, more predictable in latency, and easier to debug. When a read fails you know it is a recognition problem, because localisation is the deterministic step.
+
+The general lesson: in a constrained environment, the components you can delete matter more than the ones you can add. Every stage you remove is a stage that cannot fail at 3am.
+
+## Where the work actually goes
+
+![Edge computing hardware and a PLC in a control cabinet beside the line](${B}blog/edge-cabinet.jpg)
+
+Nothing about deploying to a cabinet is glamorous, and it is where a large share of the time goes.
+
+Edge devices share memory between CPU and GPU, so the inference engines, the camera SDK, the application, and the database all draw from the same pool. On one deployment the fix was mundane: disable the default compressed-RAM swap, put a real swap file on the NVMe drive, and cap the database cache so it stopped competing with the model for the same memory. None of that is computer vision. All of it is the difference between a station that runs for a month and one that dies overnight.
+
+The parts that are always underestimated: the triggering and lighting setup, the integration with the PLC that actually moves the reject arm, the interface an operator uses at 6am, and the audit trail that lets someone answer why a specific unit was rejected three weeks ago. The model is a small piece in the middle.
+
+## Measuring it honestly
+
+Accuracy is close to meaningless here, and it is the number everyone reports.
+
+If the defect rate on a mature line is one percent, a system that passes everything scores 99% accuracy. That number is indistinguishable from not installing the system at all. It is also the number that is easiest to put on a slide, which is why it keeps appearing.
+
+The numbers a plant actually needs are the two error rates, separately, in units they use:
+
+- **Escape rate.** How many defective units get through, out of how many defective units. This is the one that reaches the customer.
+- **False reject rate.** How many good units get thrown away, as a share of production. Multiply by volume before quoting it. Half a percent sounds small until you turn 50,000 units a day into 250 units in the reject bin.
+
+Both depend on a threshold, and choosing that threshold is a business decision, not a technical one. The right way to set it is to sit with the quality lead, show them the trade curve, and let them choose. That conversation is also how you find out what the plant actually cares about, which is rarely what the specification said.
+
+## Safety systems invert the asymmetry
+
+Inspection is not the only place vision earns its keep. The other pattern I have worked on is safety: checking protective equipment at the entrance to a hazardous area, watching for people in the wrong zone, or gating a machine so it will not start unless the person in front of it is properly equipped.
+
+The engineering rhymes, but the error asymmetry flips completely.
+
+On an inspection station, a false reject costs one unit. On an access gate, the two errors are letting an unprotected person into a hazardous area, and locking out someone who is properly equipped. The first is a safety incident. The second, repeated a few times, is the reason the guard gets propped open and the system gets bypassed.
+
+So the design questions change. You stop asking for one accuracy number and start asking which direction the system should fail in, how a person overrides it when it is wrong, and what happens on power loss. A safety system that is right 99% of the time and has no override is worse than a slightly less accurate one that people trust enough to leave switched on.
+
+## If you are starting
+
+Spend your first day on the camera and the light, not the model. Most of the difficulty you are about to have is being created right there, and most of it can be engineered away with a different illuminator or a mechanical guide.
+
+Take the constraints seriously as design inputs rather than obstacles. The fixed fixture that makes the problem boring is the same fixed fixture that lets you delete the detector.
+
+And when something behaves strangely, go and look at the raw frames before touching the model. The bottle had two edges the whole time. No amount of retraining would have found that, because nothing was wrong with the training.
+
+---
+
+*Based on production deployments in food processing and industrial safety. Specifics about customers and their processes are omitted.*
+    `
+  },
+  {
     id: 2,
     title: "The Definitive Guide to Domain-Specific LLM Fine-Tuning",
     description: "A practical deep-dive into adapting open-weights foundation models for production use cases via PEFT, QLoRA, and open-source frameworks like Unsloth and Axolotl — with code, benchmarks, and a production checklist.",
