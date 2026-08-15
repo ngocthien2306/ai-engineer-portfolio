@@ -57,6 +57,12 @@ Four things shape every decision in this kind of work, and none of them appear i
 
 ![The closed loop from encoder trigger to reject actuator](${B}blog/inspection-loop.svg)
 
+Concretely, that loop runs on three cameras at once. Each one answers a different question, and a product only passes if all of them agree.
+
+![Signal path from PLC trigger through three cameras to the reject actuator](${B}blog/station-signal-path.svg)
+
+Splitting the work that way is what makes the deadline reachable. Each camera takes around 170 ms on its own, which does not fit three times over inside a 330 ms budget, so they run in parallel and the verdicts are combined once.
+
 ## Localisation: the part that is not machine learning
 
 The station has to answer two questions: where is the thing, and what does it say. Almost all of the difficulty is in the first one.
@@ -102,6 +108,10 @@ The general lesson: in a constrained environment, the components you can delete 
 ![Edge computing hardware and a PLC in a control cabinet beside the line](${B}blog/edge-cabinet.jpg)
 
 Nothing about deploying to a cabinet is glamorous, and it is where a large share of the time goes.
+
+It also helps to be clear about which parts of the system are actually on the critical path, because most of them are not.
+
+![System functions grouped by audience: setup, run, and review](${B}blog/system-functions.svg)
 
 Edge devices share memory between CPU and GPU, so the inference engines, the camera SDK, the application, and the database all draw from the same pool. On one deployment the fix was mundane: disable the default compressed-RAM swap, put a real swap file on the NVMe drive, and cap the database cache so it stopped competing with the model for the same memory. None of that is computer vision. All of it is the difference between a station that runs for a month and one that dies overnight.
 
