@@ -31,3 +31,6 @@ dist-ssr
 
 .vite
 .gitnexus
+
+# Local-only CV drafts and notes — never publish
+private-docs
