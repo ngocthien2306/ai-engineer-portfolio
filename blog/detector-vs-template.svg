@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" width="780" height="340" role="img" aria-label="Two ways to find a region of interest: a trained detector, which needs samples of every product variant, versus template matching against a fixture, which needs one reference image per recipe.">
+  <style>
+    .bg    { fill: #f5f7f7; }
+    .card  { fill: #ffffff; stroke: #d5dcdc; stroke-width: 1; }
+    .box   { fill: #ffffff; stroke: #b9c4c3; stroke-width: 1.2; }
+    .ink   { fill: #16211f; }
+    .mid   { fill: #566664; }
+    .soft  { fill: #869593; }
+    .arrow { stroke: #869593; stroke-width: 1.4; fill: none; }
+    .head  { fill: #869593; }
+    .warn  { fill: #b8524a; }
+    .good  { fill: #1c7a58; }
+    .warnbg{ fill: #f7ecea; stroke: #e2c9c5; stroke-width: 1; }
+    .goodbg{ fill: #e6f2ec; stroke: #bfdccf; stroke-width: 1; }
+    .rule  { stroke: #d5dcdc; stroke-width: 1; }
+    text   { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .h     { font-size: 13.5px; font-weight: 700; }
+    .t     { font-size: 11px; font-weight: 600; }
+    .s     { font-size: 9.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg    { fill: #131b1a; }
+      .card  { fill: #1a2423; stroke: #2d3b3a; }
+      .box   { fill: #1f2b2a; stroke: #3b4a49; }
+      .ink   { fill: #e3ebe9; }
+      .mid   { fill: #a4b3b1; }
+      .soft  { fill: #7b8a88; }
+      .arrow { stroke: #7b8a88; }
+      .head  { fill: #7b8a88; }
+      .warn  { fill: #e8877d; }
+      .good  { fill: #55c093; }
+      .warnbg{ fill: #2b1b19; stroke: #4a302c; }
+      .goodbg{ fill: #142b22; stroke: #2b4d3c; }
+      .rule  { stroke: #2d3b3a; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="780" height="340" rx="4"/>
+
+  <!-- LEFT: detector -->
+  <rect class="card" x="16" y="16" width="366" height="308" rx="4"/>
+  <text class="h ink" x="36" y="44">Train a detector to find it</text>
+  <text class="s soft" x="36" y="60">What you reach for by default.</text>
+
+  <rect class="box" x="36" y="78" width="326" height="46" rx="3"/>
+  <text class="t ink" x="50" y="98">Collect and label samples</text>
+  <text class="s mid" x="50" y="113">of every product the line will ever run</text>
+
+  <path class="arrow" d="M199 128 L199 142"/>
+  <polygon class="head" points="195,142 199,150 203,142"/>
+
+  <rect class="box" x="36" y="154" width="326" height="40" rx="3"/>
+  <text class="t ink" x="50" y="178">Train, validate, deploy</text>
+
+  <path class="arrow" d="M199 198 L199 212"/>
+  <polygon class="head" points="195,212 199,220 203,212"/>
+
+  <rect class="warnbg" x="36" y="224" width="326" height="82" rx="3"/>
+  <text class="t warn" x="50" y="245">Where it broke for us</text>
+  <text class="s mid" x="50" y="262">The line runs 200+ container variants. We could not</text>
+  <text class="s mid" x="50" y="276">sample them all, so the detector missed on unseen</text>
+  <text class="s mid" x="50" y="290">shapes, put the centre in the wrong place, and the</text>
+  <text class="s mid" x="50" y="304">station rejected good product.</text>
+
+  <!-- RIGHT: template -->
+  <rect class="card" x="398" y="16" width="366" height="308" rx="4"/>
+  <text class="h ink" x="418" y="44">Match against the fixture</text>
+  <text class="s soft" x="418" y="60">What the constraints actually allowed.</text>
+
+  <rect class="box" x="418" y="78" width="326" height="46" rx="3"/>
+  <text class="t ink" x="432" y="98">Operator draws the ROIs once</text>
+  <text class="s mid" x="432" y="113">on one reference image, per recipe</text>
+
+  <path class="arrow" d="M581 128 L581 142"/>
+  <polygon class="head" points="577,142 581,150 585,142"/>
+
+  <rect class="box" x="418" y="154" width="326" height="40" rx="3"/>
+  <text class="t ink" x="432" y="178">Match, solve homography, rectify</text>
+
+  <path class="arrow" d="M581 198 L581 212"/>
+  <polygon class="head" points="577,212 581,220 585,212"/>
+
+  <rect class="goodbg" x="418" y="224" width="326" height="82" rx="3"/>
+  <text class="t good" x="432" y="245">Why it fits a production line</text>
+  <text class="s mid" x="432" y="262">The camera, the light and the fixture do not move.</text>
+  <text class="s mid" x="432" y="276">A new product is a new reference image drawn by an</text>
+  <text class="s mid" x="432" y="290">operator in minutes, with no labelling, no training</text>
+  <text class="s mid" x="432" y="304">run, and no model to redeploy.</text>
+</svg>
